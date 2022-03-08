@@ -1,0 +1,25 @@
+<div data-page="application-submitted" data-content-width="standard" data-page-align="center" v-show="isReady">
+
+  <div class="page-header typography">
+    <h1>{{ t('app-application') }}</h1>
+  </div>
+
+  <div class="typography">
+    <p v-html="t('app-inquiry-submitted', { title: $route.query.title })" />
+
+    <div class="social-block" v-if="this.isSearchUrl">
+      <div class="actions">
+        <button class="compact" @click="backToResults">{{ t("app-back-to-search-results") }}</button>
+        <button class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
+      </div>
+    </div>
+    <div class="social-block" v-else>
+      <div class="actions">
+        <button class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

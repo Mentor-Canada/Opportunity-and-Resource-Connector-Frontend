@@ -1,0 +1,54 @@
+<div data-page="sign-in" data-content-width="narrow" data-page-align="center">
+
+  <md-dialog :md-active.sync="showRemoveConfirmation">
+    <md-dialog-title>{{ t("app-reset-link-not-valid") }}</md-dialog-title>
+    <md-dialog-content>
+      <md-button class="md-primary" @click="newLink">{{ t("app-get-new-link") }}</md-button>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="showRemoveConfirmation = false">{{ t("ok") }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+
+  <md-dialog :md-active.sync="showSuccessDialog">
+    <md-dialog-title>{{ t("app-password-reset-success-heading") }}</md-dialog-title>
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="successOkay">{{ t("app-okay") }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+
+  <form class="standard-form-style" @submit.prevent="submit">
+
+    <div class="page-header typography">
+      <h1>{{ t("app-reset") }}</h1>
+    </div>
+
+    <fieldset>
+      <div class="ui-form-row">
+        <app-input ref="passwordInput"
+                   v-model=password
+                   required="required"
+                   type="password"
+                   :label="t('app-new-password')"
+                   @input="clearError"
+        />
+      </div>
+      <div class="ui-form-row">
+        <app-input ref="passwordConfirmInput"
+                   v-model=confirmPassword
+                   required="required"
+                   type="password"
+                   :label="t('app-new-password-confirm')"
+                   @input="clearError"
+        />
+      </div>
+    </fieldset>
+
+    <div class="actions">
+          <button type="submit">
+        {{ t("app-reset") }}
+      </button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,70 @@
+<md-dialog class="e-mentoring-dialog standard-dialog-style" :md-active.sync="show">
+  <md-dialog-title>{{ t("app-request-access-to-e-mentoring-platform") }}</md-dialog-title>
+  <form @submit.prevent="request" class="standard-form-style">
+    <md-dialog-content>
+      <div class="ui-form-row">
+        <div class="description">{{ t('app-request-access-to-e-mentoring-platform-body') }}</div>
+      </div>
+      <div class="ui-form-row col-2">
+        <app-input v-model=firstName
+                   type="text"
+                   :label="t('app-first-name')"
+                   required="true"
+        />
+        <app-input v-model=lastName
+                   type="text"
+                   :label="t('app-last-name')"
+                   required="true"
+        />
+      </div>
+      <div class="ui-form-row">
+        <app-input v-model=email
+                   type="email"
+                   :label="t('app-email')"
+                   required="true"
+        />
+      </div>
+      <div class="ui-form-row">
+        <div class="description">
+          <p v-html="t('app-e-mentoring-logo-content')"></p>
+          <p class="tip">
+            {{ t("app-e-mentoring-logo-tip") }}
+          </p>
+        </div>
+        <md-field>
+          <label>{{ t("app-logo") }}</label>
+          <md-file accept=".tiff, .pjp, .jfif, .gif, .bmp, .png, .jpeg, .jpg, .webp, .ico, .xbm, .dib, .tif, .pjpeg, .avif" />
+        </md-field>
+      </div>
+
+      <div class="ui-form-row" id="terms-of-service-div">
+        <div class="ui-checkbox-field ui-field ui-option-field">
+          <div class="ui-option-field-wrapper">
+            <input type="checkbox"
+                   id="terms-of-service"
+                   v-model="termsOfService"
+                   required="required"
+            >
+            <div class="ui-checkbox-state-indicator ui-option-state-indicator">
+              <svg viewBox="0 0 14 14"><path class="ui-checkbox-checkmark-path" fill="none" d="M1.01,7.53l3.72,3.72l8.57-8.5"/></svg>
+            </div>
+            <div class="ui-checkbox-secondary-indicator ui-option-secondary-indicator"></div>
+          </div>
+          <div class="ui-option-label">
+            <label for="terms-of-service">
+              {{ t('app-i-have-read-and-agree-to-the') }}
+              <a :href="t('app-footer-terms-of-use-link')" target="_blank">{{ t('app-footer-terms-of-use') }}</a>
+              {{ t('and') }}
+              <a :href="t('app-footer-privacy-policy-link')" target="_blank">{{ t('app-footer-privacy-policy') }}</a>
+            </label>
+          </div>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="show = false">{{ t("app-cancel") }}</md-button>
+      <md-button class="md-primary" type="submit">{{ t("app-request-access") }}</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

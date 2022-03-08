@@ -1,0 +1,398 @@
+<div class="page-body content-inner" data-content-width="wide" v-if="isReady">
+
+  <div class="page-header typography">
+    <h1 v-if="!showAddOrganization">{{ title }}</h1>
+    <h1 v-if="showAddOrganization">{{ t('app-add-organization') }}</h1>
+  </div>
+
+  <div class="content-transition-wrapper">
+    <transition
+            enter-active-class="animate__animated animate__fadeInLeft"
+            leave-active-class="animate__animated animate__fadeOutLeft"
+            v-on:before-enter="onProgramTransitionBeforeEnter"
+            v-on:after-enter="onProgramTransitionAfterEnter"
+    >
+      <form v-on:submit.prevent="submit" class="standard-form-style section" v-if="!showAddOrganization">
+
+        <mentor-city-component
+          ref="mentor-city-component"
+          v-if="$route?.params.id && mentorCityEnabled"
+          :program="program"
+        />
+
+        <div>
+
+          <fieldset v-if="showPostOrganizationInfo && !isAdminPage">
+            <legend>{{ t('app-program-post-organization-submission-legend') }}</legend>
+            <div class="ui-form-row">
+              <div class="description description-icon alert">
+                <span class="material-icons">check_circle</span>
+                <span>{{ t('app-program-post-organization-submission-description') }}</span>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ t("app-program-general-information") }}</legend>
+            <div class="ui-form-row">
+              <div class="description">{{ t('app-program-bilingual-description') }}</div>
+            </div>
+            <div class="ui-form-row col-2 ui-form-row-reduced-margin multilang">
+              <app-input  v-for="(language, i) in languages"
+                          v-model="program.localizedAttributes[language.langcode].field_display_title"
+                          :key="language.langcode"
+                          :required="language.langcode === currentLanguage"
+                          type="text"
+                          :label="t('app-program-name')"
+                          :label-lang="language.langcode"
+                          :id="`program-title-input-${language.langcode}`"
+                          @input="onTitleInput"
+              />
+            </div>
+            <div class="ui-form-row">
+              <div class="description description-small">{{ t('app-program-name-description') }}</div>
+            </div>
+            <div class="ui-form-row col-2 multilang">
+              <app-textarea
+                      v-for="(language, i) in languages"
+                      :key="`program-description-${language.langcode}`"
+                      v-model="program.localizedAttributes[language.langcode].field_description"
+                      :label="t('app-program-description')"
+                      :label-lang="language.langcode"
+                      :required="language.langcode === currentLanguage"
+                      :id="`program-description-input-${language.langcode}`"
+                      @input="onDescriptionInput('program-description')"
+              />
+            </div>
+            <div class="ui-form-row col-2 multilang">
+              <app-textarea
+                      v-for="(language, i) in languages"
+                      :key="`mentor-role-description-${language.langcode}`"
+                      v-model="program.localizedAttributes[language.langcode].field_mentor_role_description"
+                      :label="t('app-mentor-role-description')"
+                      :label-lang="language.langcode"
+                      :required="language.langcode === currentLanguage"
+                      :id="`mentor-description-input-${language.langcode}`"
+                      @input="onDescriptionInput('mentor-description')"
+              />
+            </div>
+            <div class="ui-form-row ui-form-row-reduced-margin">
+              <organization-reference v-model="program.attributes.organization"
+                                      :mode="isOrganizationRequired() ? 'admin' : null"
+                                      :label='t("app-organization")'
+                                      @input="program.attributes.organization = $event"
+                                      :name="t('app-organization')"
+              />
+            </div>
+            <div class="ui-form-row" v-if="!showPostOrganizationInfo && !isAdminPage">
+              <div class="description description-small">
+                <span>{{ t('app-add-new-organization-pre') }}</span>
+                <a @click="onAddNewOrganizationClick">{{ t('app-add-new-organization') }}</a>
+                <span>{{ t('app-add-new-organization-post') }}</span>
+              </div>
+            </div>
+
+            <div class="ui-form-row" v-if="showPostOrganizationInfo && !isAdminPage">
+              <div class="description description-small">{{ t('app-program-post-organization-submission-description') }}</div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ t('app-program-logo') }}</legend>
+            <div class="ui-form-row">
+              <logo-uploader id="program-logo-file" v-model="program.managedFile" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ t("app-program-status") }}</legend>
+            <div class="ui-form-row ui-form-row-reduced-margin">
+              <div class="description description-icon alert">
+                <span class="material-icons">person_add_alt_1</span>
+                <span>{{ t('app-program-status-description') }}</span>
+              </div>
+            </div>
+
+            <div class="ui-form-row col-2 col-align-bottom" id="program-accepting-div">
+              <checkboxes v-model="program.attributes.programAccepting"
+                          :options="optionsProgramAccepting"
+              />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ t('app-program-contact') }}</legend>
+            <div class="ui-form-row col-2">
+              <app-input v-model=program.attributes.contactFirstName
+                         type="text"
+                         :label="t('app-first-name')"
+                         required="true"
+                         id="program-contact-first-name-input"
+              />
+              <app-input v-model=program.attributes.contactLastName
+                         type="text"
+                         :label="t('app-last-name')"
+                         required="true"
+                         id="program-contact-last-name-input"
+              />
+            </div>
+            <div class="ui-form-row col-2">
+              <app-input v-model=program.attributes.contactPosition
+                         type="text"
+                         :label="t('app-contact-position')"
+                         id="program-contact-position-input"
+              />
+              <app-input v-model=program.attributes.contactEmail
+                         type="email"
+                         :label="t('app-email')"
+                         required="true"
+                         id="program-contact-email-input"
+              />
+            </div>
+            <div class="ui-form-row col-2">
+              <app-input v-model=program.attributes.contactPhone
+                         type="text"
+                         :label="t('app-contact-phone')"
+              />
+              <app-input v-model=program.attributes.contactAlternatePhone
+                         type="text"
+                         :label="t('app-contact-alternate-phone')"
+              />
+            </div>
+          </fieldset>
+
+          <program-delivery :program="program" />
+
+          <fieldset>
+            <legend>{{ t("app-program-social-media-links") }}</legend>
+            <div class="ui-form-row col-2">
+              <app-input v-model=program.attributes.facebook
+                         type="text"
+                         :label="t('app-program-facebook')"
+              />
+              <app-input v-model=program.attributes.twitter
+                         type="text"
+                         :label="t('app-program-twitter')"
+              />
+            </div>
+            <div class="ui-form-row col-2">
+              <app-input v-model=program.attributes.website
+                         type="text"
+                         :label="t('app-program-website')"
+              />
+              <app-input v-model=program.attributes.instagram
+                         type="text"
+                         :label="t('app-program-instagram')"
+              />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>{{ t("app-program-details") }}</legend>
+
+            <div class="col-2">
+              <div>
+                <div class="ui-form-row" id="program-focus-area-div">
+                  <app-select v-model="program.attributes.focusArea"
+                              :label='t("app-program-focus-area")'
+                              :options="optionsFocusArea"
+                              :required="true"
+                              :name="t('app-program-focus-area')"
+                  />
+                </div>
+                <div class="ui-form-row" v-if="program.attributes.focusArea === 'other'">
+                  <app-input v-model="program.attributes.focusAreaOther"
+                             type="text"
+                             :label="t('app-program-focus-area-other')"
+                             :required="true"
+                  />
+                </div>
+              </div>
+              <div>
+                <div class="ui-form-row">
+                  <app-select v-model="program.attributes.primaryMeetingLocation"
+                              :label='t("app-program-primary-meeting-location")'
+                              :options="optionsPrimaryMeetingLocation"
+                              :name="t('app-program-primary-meeting-location')"
+                  />
+                </div>
+                <div class="ui-form-row" v-if="program.attributes.primaryMeetingLocation === 'other'">
+                  <app-input v-model="program.attributes.primaryMeetingLocationOther"
+                             type="text"
+                             :label="t('app-program-primary-meeting-location-other')"
+                             :required="true"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="ui-form-row col-2">
+              <app-input v-model="program.attributes.programEstimatedNumberOfYouthPerYear"
+                         type="number"
+                         :label="t('app-program-estimated-number-of-youth-served-per-year')"
+              />
+              <app-input v-model="program.attributes.programEstimatedNumberOfMenteesOnWaitingList"
+                         type="number"
+                         :label="t('app-program-estimated-number-of-mentees-on-waiting-list')"
+              />
+            </div>
+            <div class="ui-form-row" id="types-of-mentoring-div">
+              <checkboxes v-model="program.attributes.typesOfMentoring"
+                          :label='t("app-program-type-of-mentoring")'
+                          :options="optionsTypeOfMentoring"
+                          :cols="3"
+                          :required="true"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.typesOfMentoring.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.typesOfMentoringOther"
+                         type="text"
+                         :label="t('app-program-type-of-mentoring-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row">
+              <checkboxes v-model="program.attributes.programOperatedThrough"
+                          name="program-operated-through"
+                          :label='t("app-program-operated-through")'
+                          :options="optionsProgramOperatedThrough"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programOperatedThrough.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programOperatedThroughOther"
+                         type="text"
+                         :label="t('app-program-operated-through-other')"
+                         :required="true"
+              />
+            </div>
+
+            <div class="ui-form-row" id="program-scheduled-div">
+              <checkboxes v-model="program.attributes.programHowAreMeetingsScheduled"
+                          :label='t("app-program-how-are-meetings-scheduled")'
+                          :options="optionsHowAreMeetingsScheduled"
+                          :required="true"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programHowAreMeetingsScheduled.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programHowAreMeetingsScheduledOther"
+                         type="text"
+                         :label="t('app-program-how-are-meetings-scheduled-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row" id="program-gender-div">
+              <checkboxes v-model="program.attributes.programGendersProgramServes"
+                          :label='t("app-program-genders-program-serves")'
+                          :options="optionsGendersProgramServes"
+                          :required="true"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programGendersProgramServes.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programGendersProgramServesOthers"
+                         type="text"
+                         :label="t('app-program-genders-program-serves-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row" id="program-age-div">
+              <checkboxes v-model="program.attributes.programAgesProgramServes"
+                          :label='t("app-program-ages-program-serves")'
+                          :options="optionsAgesProgramServes"
+                          :required="true"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programAgesProgramServes.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programAgesProgramServesOthers"
+                         type="text"
+                         :label="t('app-program-ages-program-serves-other')"
+                         :required="true"
+              />
+            </div>
+            <grades-program-serves :program="program" />
+            <div class="ui-form-row">
+              <checkboxes v-model="program.attributes.programFamilyStructuresProgramServes"
+                          :label='t("app-program-family-structures-program-serves")'
+                          :options="optionsFamilyStructuresProgramServes"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programFamilyStructuresProgramServes.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programFamilyStructuresProgramServesOther"
+                         type="text"
+                         :label="t('app-program-family-structures-program-serves-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row" id="program-youth-div">
+              <checkboxes v-model="program.attributes.programYouthServedProgramServes"
+                          :label='t("app-program-youth-program-serves")'
+                          :options="optionsYouthProgramServes"
+                          :cols="3"
+                          :required="true"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programYouthServedProgramServes.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programYouthServedProgramServesOther"
+                         type="text"
+                         :label="t('app-program-youth-program-serves-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row" id="program-mentor-div">
+              <checkboxes v-model="program.attributes.programTargetMentorPopulationGenders"
+                          :label='t("app-program-target-mentor-population-genders")'
+                          :options="optionsTargetMentorPopulationGenders"
+                          :required="true"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programTargetMentorPopulationGenders.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programTargetMentorPopulationGendersOther"
+                         type="text"
+                         :label="t('app-program-target-mentor-population-genders-other')"
+                         :required="true"
+              />
+            </div>
+            <div class="ui-form-row" id="program-target-mentor-div">
+              <checkboxes v-model="program.attributes.programTargetMentorPopulationAges"
+                          :label='t("app-program-target-mentor-population-ages")'
+                          :options="optionsTargetMentorPopulationAges"
+                          :required="true"
+                          :cols="3"
+              />
+            </div>
+            <div class="ui-form-row" v-if="program.attributes.programTargetMentorPopulationAges.findIndex(row => row.value === 'other') !== -1">
+              <app-input v-model="program.attributes.programTargetMentorPopulationAgesOther"
+                         type="text"
+                         :label="t('app-program-target-mentor-population-ages-other')"
+                         :required="true"
+              />
+            </div>
+          </fieldset>
+
+
+        </div>
+
+        <div>
+          <step-2 :program="program" />
+          <program-actions active="details" :program="program" />
+        </div>
+
+      </form>
+    </transition>
+    <transition
+            enter-active-class="animate__animated animate__fadeInRight"
+            leave-active-class="animate__animated animate__fadeOutRight"
+            v-on:before-enter="onTransitionBeforeEnter"
+            v-on:after-enter="onTransitionAfterEnter"
+    >
+      <div class="organization-form section" v-show="showAddOrganization">
+        <div id="organization-mount" v-show="showAddOrganization"></div>
+      </div>
+    </transition>
+  </div>
+
+</div>

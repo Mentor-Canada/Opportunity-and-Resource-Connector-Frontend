@@ -1,0 +1,66 @@
+<div :data-content-width="$props.hasFilter ? 'full' : 'wide'" v-show="isReady" class="admin-table">
+  <div class="page-header typography" v-if="!$props.delegate.trail">
+    <h1>{{ $props.title }}</h1>
+  </div>
+  <div class="page-header with-breadcrumbs typography" v-else>
+    <h1>{{ $props.title }}</h1>
+    <breadcrumbs :trail="$props.delegate.trail"></breadcrumbs>
+  </div>
+
+  <div class="standard-form-style">
+    <slot></slot>
+  </div>
+
+  <div class="stats typography">
+    <fieldset class="stat">
+      <div class="visually-h4" v-if="this.total != null">{{ $props.title }} ({{ total }})</div>
+    </fieldset>
+    <div class="filter-button">
+      <a class="filter-link" @click.prevent="$emit('show-filter')">{{ t('app-filter') }}</a>
+    </div>
+  </div>
+
+  <div class="list" v-show="!empty">
+    <vuetable ref="my-vuetable"
+              :api-url="url"
+              :http-fetch="getData"
+              :transform="transformData"
+              :fields="$props.delegate.fields"
+              :sort-order="$props.delegate.sort"
+              :show-sort-icons="true"
+              :css="{tableClass: $props.delegate.tableClasses.join(' ')}"
+              :no-data-template="t('app-no-data-available')"
+              pagination-path=""
+              @vuetable:row-clicked="$emit('row-clicked', $event)"
+              @vuetable:load-error="handleError"
+              :detail-row-component="$props.detailRowComponent"
+              @vuetable:load-success="$props.loadSuccess"
+              :row-class="$props.rowClass"
+    >
+      {% vuetable-slots %}
+    </vuetable>
+    <div class="table-navigation">
+      <router-link :to="link(`${$props.delegate.baseUrl}/offset/${prevOffset}`)" :class="{'active' : prevOffset}">
+        <button class="compact">{{ t("app-prev") }}</button>
+      </router-link>
+      <router-link :to="link(`${$props.delegate.baseUrl}/offset/${nextOffset}`)" :class="{'active' : nextOffset}">
+        <button class="compact">{{ t("app-next") }}</button>
+      </router-link>
+    </div>
+  </div>
+
+  <div v-show="empty">
+    <div class="table-empty-state typography">
+      <h2>{{ t("app-table-search") }}</h2>
+    </div>
+  </div>
+
+  <table-actions
+    :label="t(addLabel)"
+    :to="$props.delegate.canAdd ? link(`${$props.delegate.baseUrl}/detail`) : null"
+    :export="$props.export"
+    @download="downloadCsv"
+  >
+  </table-actions>
+
+</div>

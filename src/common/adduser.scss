@@ -1,0 +1,34 @@
+.add-user-dialog {
+  .md-dialog-title {
+    margin-bottom: 0;
+  }
+  .ui-form-row:last-child {
+    margin-bottom: 0;
+  }
+  table {
+    vertical-align: middle;
+    .md-table-row {
+      &:last-child {
+        .md-table-cell {
+          border-bottom: 1px solid var(--md-theme-default-divider-on-background, rgba(0, 0, 0, 0.12));
+        }
+      }
+      .md-table-cell {
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+.user-reference-chips {
+  ul {
+    margin: 5px -5px 0 -5px;
+    li {
+      display: inline-block;
+      margin: 5px;
+    }
+    &:empty {
+      margin: 0
+    }
+  }
+}

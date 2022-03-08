@@ -1,0 +1,32 @@
+<div class="page-body content-inner" data-page="profile" data-content-width="wide">
+  <div class="page-header typography">
+    <h1>{{ t("app-profile") }}</h1>
+  </div>
+
+  <form v-on:submit.prevent="save()" class="standard-form-style">
+    <div class="ui-form-row">
+      <legend>{{ account.mail }}</legend>
+    </div>
+    <div class="ui-form-row col-2">
+      <app-input v-model=account.firstName
+                 type="text"
+                 :label="t('app-first-name')"
+                 required="true"
+      />
+      <app-input v-model=account.lastName
+                 type="text"
+                 :label="t('app-last-name')"
+                 required="true"
+      />
+    </div>
+    <div class="actions">
+      <button type="button" @click="logout">
+        {{ t("app-sign-out") }}
+      </button>
+      <button type="submit">
+        {{ t("app-save") }}
+      </button>
+    </div>
+  </form>
+
+</div>

@@ -1,0 +1,23 @@
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  color: #cccccc;
+  .material-icons {
+    width: 24px;
+  }
+}
+
+.segmented-control {
+  max-width: 200px;
+  margin-left: auto
+}
+
+table.ui-table.settings-table {
+  .vuetable-slot {
+    width: 100%
+  }
+}
+
+.segmented-item {
+  cursor: pointer
+}

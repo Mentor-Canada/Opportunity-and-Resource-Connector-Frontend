@@ -1,0 +1,17 @@
+.standard-dialog-style {
+  .md-dialog-content {
+    .md-has-file {
+      margin-bottom: 0
+    }
+    p {
+      margin-bottom: 10px
+    }
+  }
+  .dialog-copy {
+    .tip {
+      font-size: 10px;
+      font-weight: bold;
+      color: $ui-primary;
+    }
+  }
+}

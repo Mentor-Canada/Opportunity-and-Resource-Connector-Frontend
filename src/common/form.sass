@@ -1,0 +1,664 @@
+button:not(.md-button)
+  position: relative
+  padding: 15px 20px
+  color: #fff
+  border: none
+  border-radius: 4px
+  background: $ui-primary
+  body.enforce-a11y-color-contrast &
+    &:not(.icon-button)
+      &:not(.danger)
+        background: darken($ui-primary, 8%)
+        &:hover
+          background: darken($ui-primary, 13%)
+  font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif
+  font-weight: 700
+  +font-tracking(14)
+  letter-spacing: normal
+  line-height: normal
+  text-align: center
+  cursor: pointer
+  outline: none
+  appearance: none
+  &:hover
+    background: darken($ui-primary, 5%)
+  body.enforce-a11y-color-contrast &
+    &:hover
+      background: darken($ui-primary, 13%)
+  &.compact
+    padding: 10px 20px
+    border-radius: 50px
+    +font-tracking(13)
+    &.inactive
+      color: $ui-primary
+      border: 1px solid $ui-primary
+      background: transparent
+  &.danger
+    background: linear-gradient($mentor-red, $mentor-red-shade)
+    &:hover
+      background: linear-gradient(darken($mentor-red, 5%), darken($mentor-red-shade, 5%))
+    body.enforce-a11y-color-contrast &
+      &:hover
+        background: linear-gradient(darken($mentor-red, 5%), darken($mentor-red-shade, 5%))
+  &.neutral
+    color: #000
+    background: linear-gradient($mentor-white-blue, $mentor-white-blue-shade)
+    &:hover
+      background: linear-gradient(darken($mentor-white-blue, 5%), darken($mentor-white-blue-shade, 5%))
+  &.contrast
+    color: #000
+    background: linear-gradient($mentor-yellow-light, $mentor-yellow)
+    &:hover
+      background: linear-gradient(darken($mentor-yellow-light, 5%), darken($mentor-yellow, 5%))
+
+
+
+
+.floating-actions
+  position: -webkit-sticky
+  position: sticky
+  z-index: 1
+  display: flex
+  justify-content: flex-end
+  pointer-events: none
+  bottom: 20px
+  margin-top: 20px
+  > *
+    margin-right: 10px
+    &:last-child
+      margin-right: 0
+  .floating-button
+    padding: 0
+    width: 56px
+    height: 56px
+    border-radius: 50%
+    pointer-events: all
+    box-shadow: 0 1px 1px rgba(#000, 0.075), 0 5px 5px rgba(#000, 0.0375), 0 10px 10px rgba(#000, 0.0375)
+    *
+      pointer-events: none
+    svg
+      fill: #ffffff
+    &.floating-button-small
+      width: 44px
+      height: 44px
+      margin-top: 6px
+      margin-bottom: 6px
+    &:hover
+      &:before,
+      &:after
+        opacity: 1
+    .material-icons
+      position: absolute
+      top: calc(50% - 12px)
+      left: calc(50% - 12px)
+    &:before,
+    &:after
+      opacity: 0
+      transition: opacity 125ms
+    &:before
+      content: ""
+      position: absolute
+      bottom: 100%
+      right: 20px
+      margin-bottom: 3px
+      width: 0
+      height: 0
+      border-left: 8px solid transparent
+      border-right: 8px solid transparent
+      border-top: 8px solid $ui-primary
+      pointer-events: none
+    &:after
+      content: attr(data-tip)
+      position: absolute
+      bottom: 100%
+      right: 0
+      margin-bottom: 10px
+      width: 90vw
+      max-width: 300px
+      padding: 10px
+      border-radius: 4px
+      color: #fff
+      background: $ui-primary
+      body.enforce-a11y-color-contrast &
+        background: darken($ui-primary, 8%)
+      font-weight: 700
+      +font-tracking(12)
+      pointer-events: none
+    &.floating-button-small
+      &:before
+        right: 14px
+        margin-bottom: 9px
+      &:after
+        margin-bottom: 16px
+
+
+.standard-form-style
+
+  fieldset
+    margin-bottom: 1em
+    .field-description
+      color: #666
+      line-height: 1.35
+      +font-tracking(14)
+      &.description-small
+        +font-tracking(12)
+    fieldset
+      margin-bottom: 0
+      &.ui-option-fields-fieldset
+        legend
+          margin-bottom: 0.75em
+          & + .field-description
+            margin-top: -0.75em
+        .field-description
+          margin-bottom: 1em
+          font-weight: 700
+          +font-tracking(12)
+          line-height: 1
+          color: $ui-neutral-dark
+      legend
+        margin-bottom: 0.75em
+        +font-tracking(18)
+        @media (max-width: $typography-break-2)
+          +font-tracking(17)
+        @media (max-width: $typography-break-1)
+          +font-tracking(16)
+
+  .ui-form-row
+    margin-bottom: 1.75em
+    &.ui-form-row-reduced-margin
+      margin-bottom: (1.75em / 3)
+
+  .col-2,
+  .col-3
+    @media (max-width: 799px)
+      > *
+        margin-bottom: 1.75em
+      > *:last-child
+        margin-bottom: 0
+    @media (min-width: 800px)
+      display: flex
+      flex-wrap: wrap
+      align-items: flex-start
+      > *
+        padding: 0 0.5625em
+      > *:first-child
+        padding-left: 0
+      > *:last-child
+        padding-right: 0
+      &.col-align-bottom
+        align-items: flex-end
+
+  .col-2
+    @media (min-width: 800px)
+      > *
+        width: 50%
+
+  .col-3
+    @media (min-width: 800px)
+      > *
+        width: (100% / 3)
+
+  .col-filters
+    display: flex
+    .ui-outline-field
+      height: 44px
+    > *
+      flex: 1 1 0
+      padding: 0 0.5625em
+    > *:first-child
+      padding-left: 0
+    > *:last-child
+      padding-right: 0
+  .ui-form-row + .col-filters
+    margin-top: -0.75em
+
+  legend
+    display: inline-block
+    width: 100%
+    max-width: 100%
+    color: #000
+    font-weight: 700
+    line-height: 1.2
+    +font-tracking(32)
+    margin-bottom: (22em / 32)
+    @media (max-width: $typography-break-2)
+      +font-tracking(27)
+      margin-bottom: (22em / 27)
+    @media (max-width: $typography-break-1)
+      +font-tracking(22)
+      margin-bottom: 1em
+
+
+
+  .ui-field
+    position: relative
+
+  .ui-field-required-marker
+    &:before
+      content: "star"
+      font-family: "Material Icons"
+      font-style: normal
+      font-size: 0.5em
+      vertical-align: top
+
+  .ui-input-field,
+  .ui-select-field,
+  .ui-datepicker-field
+    height: 56px
+
+  .ui-textarea-field
+    .ui-outline-field-wrapper
+      padding-top: 10px
+      border-radius: $ui-border-radius
+      background: #fff
+
+  .ui-select-field
+    select:invalid
+      color: transparent
+    select:-moz-focusring
+      color: transparent
+      text-shadow: 0 0 0 $ui-input-color
+    select:-moz-focusring *
+      color: $ui-input-color
+      text-shadow: none
+    select
+      option
+        color: $ui-input-color
+    .ui-select-field-caret-icon
+      position: absolute
+      top: 50%
+      right: 12px
+      width: 10px
+      height: 10px
+      margin-top: -5px
+      pointer-events: none
+      svg
+        display: block
+        width: 10px
+        height: 10px
+        fill: $ui-neutral-dark
+        transition: fill 150ms
+
+  .ui-datepicker-field
+    &.ui-outline-field
+      input
+        caret-color: transparent
+        cursor: pointer
+
+  .ui-outline-field
+    margin-top: 5px
+    .ui-outline-field-wrapper
+      position: relative
+      width: 100%
+      height: 100%
+    input,
+    textarea,
+    select
+      font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif
+      font-weight: 400
+      +font-tracking(16)
+      text-decoration: inherit
+      text-transform: inherit
+      display: flex
+      align-self: flex-end
+      width: 100%
+      height: 100%
+      padding: 12px 16px
+      color: $ui-input-color
+      border: none
+      border-radius: $ui-border-radius
+      background: #fff
+      -webkit-appearance: none
+      -moz-appearance: none
+      appearance: none
+      outline: none
+    input,
+    textarea
+      caret-color: $ui-focus
+    textarea
+      resize: vertical
+      padding-top: 8px
+    select
+      cursor: pointer
+      padding-right: 34px
+    .ui-outline
+      position: absolute
+      top: 0
+      left: 0
+      width: 100%
+      height: 100%
+      display: flex
+      pointer-events: none
+      &[data-label-lang]
+        .ui-outline-left
+          width: 32px
+        .ui-outline-middle
+          max-width: calc(100% - 32px - 12px)
+        &:before
+          content: attr(data-label-lang)
+          position: absolute
+          z-index: 1
+          top: -12px
+          left: 8px
+          width: 24px
+          height: 24px
+          line-height: 24px
+          text-align: center
+          border-radius: 50%
+          font-weight: 700
+          +font-tracking(8)
+          text-transform: uppercase
+          color: #fff
+          background: $ui-primary
+      [class^="ui-outline"]
+        position: relative
+        border: 1px solid $ui-neutral
+        transition: border-color 150ms
+      .ui-outline-left
+        flex: 0 0 auto
+        width: 12px
+        border-right: none
+        border-radius: $ui-border-radius 0 0 $ui-border-radius
+      .ui-outline-middle
+        border-top: none
+        border-left: none
+        border-right: none
+        max-width: calc(100% - 2 * 12px)
+      .ui-outline-right
+        flex: 1 0 auto
+        width: 12px
+        border-left: none
+        border-radius: 0 $ui-border-radius $ui-border-radius 0
+      label
+        position: relative
+        top: 0
+        left: 0
+        width: 100%
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        display: inline-block
+        vertical-align: top
+        padding: 4px
+        font-weight: 700
+        +font-tracking(12)
+        line-height: 1
+        color: $ui-neutral-dark
+        transform: translateY(-50%)
+        transition: color 150ms
+    input:hover + .ui-outline,
+    textarea:hover + .ui-outline,
+    select:hover + .ui-outline
+      [class^="ui-outline"]
+        border-color: $ui-hover
+      label
+        color: $ui-hover
+    input:focus + .ui-outline,
+    textarea:focus + .ui-outline,
+    select:focus + .ui-outline
+      [class^="ui-outline"]
+        border-color: $ui-focus
+        border-width: 2px
+      label
+        color: $ui-focus
+    select:hover ~ .ui-select-field-caret-icon
+      svg
+        fill: $ui-hover
+    select:focus ~ .ui-select-field-caret-icon
+      svg
+        fill: $ui-focus
+
+  .ui-option-fields-wrapper
+    display: flex
+    flex-direction: column
+    margin-top: -6px
+    margin-bottom: -7px
+    @media (min-width: 500px)
+      &[data-cols]
+        flex-direction: row
+        flex-wrap: wrap
+        align-items: flex-start
+        .ui-option-field
+          width: 50%
+    @media (min-width: 800px)
+      &[data-cols="3"]
+        .ui-option-field
+          width: (100% / 3)
+
+  .ui-option-field
+    display: flex
+    align-items: stretch
+    vertical-align: top
+    margin: -3px 0
+    .ui-option-label
+      display: flex
+      align-items: center
+      vertical-align: middle
+      label
+        cursor: pointer
+        padding: 6px 20px 6px 4px
+        color: #000
+        line-height: 1.15
+        font-weight: 700
+        +font-tracking(14)
+    .ui-option-field-wrapper
+      position: relative
+      flex: 0 0 auto
+      box-sizing: content-box
+      width: 20px
+      height: 20px
+      padding: 10px
+      margin-left: -10px
+      input
+        position: absolute
+        z-index: 2
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        margin: 0
+        padding: 0
+        border: none
+        background: none
+        -webkit-appearance: none
+        -moz-appearance: none
+        appearance: none
+        outline: none
+        cursor: pointer
+      .ui-option-state-indicator
+        position: absolute
+        z-index: 1
+        display: flex
+        align-items: center
+        justify-content: center
+      .ui-option-secondary-indicator
+        position: absolute
+        z-index: 0
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        &:before,
+        &:after
+          content: ""
+          position: absolute
+          top: 0
+          left: 0
+          width: 100%
+          height: 100%
+          border-radius: 50%
+          opacity: 0
+        &:before
+          background-color: $ui-neutral
+          transition: opacity 90ms linear
+        &:after
+          background-color: $ui-focus
+          transform: scale(0)
+          transition: opacity 90ms linear, transform 270ms cubic-bezier(0.4, 0, 0.6, 1)
+      input:hover ~ .ui-option-secondary-indicator:before
+        opacity: 0.1
+      input:focus ~ .ui-option-secondary-indicator:after
+        opacity: 0.125
+        transform: scale(1)
+      input:checked:focus
+        & ~ .ui-option-secondary-indicator:before
+          opacity: 0
+        & ~ .ui-option-secondary-indicator:after
+          opacity: 0.125
+          transform: scale(1)
+
+
+
+  .ui-checkbox-field
+    .ui-checkbox-state-indicator
+      top: 11px
+      left: 11px
+      width: 18px
+      height: 18px
+      border-radius: 2px
+      border: 2px solid $ui-neutral-dark
+      background-color: transparent
+      transition: border-color 90ms, background-color 90ms
+      svg
+        display: block
+        transition: stroke-dashoffset 180ms cubic-bezier(0.4, 0, 0.6, 1)
+        stroke: #fff
+        stroke-width: 1.82px
+        stroke-dashoffset: 17.331287384033203
+        stroke-dasharray: 17.331287384033203
+    input:checked + .ui-checkbox-state-indicator
+      border-color: $ui-focus
+      background-color: $ui-focus
+      svg
+        stroke-dashoffset: 0
+
+  .ui-radio-field
+    .ui-radio-state-indicator
+      top: 10px
+      left: 10px
+      width: 20px
+      height: 20px
+      border-radius: 50%
+      border: 2px solid $ui-neutral-dark
+      background-color: transparent
+      transition: border-color 90ms
+      &:after
+        content: ""
+        position: relative
+        width: 10px
+        height: 10px
+        border-radius: 50%
+        background-color: $ui-focus
+        opacity: 0
+        transform: scale(0)
+        transition: opacity 90ms linear, transform 270ms cubic-bezier(0.4, 0, 0.6, 1)
+    input:checked + .ui-radio-state-indicator
+      border-color: $ui-focus
+      &:after
+        opacity: 1
+        transform: scale(1)
+
+  .ui-option-field ~ .description
+    padding-left: 34px
+
+  .description
+    max-width: $content-width-standard
+    color: #444
+    line-height: 1.35
+    +font-tracking(14)
+    &.description-row
+      margin-bottom: 1.5em
+    &.description-small
+      body.enforce-a11y-color-contrast &
+        a
+          color: darken($ui-primary, 8%)
+      +font-tracking(12)
+    &.description-icon
+      display: flex
+      &.description-icon-align-center
+        align-items: center
+      span.material-icons
+        margin-right: 0.25em
+    &.alert
+      font-weight: 700
+      color: $ui-primary
+      body.enforce-a11y-color-contrast &
+        color: darken($ui-primary, 8%)
+    &.success
+      font-weight: 700
+      color: $ui-success
+    &.error
+      font-weight: 700
+      color: $ui-error
+    &.no-results
+      +font-tracking(13)
+      font-weight: 700
+      color: #aaa
+    body.enforce-a11y-color-contrast &
+      &.no-results
+        color: #000
+    .strong
+      font-weight: 700
+      color: #000
+    a
+      font-weight: 700
+      color: $ui-primary
+    &.description-dynamic-hint
+      &:not([data-hint-active])
+        color: rgba(#444, 0.75)
+      &[data-hint-active]
+        @keyframes description-dynamic-hint-animation
+          0%
+            opacity: 1
+          50%
+            opacity: 0.65
+          100%
+            opacity: 1
+        animation: description-dynamic-hint-animation 1s infinite
+
+  .actions
+    display: flex
+    align-items: center
+    justify-content: flex-end
+    padding-top: 1em
+    border-top: 1px solid rgba($ui-primary, 0.5)
+    &.actions-align-left
+      justify-content: flex-start
+    > .danger
+      margin-right: auto
+    a
+      font-weight: 700
+      +font-tracking(14)
+    > *
+      margin-left: 10px
+      &:first-child
+        margin-left: 0
+
+  .app-input
+    &.error
+      .ui-outline
+        [class^="ui-outline"]
+          border-color: $ui-error
+        label
+          color: $ui-error
+    .error-label
+      margin: 6px 0
+      color: $ui-error
+      font-weight: 700
+      +font-tracking(12)
+
+  hr
+    margin: 2em 0
+    border: none
+    height: 1px
+    background: #e5e5e5
+
+  .switch-group
+    display: flex
+
+body.standard-form-submitted
+  form.standard-form-style
+    button
+      pointer-events: none
+      opacity: 0.5
+

@@ -1,0 +1,239 @@
+<div data-page="organization-detail" data-content-width="wide" v-if="isReady">
+
+  <e-mentoring-dialog
+    ref="e-mentoring-dialog"
+    :organization="organization"
+  />
+
+  <md-dialog :md-active.sync="showRemoveConfirmation">
+    <md-dialog-title>{{ t("app-are-you-sure") }}</md-dialog-title>
+    <md-dialog-content>{{ t("app-are-you-sure-you-want-to-delete") }} <i>{{ organization.localizedAttributes[lang.langcode].field_display_title }}</i>. <b>{{ t("app-cannot-be-undone") }}</b></md-dialog-content>
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="showRemoveConfirmation = false">{{ t("app-cancel") }}</md-button>
+      <md-button class="md-primary" @click="remove()">{{ t("app-delete") }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+
+  <div class="page-header typography" v-if="!programMode">
+    <h1>{{ title }}</h1>
+  </div>
+
+  <form v-if="isReady" v-on:submit.prevent="save()" class="standard-form-style">
+
+    <div class="ui-form-row edit-organization-buttons" v-if="$route?.params.id">
+      <button class="compact" type="button" v-if="app.ui.mentorcity() && $route?.params.id && app.user.admin" @click="router.push(link(`admin/organizations/integrations/${$route?.params.id}`))">
+        {{ t("app-integrations") }}
+      </button>
+    </div>
+
+    <fieldset>
+      <legend>{{ t("app-organization-general-information") }}</legend>
+      <div class="ui-form-row">
+        <div class="description">{{ t('app-organization-bilingual-description') }}</div>
+      </div>
+      <div class="ui-form-row col-2 ui-form-row-reduced-margin multilang">
+        <app-input  v-for="(language, i) in languages"
+                    v-model="organization.localizedAttributes[language.langcode].field_display_title"
+                    :key="language.langcode"
+                    type="text"
+                    :label="t('app-organization-name')"
+                    :label-lang="language.langcode"
+                    :required="language.langcode === currentLanguage"
+                    :id="`title-input-${language.langcode}`"
+                    @input="onTitleInput"
+        />
+      </div>
+      <div class="ui-form-row">
+        <div class="description description-small">{{ t('app-organization-name-description') }}</div>
+      </div>
+      <div class="ui-form-row">
+        <app-input v-model=organization.attributes.legalName
+                   type="text"
+                   :label="t('app-organization-legal-name')"
+                   id="organization-legal-name-input"
+        />
+      </div>
+      <div class="ui-form-row col-2 multilang">
+        <app-textarea
+            v-for="(language, i) in languages"
+            :key="language.langcode"
+            v-model="organization.localizedAttributes[language.langcode].field_description"
+            :label="t('app-organization-description')"
+            :label-lang="language.langcode"
+            :required="language.langcode === currentLanguage"
+            :id="`description-input-${language.langcode}`"
+            @input="onDescriptionInput('description')"
+        />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend><label for="test-input">{{ t('app-program-logo') }}</label></legend>
+      <div class="ui-form-row">
+        <logo-uploader id="organization-logo-file" v-model="organization.managedFile" />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>{{ t('app-organization-additional-information') }}</legend>
+      <div class="ui-form-row" id="organization-type-div">
+        <app-select v-model="organization.attributes.type"
+                    :label='t("app-organization-type")'
+                    :options="options.type"
+                    required="true"
+                    :name="t('app-organization-type')"
+        />
+      </div>
+      <div class="ui-form-row" v-if="organization.attributes.type === 'other'">
+        <app-input v-model="organization.attributes.typeOther"
+                   type="text"
+                   :label="t('app-organization-type-other')"
+                   required="true"
+        />
+      </div>
+      <div class="ui-form-row" id="organization-tax-status-div">
+        <app-select v-model="organization.attributes.taxStatus"
+                    :label='t("app-organization-tax-status")'
+                    :options="options.taxStatus"
+                    required="true"
+                    :name="t('app-organization-tax-status')"
+        />
+      </div>
+      <div class="ui-form-row" v-if="organization.attributes.taxStatus === 'other'">
+        <app-input v-model="organization.attributes.taxStatusOther"
+                   type="text"
+                   :label="t('app-organization-tax-status-other')"
+                   required="true"
+        />
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>{{ t('app-organization-contact') }}</legend>
+      <div class="ui-form-row">
+        <div class="description">{{ t('app-organization-contact-description') }}</div>
+      </div>
+      <div class="ui-form-row col-2">
+        <app-input v-model=organization.attributes.contactFirstName
+                   type="text"
+                   :label="t('app-first-name')"
+                   required="true"
+                   id="organization-contact-first-name-input"
+        />
+        <app-input v-model=organization.attributes.contactLastName
+                   type="text"
+                   :label="t('app-last-name')"
+                   required="true"
+                   id="organization-contact-last-name-input"
+        />
+      </div>
+      <div class="ui-form-row" id="organization-contact-position-div">
+        <app-select v-model="organization.attributes.contactPosition"
+                    :label='t("app-contact-position")'
+                    :options="options.position"
+                    required="true"
+                    :name="t('app-contact-position')"
+        />
+      </div>
+      <div class="ui-form-row" v-if="organization.attributes.contactPosition === 'other'">
+        <app-input v-model="organization.attributes.contactPositionOther"
+                   type="text"
+                   :label="t('app-contact-position-other')"
+                   required="true"
+        />
+      </div>
+      <div class="ui-form-row col-2">
+        <app-input v-model=organization.attributes.contactPhone
+                   type="text"
+                   :label="t('app-contact-phone')"
+                   required="true"
+                   id="organization-contact-phone-input"
+        />
+        <app-input v-model=organization.attributes.contactAlternatePhone
+                   type="text"
+                   :label="t('app-contact-alternate-phone')"
+        />
+      </div>
+      <div class="ui-form-row col-2">
+        <app-input v-model=organization.attributes.contactEmail
+                   type="email"
+                   :label="t('app-email')"
+                   required="true"
+                   id="organization-contact-email-input"
+        />
+        <app-input v-model=organization.attributes.website
+                   type="text"
+                   :label="t('app-web-address')"
+                   required="true"
+                   id="organization-website-input"
+        />
+      </div>
+
+      <div class="ui-form-row">
+        <app-radios v-model="organization.attributes.hasLocation"
+                    name="has-location"
+                    :label='t("app-organization-has-physical-location")'
+                    :options="options.yesOrNo"
+                    required="true"
+        />
+      </div>
+
+      <div class="ui-form-row" v-if="organization.attributes.hasLocation === 'yes'">
+
+        <div class="ui-form-row">
+          <div class="description description-row description-small description-icon description-icon-align-center description-dynamic-hint alert" :data-hint-active="showPlacePickerHint">
+            <span class="material-icons">explore</span>
+            <span>{{ t('app-ca-place-picker-hint') }}</span>
+          </div>
+
+          <place-picker :value="organization.attributes.location"
+                        :label="t('app-address')"
+                        :required="true"
+                        v-on:placePickerStarted="showPlacePickerHint = true"
+                        v-on:placePickerEnded="showPlacePickerHint = false"
+          />
+        </div>
+
+        <div class="ui-form-row">
+          <app-input v-model="organization.attributes.location.province"
+                     type="text"
+                     :label="t('app-province')"
+                     required="true"
+          />
+        </div>
+
+      </div>
+
+      <div class="ui-form-row">
+        <fieldset>
+          <legend>{{ t("app-feedback-legend") }}</legend>
+          <app-textarea
+            v-model="organization.attributes.feedback"
+            :label="t('app-feedback-label')"
+            id="organization-feedback"
+          />
+        </fieldset>
+      </div>
+
+    </fieldset>
+
+    <div class="actions">
+      <button class="danger" type="button" v-if="$route?.params.id" @click="showRemoveConfirmation = true">
+        {{ t("app-delete") }}
+      </button>
+      <button type="button" v-if="$route?.params.id && app.user.admin" @click="onApprovalClick">
+        {{ t("app-review-organization-approval") }}
+      </button>
+      <button type="button" v-if="$route?.params.id && organization.director" @click="onAdministratorsClick">
+        {{ t("app-review-organization-administrators") }}
+      </button>
+      <button type="submit" v-if="$route?.params.id">
+        {{ t("app-save") }}
+      </button>
+      <button type="submit" v-else>
+        {{ t("app-submit") }}
+      </button>
+    </div>
+
+  </form>
+</div>

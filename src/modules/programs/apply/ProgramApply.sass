@@ -1,0 +1,520 @@
+[data-page="program-apply"]
+  .page-header
+    padding-bottom: 50px
+  .details-pane
+    padding-bottom: 50px
+
+[data-page="program-apply-search"],
+[data-page="program-apply"]
+  margin: calc(-5vh - #{$header-height}) -5vw -5vh -5vw
+  width: 100vw
+
+  .page-header
+    padding-top: calc(5vh + #{$header-height})
+    padding-left: 5vw
+    padding-right: 5vw
+    margin-bottom: 50px
+    background: #fff
+    border-bottom: 1px solid rgba($mentor-white-blue-shade, 0.3)
+
+    .delivery
+      color: rgba($typography-color, 0.75)
+      line-height: normal
+      font-weight: 700
+      +font-tracking(11)
+      margin-bottom: 8px
+      span
+        &:after
+          content: " \2022 "
+          opacity: 0.5
+        &:last-child
+          &:after
+            display: none
+    .map-link
+      display: flex
+      align-items: center
+      color: $ui-primary
+      line-height: normal
+      font-weight: 700
+      +font-tracking(12)
+      margin-top: 16px
+      body.enforce-a11y-color-contrast &
+        color: darken($ui-primary, 8%)
+      .map-link-icon
+        width: 32px
+        height: 32px
+        margin-right: 8px
+    h1
+      margin-top: 0
+      margin-bottom: 0.1em
+    .subtitle
+      font-weight: 700
+      color: rgba($typography-color, 0.5)
+      margin-top: 0.5em
+    h1 + .subtitle
+      +font-tracking(18)
+      @media (max-width: $typography-break-2)
+        +font-tracking(15)
+      @media (max-width: $typography-break-1)
+        +font-tracking(12)
+    .logos
+      display: flex
+      border-top: 1px solid rgba($mentor-white-blue-shade, 0.25)
+      padding-top: 20px
+      margin-top: 20px
+      width: 100%
+      height: ($program-logos-max-height + 20px)
+      .logo
+        display: flex
+        align-items: center
+        max-width: min(#{($program-logos-max-width / 2)}, 50%)
+        height: $program-logos-max-height
+        padding-right: 20px
+        img
+          display: block
+          max-width: 100%
+          max-height: 100%
+          width: auto
+          height: auto
+    .search-actions
+      border-top: 1px solid rgba($mentor-white-blue-shade, 0.5)
+      margin-top: 20px
+      margin-bottom: (72em/16/2)
+      @media (max-width: $typography-break-2)
+        margin-bottom: (60em/16/2)
+      @media (max-width: $typography-break-1)
+        margin-bottom: (48em/16/2)
+      button
+        margin: 1em 10px 0 0
+
+
+  .program-apply-wrapper
+    padding: 0 5vw
+
+  #program-apply-split
+    display: flex
+    align-items: flex-start
+    .details-pane
+      width: 67%
+      padding-right: 5%
+    .apply-pane
+      width: 33%
+      position: relative
+      position: -webkit-sticky
+      position: sticky
+      top: ($header-height + 50px)
+      margin-bottom: 40px
+    @media (max-width: 1000px)
+      .details-pane
+        width: 55%
+      .apply-pane
+        width: 45%
+    @media (max-width: 750px)
+      flex-wrap: wrap
+      .details-pane
+        width: 100%
+      .apply-pane
+        position: relative
+        top: 0
+        width: 100%
+        margin-top: 50px
+
+  .apply-pane
+    padding: 31px 25px 25px 25px
+    background: #fff
+    border-radius: 12px
+    border: 1px solid rgba($mentor-white-blue-shade, 0.5)
+    box-shadow: 0 3px 15px rgba(#000, 0.05), 0 15px 50px rgba(#000, 0.05)
+    overflow: hidden
+    .apply-pane-deco
+      position: absolute
+      top: 0
+      left: 0
+      display: flex
+      width: 100%
+      .apply-pane-deco-item
+        flex: 1 0 auto
+        height: 6px
+        &:nth-child(1)
+          background: $mentor-red
+        &:nth-child(2)
+          background: $mentor-yellow
+        &:nth-child(3)
+          background: $mentor-green
+        &:nth-child(4)
+          background: $mentor-soft-blue
+    fieldset
+      margin-bottom: 0
+    .fieldset-legend
+      margin-bottom: 0.5em
+      +font-tracking(24)
+      @media (max-width: $typography-break-2)
+        +font-tracking(22)
+      @media (max-width: $typography-break-1)
+        +font-tracking(20)
+      .legend-tip
+        margin-bottom: 0.25em
+        color: rgba($typography-color, 0.5)
+        +font-tracking(14)
+        @media (max-width: $typography-break-2)
+          +font-tracking(13)
+        @media (max-width: $typography-break-1)
+          +font-tracking(12)
+
+    .apply-pane-inputs
+      .ui-outline-field
+        margin-top: 15px
+      .ui-option-fields-fieldset
+        margin-top: 15px
+        legend
+          +font-tracking(16)
+          @media (max-width: $typography-break-2)
+            +font-tracking(15)
+          @media (max-width: $typography-break-1)
+            +font-tracking(14)
+        .field-description
+          display: none
+    .apply-button
+      margin-top: 15px
+      width: 100%
+    .no-apply-tip
+      margin-top: 10px
+      text-align: center
+      opacity: 0.6
+      +font-tracking(12)
+
+  .info
+    max-width: 800px
+    color: rgba($typography-color, 0.75)
+
+  .description
+    +font-tracking(14)
+    line-height: 1.35
+
+
+  .info-group-age
+    @media (min-width: 400px) and (max-width: 450px)
+      .icon
+        margin-top: 3px
+    @media (min-width: 451px) and (max-width: 500px)
+      .icon
+        margin-top: 4px
+    @media (min-width: 501px) and (max-width: 750px)
+      .icon
+        margin-top: 6px
+    @media (min-width: 751px) and (max-width: 800px)
+      .icon
+        margin-top: 3px
+    @media (min-width: 801px) and (max-width: 900px)
+      .icon
+        margin-top: 4px
+    @media (min-width: 901px)
+      .icon
+        margin-top: 6px
+
+  .age-range
+    $age-range-inactive-opacity: 0.15
+    $age-range-inactive-color: rgba($typography-color, $age-range-inactive-opacity)
+    $age-range-active-color: $typography-color
+    display: flex
+    margin-bottom: 15px
+    @media (max-width: 400px)
+      display: none
+    .age-marker-wrapper
+      position: relative
+      display: flex
+      flex: 1 1 auto
+      .age-marker
+        display: flex
+        align-items: center
+        justify-content: center
+        border-radius: 50%
+        color: $age-range-inactive-color
+        border: 2px solid $age-range-inactive-color
+        font-weight: 700
+        line-height: normal
+        width: 36px
+        height: 36px
+        +font-tracking(12)
+        @media (max-width: 900px)
+          width: 32px
+          height: 32px
+          +font-tracking(11)
+        @media (max-width: 800px)
+          width: 30px
+          height: 30px
+          +font-tracking(10)
+        @media (max-width: 750px)
+          width: 36px
+          height: 36px
+          +font-tracking(12)
+        @media (max-width: 500px)
+          width: 32px
+          height: 32px
+          +font-tracking(11)
+        @media (max-width: 450px)
+          width: 30px
+          height: 30px
+          +font-tracking(10)
+      &:before
+        content: ""
+        position: relative
+        top: 50%
+        right: 0
+        margin-top: -1px
+        height: 2px
+        background: $age-range-inactive-color
+        flex: 1 1 auto
+      &:first-child
+        flex: 0 1 auto
+        &:before
+          display: none
+      &[data-valid-age="true"]
+        .age-marker
+          color: $age-range-active-color
+          border-color: $typography-color
+        & + [data-valid-age="true"]
+          &:before
+            background: $typography-color
+
+
+  .info-groups
+    margin-bottom: 50px
+    &:last-child
+      margin-bottom: 0
+
+  .info-group
+    margin-bottom: 25px
+    &.reduced-margin
+      margin-bottom: 15px
+    &:last-child
+      margin-bottom: 0
+
+  .info-group-label
+    font-weight: 700
+    +font-tracking(18)
+    padding-top: 50px
+    margin-bottom: 1em
+    border-top: 1px solid rgba($mentor-white-blue-shade, 0.5)
+
+  .icon-wrapper
+    display: flex
+    align-items: flex-start
+    &.center
+      align-items: center
+    .icon-description
+      width: 100%
+      margin-left: 12px
+      .icon-description-label
+        font-weight: 500
+        +font-tracking(15)
+      .icon-description-info
+        margin-top: 4px
+        +font-tracking(13)
+
+  .info-item
+    margin-top: 5px
+    line-height: 1.35
+    +font-tracking(14)
+
+  .comma-span
+    &:after
+      content: ", "
+    &:last-child
+      &:after
+        display: none
+
+  .col-2-wrapper
+    display: flex
+    flex-wrap: wrap
+    > *
+      width: 50%
+      padding-right: 25px
+      @media (max-width: 1000px)
+        width: 100%
+        padding-right: 0
+      @media (max-width: 750px)
+        width: 50%
+        padding-right: 25px
+      @media (max-width: 530px)
+        width: 100%
+        padding-right: 0
+
+  #more-results
+    $carousel-item-padding: 8px
+    background: rgba($mentor-white-blue-shade, 0.075)
+    margin-top: 75px
+    padding: 65px calc(5vw - #{$carousel-item-padding})
+    border-top: 1px solid rgba($mentor-white-blue-shade, 0.3)
+
+    .more-results-carousel
+      max-width: (1200px + (2 * $carousel-item-padding))
+      margin: 0 auto
+
+      .carousel-header
+        display: flex
+        align-items: flex-end
+        justify-content: space-between
+        padding: 0 $carousel-item-padding
+        margin-bottom: 13px
+        .carousel-headline-range
+          padding-right: 25px
+          .carousel-headline
+            font-weight: 700
+            +font-tracking(22 * 1.25)
+            @media (max-width: $typography-break-2)
+              +font-tracking(21 * 1.25)
+            @media (max-width: $typography-break-1)
+              +font-tracking(20 * 1.25)
+          .carousel-range
+            margin-top: 0.5em
+            font-weight: 500
+            +font-tracking(14)
+            @media (max-width: $typography-break-2)
+              +font-tracking(13)
+            @media (max-width: $typography-break-1)
+              +font-tracking(12)
+            color: rgba($typography-color, 0.75)
+        .carousel-controls
+          display: flex
+          white-space: nowrap
+          button
+            display: flex
+            align-items: center
+            justify-content: center
+            width: 36px
+            height: 36px
+            padding: 0
+            color: $typography-color
+            border-radius: 50%
+            background: #fff
+            border: 1px solid rgba($mentor-white-blue-shade, 0.5)
+            box-shadow: 0 1px 5px rgba(#000, 0.05), 0 3px 8px rgba(#000, 0.05)
+            transition: border 300ms, box-shadow 300ms
+            &:hover
+              border: 1px solid rgba($mentor-white-blue-shade, 0.75)
+              box-shadow: 0 1px 5px rgba(#000, 0.1), 0 3px 8px rgba(#000, 0.1)
+            &.slick-hidden
+              display: none
+            &:first-child
+              margin-right: 8px
+              .material-icons
+                margin-left: -1px
+            &:last-child
+              .material-icons
+                margin-right: -1px
+
+      .slick-list
+        padding: 12px 0
+
+      .slick-track
+        display: flex
+        margin-left: 0
+        margin-right: 0
+
+      .slick-slide
+        height: auto
+        padding: 0 $carousel-item-padding
+
+      .carousel-item
+        button.carousel-button
+          display: flex
+          flex-direction: column
+          align-items: stretch
+          width: 100%
+          height: 100%
+          padding: 25px
+          color: inherit
+          border-radius: 8px
+          background: #fff
+          font-weight: inherit
+          font-size: inherit
+          letter-spacing: inherit
+          line-height: inherit
+          text-align: left
+          border: 1px solid rgba($mentor-white-blue-shade, 0.5)
+          box-shadow: 0 1px 5px rgba(#000, 0.05), 0 3px 8px rgba(#000, 0.05)
+          transition: border 300ms, box-shadow 300ms
+          &:hover
+            border: 1px solid rgba($mentor-white-blue-shade, 0.75)
+            box-shadow: 0 1px 5px rgba(#000, 0.1), 0 3px 8px rgba(#000, 0.1)
+        .delivery
+          color: rgba($typography-color, 0.75)
+          line-height: normal
+          font-weight: 700
+          +font-tracking(11)
+          margin-bottom: 8px
+          span
+            &:after
+              content: " \2022 "
+              opacity: 0.5
+            &:last-child
+              &:after
+                display: none
+        .map-link
+          display: flex
+          align-items: center
+          color: $ui-primary
+          line-height: normal
+          font-weight: 700
+          +font-tracking(11)
+          margin-top: 16px
+          body.enforce-a11y-color-contrast &
+            color: darken($ui-primary, 8%)
+          .map-link-icon
+            width: 32px
+            height: 32px
+            margin-right: 8px
+        .title
+          margin-bottom: 8px
+          font-weight: 700
+          +font-tracking(18)
+        .organization-title
+          margin-top: 2px
+          font-weight: 700
+          +font-tracking(12)
+          color: rgba($typography-color, 0.5)
+        .logos
+          display: flex
+          border-top: 1px solid rgba($mentor-white-blue-shade, 0.125)
+          padding-top: 10px
+          margin-top: 10px
+          width: 100%
+          height: ($program-logos-max-height + 10px)
+          .logo
+            display: flex
+            align-items: center
+            max-width: min(#{($program-logos-max-width / 2)}, 50%)
+            height: $program-logos-max-height
+            padding-right: 20px
+            img
+              display: block
+              max-width: 100%
+              max-height: 100%
+              width: auto
+              height: auto
+
+    .more-results-actions
+      max-width: (1200px + (2 * $carousel-item-padding))
+      margin: 0 auto
+      padding: 5px $carousel-item-padding 0 $carousel-item-padding
+      display: flex
+      button
+        display: flex
+        align-items: center
+        padding: 0
+        color: $typography-color
+        border-radius: 0
+        background: transparent
+        font-weight: 700
+        +font-tracking(13)
+        margin-top: 8px
+        &:first-child
+          margin-right: 25px
+        .button-text
+          margin-left: 4px
+          text-decoration: underline
+
+  .location-list
+    &:not(:last-child)
+      margin-bottom: 20px

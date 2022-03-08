@@ -1,0 +1,7 @@
+<div slot="email-slot" slot-scope="props">
+  <a @click.prevent.stop="$emit('email-clicked', props.rowData.attributes)">{{ props.rowData.attributes.field_mentor_city_first_name }} {{ props.rowData.attributes.field_mentor_city_last_name }}</a>
+</div>
+
+<div slot="name-slot" slot-scope="props">
+  <a @click.prevent.stop="$emit('redirect-to-program', props.rowData)">{{ props.rowData.attributes.title }}</a>
+</div>

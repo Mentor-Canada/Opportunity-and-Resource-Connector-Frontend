@@ -1,0 +1,6 @@
+@import "variables";
+
+.bootstrap-scoped {
+  $primary: $ui-primary;
+  @import "../node_modules/bootstrap/scss/bootstrap.scss";
+}

@@ -1,0 +1,26 @@
+<div slot="email-slot" slot-scope="props">
+  <a @click.prevent.stop="$emit('email-clicked', props.rowData.attributes)">{{ props.rowData.attributes.first_name }} {{ props.rowData.attributes.last_name }}</a>
+</div>
+<div class="vuetable-actions" slot="settings-slot" slot-scope="props">
+  <div class="table-row-actions-toggle material-icons" @click.prevent="$emit('menu-clicked', $event)">more_vert</div>
+
+  <div class="table-row-actions">
+    <router-link :to="link(`admin/organizations/detail/${props.rowData.id}`)">
+      <span class="material-icons">subject</span>
+      <span class="label">{{ t("app-table-edit") }}</span>
+    </router-link>
+    <router-link :to="link(`admin/organizations/approval/${props.rowData.id}`)">
+      <span class="material-icons">assignment_turned_in</span>
+      <span class="label">{{ t("app-table-approval") }}</span>
+    </router-link>
+    <router-link :to="link(`admin/organizations/integrations/${props.rowData.id}`)">
+      <span class="material-icons">sync_alt</span>
+      <span class="label">{{ t("app-integrations") }}</span>
+    </router-link>
+    <router-link :to="link(`admin/organizations/administrators/${props.rowData.id}`)">
+      <span class="material-icons">group</span>
+      <span class="label">{{ t("app-table-admins") }}</span>
+    </router-link>
+  </div>
+
+</div>

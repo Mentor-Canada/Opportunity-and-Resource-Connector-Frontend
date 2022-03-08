@@ -1,0 +1,79 @@
+$header-height: 80px;
+$admin-nav-height: 44px;
+
+$content-width-narrow: 400px;
+$content-width-standard: 800px;
+$content-width-wide: 1200px;
+$content-width-full: none;
+
+$mentor-red: #d91c1c;
+$mentor-red-shade: #a31c1c;
+$mentor-yellow: #ffad29;
+$mentor-yellow-shade: #e5992b;
+$mentor-green: #33c2b2;
+$mentor-green-shade: #30ab9c;
+$mentor-soft-blue: #0d5e99;
+$mentor-soft-blue-shade: #125480;
+$mentor-blue: #122e45;
+$mentor-blue-shade: #0d2133;
+$mentor-white-blue: #d9ebf0;
+$mentor-white-blue-shade: #9eb8bf;
+$mentor-night-blue: #001217;
+
+// custom colours
+$mentor-yellow-light: #ffc91a;
+$mentor-off-white: #f6f9fc;
+
+$ui-richblack: #222426;
+$ui-primary: #0095ff;
+$ui-neutral: rgba(#000, 0.38);
+$ui-neutral-dark: rgba(#000, 0.57);
+$ui-hover: rgba(#000, 0.76);
+$ui-focus: $ui-primary;
+$ui-input-color: rgba(#000, 0.87);
+$ui-border-radius: 4px;
+
+$ui-success: darken(#47c965, 5%);
+$ui-error: darken(#ff002a, 5%);
+
+$ui-alert-success: $ui-success;
+$ui-alert-error: $ui-error;
+
+$program-logos-max-width: 320px;
+$program-logos-max-height: 50px;
+
+.color-ui-primary {
+  color: $ui-primary
+}
+body.enforce-a11y-color-contrast {
+  .color-ui-primary {
+    color: darken($ui-primary, 8%);
+  }
+}
+
+.background-color-ui-primary {
+  background-color: $ui-primary
+}
+body.enforce-a11y-color-contrast {
+  .background-color-ui-primary {
+    background-color: darken(#007bff, 8%);
+  }
+}
+
+.color-ui-neutral {
+  color: $ui-neutral-dark
+}
+.color-ui-primary-organization-approved {
+  color: $ui-primary !important;
+}
+body.enforce-a11y-color-contrast {
+  .color-ui-primary-organization-approved {
+    color: darken($ui-primary, 8%) !important;
+  }
+}
+.color-ui-success {
+  color: $ui-success
+}
+.color-ui-error {
+  color: $ui-error
+}

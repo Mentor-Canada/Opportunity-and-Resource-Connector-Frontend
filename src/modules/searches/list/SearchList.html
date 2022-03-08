@@ -1,0 +1,16 @@
+<table-component
+  ref="table-component"
+  data-page="search-list"
+  :delegate="delegate"
+  :title="t('app-searches')"
+>
+  <div class="ui-form-row col-filters">
+    <partner-reference
+            name="parnter-reference-select"
+            :label="t('app-partners')"
+            @input="updateSelectedPartner($event); refresh()"
+    />
+    <md-datepicker v-model="delegate.startDate" @input="refresh" :label="t('app-start-date')" />
+    <md-datepicker v-model="delegate.endDate" @input="refresh" :label="t('app-end-date')" />
+  </div>
+</table-component>

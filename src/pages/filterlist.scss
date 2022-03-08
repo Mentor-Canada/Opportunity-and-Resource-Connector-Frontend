@@ -1,0 +1,46 @@
+@import "../variables";
+@import "../common/fonts";
+$min: 1200px;
+
+@media(max-width: $min - 1) {
+  .stats {
+    .filter-button {
+      display: block;
+    }
+  }
+}
+
+.table-filter-wrapper {
+  @media (min-width: $min) {
+    display: flex;
+    width: 100vw;
+    margin: -5vh -5vw;
+  }
+  @media (max-width: $min - 1) {
+    width: 100%;
+  }
+}
+
+.admin-table {
+  @media (min-width: $min) {
+    padding: 5vh 50px;
+    @media (max-width: $min - 1) {
+      padding: 5vh 5vw;
+    }
+  }
+  @media (max-width: $min - 1) {
+    padding: 5vh 0;
+  }
+}
+
+.admin-filter:not(.dialog) {
+  @media (max-width: $min - 1) {
+    display: none;
+  }
+}
+.col-filters {
+  text-align: right;
+  a {
+    display: inline-block
+  }
+}

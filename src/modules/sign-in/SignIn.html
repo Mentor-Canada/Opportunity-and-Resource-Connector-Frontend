@@ -1,0 +1,42 @@
+<div data-page="sign-in" data-content-width="narrow" data-page-align="center">
+  <form class="standard-form-style" @submit.prevent="submit">
+
+    <div class="page-header typography">
+      <h1>{{ t("app-sign-in") }}</h1>
+    </div>
+
+    <fieldset>
+      <div  v-if="checkemail" class="ui-form-row">
+        <div class="description success">{{ t("app-checkemail") }}</div>
+      </div>
+      <div class="ui-form-row">
+        <app-input ref="emailInput"
+                   name="email"
+                   v-model=email
+                   required="required"
+                   type="email"
+                   :label="t('app-email')"
+                   @input="clearError"
+        />
+      </div>
+      <div class="ui-form-row">
+        <app-input ref="passwordInput"
+                   name="password"
+                   v-model=password
+                   required="required"
+                   type="password"
+                   :label="t('app-password')"
+                   @input="clearError"
+        />
+      </div>
+    </fieldset>
+
+    <div class="actions">
+      <router-link :to="link('forgot')">{{ t("app-forgot-password" )}}</router-link>
+      <button type="submit">
+        {{ t("app-sign-in") }}
+      </button>
+    </div>
+
+  </form>
+</div>

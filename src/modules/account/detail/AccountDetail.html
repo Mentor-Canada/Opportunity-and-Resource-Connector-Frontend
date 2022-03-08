@@ -1,0 +1,76 @@
+<div class="page-body content-inner" data-content-width="wide">
+  <div class="page-body-inner programs-content standard-form-style">
+
+    <md-dialog :md-active.sync="showRemoveConfirmation">
+      <md-dialog-title>{{ t("app-are-you-sure") }}</md-dialog-title>
+      <md-dialog-content>{{ t("app-are-you-sure-you-want-to-delete") }} <i>{{ mail }}</i>. <b>{{ t("app-cannot-be-undone") }}</b></md-dialog-content>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showRemoveConfirmation = false">{{ t("app-cancel") }}</md-button>
+        <md-button class="md-primary" @click="remove()">{{ t("app-delete") }}</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+
+    <md-dialog :md-active.sync="showDuplicateEmail">
+      <md-dialog-title>{{ t("app-duplicate-email-heading") }}</md-dialog-title>
+      <md-dialog-content>{{ t("app-duplicate-email-body") }}</md-dialog-content>
+      <md-dialog-actions>
+        <md-button class="md-primary" @click="showDuplicateEmail = false">{{ t("app-okay") }}</md-button>
+      </md-dialog-actions>
+    </md-dialog>
+
+    <div v-if="ready">
+
+      <div class="page-header typography">
+        <h1>{{ title }}</h1>
+      </div>
+
+      <form @submit.prevent="save()" autocomplete="off">
+
+        <fieldset>
+          <div class="ui-form-row col-2">
+            <app-input v-model=account.firstName
+                       type="text"
+                       :label="t('app-first-name')"
+            />
+            <app-input v-model=account.lastName
+                       type="text"
+                       :label="t('app-last-name')"
+            />
+          </div>
+          <div class="ui-form-row">
+            <app-input name="email"
+                       v-model=account.mail
+                       required="required"
+                       type="email"
+                       :label="t('app-email')"
+            />
+          </div>
+          <div class="ui-form-row">
+            <ul>
+              <li class="checkbox-group">
+                <input id="admin-checkbox" type="checkbox" v-model="account.isAdmin">
+                <label for="admin-checkbox">{{ t("app-global-administrator") }}</label>
+              </li>
+            </ul>
+          </div>
+        </fieldset>
+
+        <div class="actions">
+          <button class="danger" type="button" v-if="$route.params.id" @click="showRemoveConfirmationDialog">
+            {{ t("app-delete") }}
+          </button>
+          <button type="submit">
+            {{ t("app-submit") }}
+          </button>
+        </div>
+      </form>
+
+    </div>
+
+    <md-snackbar md-position="center" :md-active="showSnackbar" md-persistent>
+      <span>{{ snackbarMessage }}</span>
+      <md-button class="md-primary" @click="showSnackbar = false">Close</md-button>
+    </md-snackbar>
+
+  </div>
+</div>

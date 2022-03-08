@@ -1,0 +1,223 @@
+<div class="app">
+
+  <header>
+    <a id="header-logo" :href="organizationUrl" :title="t('app-sitename')">
+      <logo/>
+    </a>
+
+    <nav id="global-nav" :title="t('a11y-global-nav')">
+      <ul id="nav-menu">
+        <li class="username" v-if="user.id">
+          <router-link :to="link('admin/profile')">
+            {{ user.account.firstName }} {{ user.account.lastName }}
+          </router-link>
+          <ul class="username-dropdown">
+            <li>
+              <router-link :to="link('admin/profile')">
+                {{ t('app-profile') }}
+              </router-link>
+            </li>
+            <li>
+              <a v-on:click="onLogout">{{ t('app-sign-out') }}</a>
+            </li>
+          </ul>
+        </li>
+        <li v-if="app.languages.list.length === 2">
+          <a class="compact" :href="languageToggle(otherLanguage?.langcode)">
+            <button class="compact">{{ t(`app-${otherLanguage?.label}`) }}</button>
+          </a>
+        </li>
+        <template v-if="app.languages.list.length > 2">
+          <select @change="languageSelect">
+            <option v-for="lang in app.languages.list" :selected="app.language.langcode === lang.langcode">
+              {{ lang.langcode }}
+            </option>
+          </select>
+        </template>
+      </ul>
+    </nav>
+
+  </header>
+
+  <nav id="admin-nav" v-if="isAdminPage" :class="{'admin-menu-compact': adminMenuCompact, 'admin-menu-compact-open': adminMenuOpen}">
+    <ul id="admin-nav-links">
+      <li v-for="item in menu.list">
+        <router-link :to="link(item.url)">
+          <span>{{ t(item.name) }} </span>
+        </router-link>
+      </li>
+    </ul>
+
+    <ul id="admin-nav-compact-menu-toggle">
+      <li>
+        <a class="compact-menu-toggle" v-on:click.prevent="adminMenuOpen = !adminMenuOpen">
+          <svg version="1.1" class="icon-hamburger" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="24" height="14" viewBox="0 0 24 14" enable-background="new 0 0 24 14" xml:space="preserve">
+            <rect width="24" height="2"></rect>
+            <rect y="6" width="24" height="2"></rect>
+            <rect y="12" width="24" height="2"></rect>
+          </svg>
+          <span class="compact-menu-toggle-label" :data-label-open='t("app-open-administrative-menu")' :data-label-close='t("app-close-administrative-menu")'></span>
+        </a>
+      </li>
+    </ul>
+
+  </nav>
+
+  <main class="content" data-padding-standard="horizontal-vertical">
+    <router-view v-on:open-feedback="openFeedback"></router-view>
+  </main>
+
+  <footer>
+
+    <div class="footer-admin">
+      <router-link :to="link('admin')">
+        <button v-if="user.id" class="compact" type="button">{{ t('app-admin-logged-in') }}</button>
+        <button v-else class="compact color-ui-primary-accessible" type="button">{{ t('app-admin-not-logged-in') }}</button>
+      </router-link>
+    </div>
+
+    <div class="footer-flex">
+
+      <div class="footer-menu">
+        <div class="visually-h6">{{ t('app-sitename') }}</div>
+        <ul>
+          <li v-if="countryCode == 'ca'">
+            <a :href="`https://mentoringcanada.ca/${currentLanguage}`" aria-hidden="true" :title="t('app-sitename')">
+              {{ t('app-footer-home') }}
+              <span class="material-icons">navigate_next</span>
+            </a>
+          </li>
+
+          <!--MENU-->
+          <li>
+            <router-link class="footer-link" :to="link('')">
+              {{ t('app-search') }}
+              <span class="material-icons">navigate_next</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link class="footer-link" :to="link('programs/add/step/1')">
+              {{ t('app-submit-program') }}
+              <span class="material-icons">navigate_next</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link class="footer-link" :to="link('organizations/add')">
+              {{ t('app-submit-organization') }}
+              <span class="material-icons">navigate_next</span>
+            </router-link>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="footer-resource-library">
+        <div class="visually-h6">{{ t('app-knowledge-hub-eyebrow') }} {{ t("app-knowledge-hub") }}</div>
+        <a class="footer-resource-library-link" :href="t('app-knowledge-hub-url')" target="_blank">
+          {{ t('app-knowledge-hub-eyebrow') }} {{ t("app-knowledge-hub") }}
+          <span class="material-icons">navigate_next</span>
+        </a>
+      </div>
+
+      <div class="footer-resource-library">
+        <div class="visually-h6">{{ t("app-support-and-training-center") }}</div>
+        <a class="footer-resource-library-link" :href="t('app-support-and-training-center-url')" target="_blank">
+          {{ t("app-support-and-training-center") }}
+          <span class="material-icons">navigate_next</span>
+        </a>
+      </div>
+
+      <div class="footer-contact">
+        <div class="visually-h6">{{ t('app-footer-contact-us') }}</div>
+        <div class="footer-contact-item">
+          <a :href="t('app-footer-phone-link')">{{ t('app-footer-phone-display') }}</a>
+        </div>
+        <div class="footer-contact-item">
+          <a :href="t('app-footer-email-link')">{{ t('app-footer-email-display') }}</a>
+        </div>
+      </div>
+
+      <div class="footer-newsletter" v-if="countryCode == 'ca'">
+        <h6>{{ t('app-footer-subscribe-to-newsletter') }}</h6>
+        <a :href="t('app-footer-subscribe-to-newsletter-link')">
+          <button>{{ t('app-footer-subscribe') }}</button>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="footer-flex" v-if="countryCode == 'ca'">
+
+      <div class="footer-partner-logos partner-logos">
+        <h6>{{ t('app-footer-founding-partners') }}</h6>
+        <div class="logos">
+          <img :src="t('app-footer-bbbsc-src')" :alt="t('app-footer-bbbsc-alt')" :style="t('app-footer-bbbsc-style')">
+          <img :src="t('app-footer-omc-src')" :alt="t('app-footer-omc-alt')" :style="t('app-footer-omc-style')">
+          <img :src="t('app-footer-amp-src')" :alt="t('app-footer-amp-alt')" :style="t('app-footer-amp-style')">
+        </div>
+      </div>
+
+      <div class="footer-funder-logos partner-logos">
+        <h6>{{ t('app-footer-funded-by') }}</h6>
+        <div class="logos">
+          <img :src="t('app-footer-yess-src')" :alt="t('app-footer-yess-alt')" :style="t('app-footer-yess-style')">
+          <img :src="t('app-footer-bmo-src')" :alt="t('app-footer-bmo-alt')" :style="t('app-footer-bmo-style')">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-footer">
+
+      <div class="footer-social">
+        <div v-if="countryCode == 'ca'">
+          <a href="https://www.facebook.com/mentoringcanada/" target="_blank" :aria-label="t('app-footer-follow-fb')">
+            <i class="fab fa-facebook-square" aria-hidden="true"></i>
+          </a>
+          <a href="https://twitter.com/Mentoringcanada" target="_blank" :aria-label="t('app-footer-follow-tw')">
+            <i class="fab fa-twitter-square" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.linkedin.com/company/canadian-mentoring-partnership-partenariat-canadien-de-mentorat/?viewAsMember=true" target="_blank" :aria-label="t('app-footer-follow-li')">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.instagram.com/mentorcanada/" target="_blank" :aria-label="t('app-footer-follow-ig')">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UCYExa1ehADYg-kzG7lSmPoQ/" target="_blank" :aria-label="t('app-footer-follow-yt')">
+            <i class="fab fa-youtube" aria-hidden="true"></i>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-legal">
+        <ul>
+          <li>
+            <a :href="t('app-footer-privacy-policy-link')">{{ t('app-footer-privacy-policy') }}</a>
+          </li>
+          <li>
+            <a :href="t('app-footer-terms-of-use-link')">{{ t('app-footer-terms-of-use') }}</a>
+          </li>
+          <li v-if="countryCode == 'ca'">
+            <a :href="t('app-footer-terms-of-use-moodle-link')">{{ t('app-footer-terms-of-use-moodle') }}</a>
+          </li>
+          <li>
+            &copy;2020 {{ t('app-sitename') }}
+          </li>
+          <li>
+            {{ t('app-app') }} {{ app.version }} / {{ t('app-server') }} {{ app.serverVersion }}
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <feedback ref="feedback"></feedback>
+
+  </footer>
+
+  <md-snackbar md-position="center" :md-active="showSnackbar" md-persistent>
+    <span>{{ snackBarText }}</span>
+    <md-button class="md-primary" @click="showSnackbar = false">Close</md-button>
+  </md-snackbar>
+
+</div>

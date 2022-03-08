@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+              new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','<%= htmlWebpackPlugin.options.GOOGLE_TAG_MANAGER_ID %>');</script>
+  <!-- End Google Tag Manager -->
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="/mentoring-connector-favicon-192x192.png" type="image/png" />
+  <script src="https://apis.google.com/js/platform.js"></script>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= htmlWebpackPlugin.options.GOOGLE_API_KEY %>&libraries=places"></script>
+  <script src="https://kit.fontawesome.com/9f0f153a9e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons|Material+Icons+Outlined">
+  <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7537774/7294612/css/fonts.css" />
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window,document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '<%= htmlWebpackPlugin.options.FACEBOOK_PIXEL_ID %>');
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1"
+         src="https://www.facebook.com/tr?id=<%= htmlWebpackPlugin.options.FACEBOOK_PIXEL_ID %>&ev=PageView
+  &noscript=1"/>
+  </noscript>
+  <!-- End Facebook Pixel Code -->
+</head>
+<body class="loading">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MFV7W2Q"
+                    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <svg version="1.1" class="spin" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="100" height="100" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+    <path d="M4,50C4,24.59,24.59,4,50,4s46,20.59,46,46c0,12.7-5.15,24.2-13.47,32.53l2.83,2.83C94.4,76.31,100,63.81,100,50c0-27.61-22.39-50-50-50S0,22.39,0,50c0,27.61,22.39,50,50,50v-4C24.59,96,4,75.41,4,50z"/>
+  </svg>
+  <div id="app"></div>
+</body>
+<script>window.app.version = "<%= htmlWebpackPlugin.options.version %>"</script>
+</html>

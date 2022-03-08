@@ -1,0 +1,124 @@
+body.partner-search-compact {
+  background-color: transparent;
+
+  header,
+  footer {
+    display: none;
+  }
+
+  .st0{fill:#135580;}
+  .st1{fill:#D92027;}
+  .st2{fill:#E59C2A;}
+  .st3{fill:#A61E22;}
+  .st4{fill:#FBAD2C;}
+  .st5{fill:#3CBEB0;}
+  .st6{fill:#32AB9B;}
+  .st7{fill:#0D609B;}
+
+  main {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    min-height: auto;
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  form {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+    .search-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      border: 2px solid #ffc91a;
+      border-radius: 60px;
+      background: #fff;
+      overflow: hidden;
+      &:hover {
+        box-shadow: 0 1px 6px rgba(#ffc91a, 0.55)
+      }
+      input[type=text] {
+        font-family: "Gotham SSm A", "Helvetica Neue", "Helvetica", sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: -0.0240318879em;
+        text-decoration: inherit;
+        text-transform: inherit;
+        text-align: center;
+        width: 100%;
+        height: 60px;
+        line-height: 60px;
+        padding: 12px 64px;
+        border: none;
+        border-radius: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        outline: none;
+        color: #444;
+        &::-webkit-input-placeholder {
+          color: rgba(68, 68, 68, 0.6);
+        }
+        &:-moz-placeholder {
+          color: #444;
+          opacity: 0.6;
+        }
+        &::-moz-placeholder {
+          color: #444;
+          opacity: 0.6;
+        }
+        &:-ms-input-placeholder {
+          color: rgba(68, 68, 68, 0.6);
+        }
+        &::-ms-input-placeholder {
+          color: rgba(68, 68, 68, 0.6);
+        }
+        &::placeholder {
+          color: rgba(68, 68, 68, 0.6);
+        }
+      }
+      button {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: normal;
+        padding: 0;
+        height: 56px;
+        width: 56px;
+        color: #000;
+        border: none;
+        border-radius: 56px;
+        background: linear-gradient(#ffc91a, #ffad29);
+        line-height: normal;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        &:hover {
+          background: linear-gradient(#ffc301, #ffa310);
+        }
+      }
+    }
+    .branding {
+      .text {
+        font-size: 10px;
+        margin: 10px 0;
+        color: #666;
+      }
+      svg {
+        width: 100px;
+        height: auto;
+      }
+    }
+  }
+
+
+}

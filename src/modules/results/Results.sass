@@ -1,0 +1,465 @@
+$results-pane-padding-horizontal: 25px
+$map-breakpoint: 1100px
+$search-criteria-breakpoint: 875px
+$notify-new-programs-breakpoint: 500px
+
+[data-page="results"]
+  //max-width: none
+  //margin: -5vh -5vw
+  //width: calc(100% + 10vw)
+
+  &[data-zip='app-national']
+    #results-list,
+    #results-footer
+      & > *
+        max-width: 1200px
+        margin: 0 auto
+
+  &:not([data-zip='app-national'])
+    .split-wrapper
+      display: flex
+      align-items: flex-start
+      .results-pane
+        width: 700px
+        &.loading
+          opacity: 0.25
+      .map-pane
+        position: -webkit-sticky
+        position: sticky
+        top: $header-height
+        flex: 1 0 auto
+        height: calc(100vh - #{$header-height})
+        #map
+          width: 100%
+          height: 100%
+      @media (max-width: $map-breakpoint)
+        .results-pane
+          width: 100%
+        .map-pane
+          display: none
+
+  //#results-list
+  //  background: #fff
+
+  .results-list-header
+    padding: 0 $results-pane-padding-horizontal 25px $results-pane-padding-horizontal
+
+    .results-list-header-results-summary,
+    .results-list-header-headline
+      font-family: $headline-font
+      font-weight: 700
+
+    .results-list-header-results-summary
+      color: rgba($typography-color, 0.625)
+      +font-tracking(14)
+      @media (max-width: $typography-break-2)
+        +font-tracking(13)
+      @media (max-width: $typography-break-1)
+        +font-tracking(12)
+
+    body.enforce-a11y-color-contrast &
+      .results-list-header-results-summary
+        color: rgba($typography-color, 1)
+
+    .results-list-header-headline
+      color: #000
+      margin-top: 0.5em
+      +font-tracking(24)
+      @media (max-width: $typography-break-2)
+        +font-tracking(22)
+      @media (max-width: $typography-break-1)
+        +font-tracking(20)
+
+    .results-list-header-re-search
+      margin-top: 25px
+
+    .delivery-criteria-container
+      @media(min-width: 1200px)
+        display: flex
+      .program-delivery
+        margin-top: 10px
+        flex-grow: 1
+        button
+          border: 1px solid transparent
+          margin-top: 15px
+        button.inactive
+          border: 1px solid $ui-primary
+
+    .results-list-header-search-criteria
+      display: flex
+      flex-wrap: wrap
+      margin-top: 15px
+      .search-criteria-wrapper
+        position: relative
+        display: flex
+        margin-top: 10px
+        margin-right: 6px
+        &:last-child
+          margin-right: 0
+        .search-criteria
+          position: relative
+          z-index: 0
+          display: flex
+          align-items: center
+          justify-content: center
+          height: 36px
+          padding: 5px 16px
+          line-height: normal
+          font-weight: 500
+          +font-tracking(11)
+          border-radius: 50px
+          white-space: nowrap
+          cursor: pointer
+          background: transparent
+          color: rgba($typography-color, 0.75)
+          border: 1px solid rgba($typography-color, 0.5)
+          &:before
+            content: ""
+            position: absolute
+            z-index: -1
+            top: -2px
+            left: -2px
+            box-sizing: border-box
+            width: calc(100% + 4px)
+            height: calc(100% + 4px)
+            border-radius: 50px
+            border: 2px solid $ui-primary
+            display: none
+          &:hover
+            background: rgba($typography-color, 0.025)
+            color: $typography-color
+            border: 1px solid rgba($typography-color, 0.75)
+          &.active
+            background: rgba($typography-color, 0.025)
+            color: $typography-color
+            border: 1px solid rgba($typography-color, 0.75)
+            &:before
+              display: block
+              border-color: rgba($typography-color, 0.75)
+        .search-criteria-list.open
+          & + .search-criteria
+            background: rgba($ui-primary, 0.075)
+            color: $ui-primary
+            border-color: $ui-primary
+            &:before
+              display: block
+              border-color: $ui-primary
+
+    @media (max-width: $search-criteria-breakpoint)
+      .results-list-header-search-criteria
+        display: none
+      .program-delivery
+        display: none
+
+  #results-list-table
+    tbody tr:hover td.result-row
+      background: rgba($mentor-off-white, 0.5)
+    tr
+      .hover-indicator-frag
+        width: 100%
+        flex: 1 0 auto
+        transform-origin: 100% 50%
+        transform: scaleX(0)
+        transition: transform 300ms
+        transition-timing-function: cubic-bezier(.7,0,.3,-1)
+        &:nth-child(1)
+          background: $mentor-red
+          transition-delay: 30ms
+        &:nth-child(2)
+          background: $mentor-yellow
+          transition-delay: 20ms
+        &:nth-child(3)
+          background: $mentor-green
+          transition-delay: 10ms
+        &:nth-child(4)
+          background: $mentor-soft-blue
+          transition-delay: 0ms
+      &:hover
+        .hover-indicator-frag
+          transform: scaleX(1)
+          transition-timing-function: cubic-bezier(.5,2,.3,1)
+          &:nth-child(1)
+            transition-delay: 0ms
+          &:nth-child(2)
+            transition-delay: 50ms
+          &:nth-child(3)
+            transition-delay: 100ms
+          &:nth-child(4)
+            transition-delay: 150ms
+    td.result-row
+      position: relative
+      padding-left: $results-pane-padding-horizontal
+      padding-right: $results-pane-padding-horizontal
+      padding-top: 30px
+      padding-bottom: 30px
+      height: 110px
+      border-top: 1px solid rgba($mentor-white-blue-shade, 0.3)
+      border-bottom: none
+      .hover-indicator
+        position: absolute
+        top: 0
+        right: 0
+        width: 6px
+        height: 100%
+        display: flex
+        flex-direction: column
+      .title
+        font-weight: 700
+        +font-tracking(18)
+      .organization-title
+        margin-top: 2px
+        font-weight: 700
+        +font-tracking(12)
+        color: rgba($typography-color, 0.5)
+      .delivery
+        color: rgba($typography-color, 0.75)
+        line-height: normal
+        font-weight: 700
+        +font-tracking(11)
+        margin-bottom: 8px
+        span
+          &:after
+            content: " \2022 "
+            opacity: 0.5
+          &:last-child
+            &:after
+              display: none
+      .map-link
+        display: flex
+        align-items: center
+        color: $ui-primary
+        line-height: normal
+        font-weight: 700
+        +font-tracking(12)
+        margin-top: 16px
+        body.enforce-a11y-color-contrast &
+          color: darken($ui-primary, 8%)
+        .map-link-icon
+          width: 32px
+          height: 32px
+          margin-right: 8px
+
+      .logos
+        display: flex
+        border-top: 1px solid rgba($mentor-white-blue-shade, 0.125)
+        padding-top: 10px
+        margin-top: 10px
+        width: 100%
+        height: ($program-logos-max-height + 10px)
+        .logo
+          display: flex
+          align-items: center
+          max-width: min(#{($program-logos-max-width / 2)}, 50%)
+          height: $program-logos-max-height
+          padding-right: 20px
+          img
+            display: block
+            max-width: 100%
+            max-height: 100%
+            width: auto
+            height: auto
+
+
+  #results-list-pagination
+    border-top: 1px solid rgba($mentor-white-blue-shade, 0.3)
+    padding: 50px $results-pane-padding-horizontal
+    #list-pagination
+      display: flex
+      align-items: center
+      justify-content: center
+      margin-bottom: 15px
+      button
+        display: flex
+        align-items: center
+        justify-content: center
+        margin: 0 6px
+        padding: 0
+        color: $typography-color
+        width: 30px
+        height: 30px
+        border-radius: 50%
+        background: transparent
+        +font-tracking(12)
+        &.disabled
+          opacity: 0.5
+          pointer-events: none
+        &.active
+          color: #fff
+          background: $typography-color
+          pointer-events: none
+        &:hover
+          background: $mentor-off-white
+        &:first-child
+          margin-left: 0
+        &:last-child
+          margin-right: 0
+      .arrow-button
+        font-weight: normal
+
+    #pagination-results-per-page
+      position: relative
+      display: flex
+      align-items: center
+      justify-content: center
+      margin-bottom: 15px
+      button
+        position: relative
+        z-index: 0
+        display: flex
+        align-items: center
+        justify-content: center
+        height: 36px
+        padding: 5px 16px
+        line-height: normal
+        font-weight: 500
+        +font-tracking(11)
+        border-radius: 50px
+        white-space: nowrap
+        cursor: pointer
+        background: transparent
+        color: rgba($typography-color, 0.75)
+        border: 1px solid rgba($typography-color, 0.5)
+        &:before
+          content: ""
+          position: absolute
+          z-index: -1
+          top: -2px
+          left: -2px
+          box-sizing: border-box
+          width: calc(100% + 4px)
+          height: calc(100% + 4px)
+          border-radius: 50px
+          border: 2px solid $ui-primary
+          display: none
+        &:hover
+          background: rgba($typography-color, 0.025)
+          color: $typography-color
+          border: 1px solid rgba($typography-color, 0.75)
+        &.active
+          background: rgba($ui-primary, 0.075)
+          color: $ui-primary
+          border-color: $ui-primary
+          &:before
+            display: block
+            border-color: $ui-primary
+
+    #pagination-results-range
+      display: flex
+      align-items: center
+      justify-content: center
+      +font-tracking(12)
+
+
+  #results-footer
+    border-top: 1px solid rgba($mentor-white-blue-shade, 0.375)
+    padding: 50px $results-pane-padding-horizontal
+
+  //.search-onboarding,
+  //.notify-new-programs,
+  //.dont-see-your-program,
+  //.feedback
+  //  max-width: 600px
+  //  margin: 0 auto
+
+  .notify-new-programs
+    margin-top: 50px
+    .input-button
+      display: flex
+      flex-direction: row
+      margin-top: 15px
+      @media(max-width: ($notify-new-programs-breakpoint - 1px))
+        flex-direction: column
+    input[type=email]
+      border: 1px solid rgba($mentor-white-blue-shade, 0.5)
+      border-radius: 30px
+      padding: 10px 20px
+      font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif
+      font-weight: 400
+      +font-tracking(14)
+      text-decoration: inherit
+      text-transform: inherit
+      display: flex
+      align-self: flex-end
+      width: 100%
+      height: 44px
+      color: $ui-input-color
+      background: #fff
+      -webkit-appearance: none
+      -moz-appearance: none
+      appearance: none
+      outline: none
+      @media(max-width: ($notify-new-programs-breakpoint - 1px))
+        margin-bottom: 10px
+      @media(min-width: $notify-new-programs-breakpoint)
+        border-right: 0 transparent
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+    button
+      padding: 10px 30px
+      white-space: nowrap
+      @media(min-width: $notify-new-programs-breakpoint)
+        border-top-left-radius: 0
+        border-bottom-left-radius: 0
+
+  .dont-see-your-program
+    margin-top: 50px
+
+  .feedback
+    margin-top: 50px
+    button
+      display: flex
+      align-items: center
+      margin: 0 auto
+      padding: 0
+      color: $ui-primary
+      body.enforce-a11y-color-contrast &
+        color: darken($ui-primary, 8%)
+        &:hover
+          background: transparent
+      border-radius: 0
+      background: transparent
+      font-weight: 700
+      +font-tracking(14)
+      .material-icons
+        margin-right: 4px
+
+  .results-footer-typography
+    h3
+      line-height: 1.2
+      +font-tracking(18)
+      @media (max-width: $typography-break-2)
+        +font-tracking(17)
+      @media (max-width: $typography-break-1)
+        +font-tracking(16)
+    p
+      color: rgba($typography-color, 0.8)
+      +font-tracking(14)
+      @media (max-width: $typography-break-2)
+        +font-tracking(13)
+      @media (max-width: $typography-break-1)
+        +font-tracking(12)
+    a
+      font-weight: 700
+      body.enforce-a11y-color-contrast &
+        color: darken($ui-primary, 8%)
+
+
+  .search-onboarding
+    margin-top: 1em
+    .description.onboarding-message
+      p
+        +font-tracking(14)
+    .description.description-icon
+      a
+        font-weight: 900
+        text-decoration: underline
+        &:hover
+          color: darken($ui-primary, 5%)
+
+
+
+
+
+#feedback-dialog
+  textarea
+    height: 150px

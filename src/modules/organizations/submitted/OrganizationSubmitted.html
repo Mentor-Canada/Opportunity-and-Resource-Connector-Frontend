@@ -1,0 +1,28 @@
+<div data-page="organization-submitted" data-content-width="standard" data-page-align="center" v-if="isReady">
+
+  <div class="typography">
+    <h1>{{ title }}</h1>
+    <div class="visually-h3">{{ subtitle }}</div>
+    <p>{{ paragraph }}</p>
+    <br><br>
+  </div>
+
+  <div class="standard-form-style">
+    <div class="actions actions-align-left">
+
+      <router-link :to="link('organizations/add')">
+        <button class="compact">{{ t("app-submit-another-organization") }}</button>
+      </router-link>
+
+      <router-link :to="link('programs/add/step/1')">
+        <button class="compact">{{ t("app-submit-a-program") }}</button>
+      </router-link>
+
+      <a :href="t('app-siteurl')">
+        <button class="compact">{{ t("app-return-to") }} {{ t("app-sitename") }}</button>
+      </a>
+
+    </div>
+  </div>
+
+</div>

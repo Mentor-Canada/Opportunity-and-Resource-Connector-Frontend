@@ -1,0 +1,47 @@
+<div data-content-width="wide" v-if="isReady">
+  <div class="page-header with-breadcrumbs typography">
+    <h1>{{ t("app-languages") }}</h1>
+    <breadcrumbs></breadcrumbs>
+  </div>
+  <div class="standard-form-style">
+    <div class="ui-form-row">
+      <app-input name="search-input"
+                 type="search"
+                 v-model="search"
+                 :label="t('app-search')"
+                 @input="refresh"
+      />
+    </div>
+    <div class="ui-form-row">
+      <segmented-control
+              :options="options"
+              label="label"
+              value="value"
+              color="#fff"
+              active-color="#0d2133"
+              :multiple="false"
+              @select="onSelect"
+              :defaultSelected="options[0]"
+      />
+    </div>
+    <vuetable ref="my-vuetable"
+              :api-mode="false"
+              :data-manager="dataManager"
+              :fields="fields"
+              :show-sort-icons="false"
+              :no-data-template="t('app-no-data-available')"
+              :css="{ tableClass: 'ui-table settings-table'}"
+    >
+
+      <label :for="`language-settings-checkbox-${props.rowData.iso639_1}`" slot="label-slot" slot-scope="props">
+        {{ props.rowData.title }}
+      </label>
+
+    </vuetable>
+    <div class="actions">
+      <button type="submit" @click="save">
+        {{ t("app-save") }}
+      </button>
+    </div>
+  </div>
+</div>

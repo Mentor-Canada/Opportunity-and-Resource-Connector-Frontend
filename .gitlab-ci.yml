@@ -1,0 +1,29 @@
+master_mentor_canada:
+  tags:
+    - connect.mentoringcanada.ca
+  only:
+    - release/prod
+  environment:
+    name: prod
+  script:
+    - ./deploy.sh /var/www/connect.mentoringcanada.ca
+
+dev:
+  tags:
+    - mentordev.xyz
+  only:
+    - release/dev
+  environment:
+    name: dev
+  script:
+    - ./deploy.sh /var/www/connect-beta.mentordev.xyz
+
+dev-ca:
+  tags:
+    - mentordev.xyz
+  only:
+    - release/ca/dev
+  environment:
+    name: dev-ca
+  script:
+    - ./deploy.sh /var/www/connect.mentor-canada.dev

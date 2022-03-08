@@ -1,0 +1,102 @@
+<div class="page-body content-inner" data-content-width="wide" v-if="isReady">
+
+  <md-dialog :md-active.sync="showRemoveConfirmation">
+    <md-dialog-title>{{ t("app-are-you-sure") }}</md-dialog-title>
+    <md-dialog-content>{{ t("app-are-you-sure-you-want-to-delete") }} <i>{{ organization.attributes.title }}</i>. <b>{{ t("app-cannot-be-undone") }}</b></md-dialog-content>
+    <md-dialog-actions>
+      <md-button class="md-primary" @click="showRemoveConfirmation = false">{{ t("app-cancel") }}</md-button>
+      <md-button class="md-primary" @click="remove()">{{ t("app-delete") }}</md-button>
+    </md-dialog-actions>
+  </md-dialog>
+
+  <div class="page-header typography">
+    <h1>{{ t("app-organization-administrators") }}</h1>
+  </div>
+
+  <form v-if="isReady" v-on:submit.prevent class="standard-form-style">
+
+    <fieldset>
+      <legend>{{ t("app-organization-administrators-approval", {organizationName: organization.localizedAttributes["en"].field_display_title}) }}</legend>
+      <div class="ui-form-row">
+        <div class="description">{{ t("app-organization-administrators-description") }}</div>
+      </div>
+    </fieldset>
+
+
+    <fieldset>
+
+      <fieldset v-if="showAddContactAsAdmin">
+        <div class="ui-form-row ui-form-row-reduced-margin">
+          <legend>
+            {{ t('app-add-organization-contact-as-administrator') }}
+          </legend>
+          <div class="description">
+            {{ t('app-add-organization-contact-as-administrator-pre') }},
+            <span class="strong">{{ organization.attributes.contactFirstName }} {{ organization.attributes.contactLastName }} ({{ organization.attributes.contactEmail }})</span>,
+            {{ t('app-add-organization-contact-as-administrator-post') }}
+          </div>
+        </div>
+        <div class="ui-form-row">
+          <a @click="onAddContact()">
+            <button type="button" class="compact">{{ t('app-add-organization-contact-as-administrator-button') }}</button>
+          </a>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <div class="ui-form-row ui-form-row-reduced-margin">
+          <legend>
+            {{ t('app-add-organization-new-administrator', {title: organization.localizedAttributes[currentLanguage].field_display_title}) }}
+          </legend>
+          <div class="description">
+            {{ t('app-add-organization-new-administrator-pre') }}
+            <span class="strong">'{{ organization.localizedAttributes[currentLanguage].field_display_title }}'</span>.
+            {{ t('app-add-organization-new-administrator-post') }}
+          </div>
+        </div>
+        <div class="ui-form-row">
+          <a @click="onAddUser()">
+            <button type="button" class="compact">{{ t('app-add-organization-new-administrator-button') }}</button>
+          </a>
+        </div>
+      </fieldset>
+
+
+      <div class="ui-form-row">
+        <fieldset>
+          <legend>{{ t('app-organization-administrators') }}</legend>
+        </fieldset>
+        <div class="description no-results" v-if="!organization.accounts.length">
+          {{ t('app-organization-administrators-no-results') }}
+        </div>
+        <add-user ref="add-user"
+                  :entity="organization"
+                  :title="organization.localizedAttributes[currentLanguage].field_display_title"
+                  @change="onNewAdministrator()"
+        />
+        <div class="md-style-scoped user-reference-chips">
+          <ul class="users">
+            <li v-for="(account, i) in organization.accounts">
+              <md-chip class="md-primary" v-on:md-delete="removeUser(account)" md-deletable>{{ account.mail }}</md-chip>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </fieldset>
+
+    <div class="actions">
+      <button class="danger" type="button" v-if="$route.params.id" @click="showRemoveConfirmation = true">
+        {{ t("app-delete") }}
+      </button>
+      <button type="button" v-if="$route.params.id" @click="onDetailsClick">
+        {{ t("app-review-organization-details") }}
+      </button>
+      <button type="button" v-if="$route.params.id" @click="onApprovalClick">
+        {{ t("app-review-organization-approval") }}
+      </button>
+    </div>
+
+  </form>
+
+</div>

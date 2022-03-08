@@ -1,0 +1,22 @@
+<div data-content-width="wide" v-show="isReady" data-page="settings-list">
+  <div class="page-header typography">
+    <h1>{{ t("app-settings") }}</h1>
+  </div>
+  <div class="list" v-show="!empty">
+    <vuetable ref="my-vuetable"
+              :api-mode="false"
+              :data="list"
+              :fields="fields"
+              :show-sort-icons="false"
+              :no-data-template="t('app-no-data-available')"
+              :css="{ tableClass: 'ui-table clickable-rows menu'}"
+              @vuetable:row-clicked="rowClicked"
+    >
+      <div slot="icon-slot">
+        <span class="material-icons">
+          chevron_right
+        </span>
+      </div>
+    </vuetable>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div data-page="admin" data-content-width="wide" v-show="isReady">
+  <div class="page-header with-breadcrumbs typography">
+    <h1>{{ t('app-dashboard') }}</h1>
+    <breadcrumbs :trail="trail"></breadcrumbs>
+  </div>
+
+  <div id="dashboard-cards">
+
+    <inquiry-card
+      ref="inquiry-card"
+      @tooltip="tooltip($event.context, $event.tooltip)"
+      @focus="onDateRangeActive($event.uid)"
+    />
+
+    <program-card
+      ref="program-card"
+    />
+
+    <organization-card
+      v-if="app.bootstrap.userHasOrganizations"
+      ref="organization-card"
+    />
+
+    <link-card
+      :headline="t('app-support-and-training-center')"
+      :link="t('app-support-and-training-center')"
+      :url="t('app-support-and-training-center-url')"
+    />
+
+    <link-card
+      :eyebrow="t('app-knowledge-hub-eyebrow')"
+      :headline="t('app-knowledge-hub')"
+      :link="t('app-knowledge-hub')"
+      :url="t('app-knowledge-hub-url')"
+    />
+
+    <div id="chartjs-tooltip">
+      <table></table>
+    </div>
+
+  </div>
+
+  <div id="dashboard-cards-second-row">
+
+    <div id="dashboard-card-admin-links" class="dashboard-card">
+      <div class="dashboard-card-content">
+        <div class="dashboard-card-title dashboard-typography">Admin Links</div>
+
+        <vuetable :api-mode="false"
+                  :data="adminLinksList.list"
+                  :fields="adminLinksFields"
+                  :show-sort-icons="false"
+                  :no-data-template="t('app-no-data-available')"
+                  :css="{ tableClass: 'ui-table clickable-rows'}"
+                  @vuetable:row-clicked="rowClicked"
+        >
+          <div slot="title-slot" slot-scope="props">
+            {{ t(props.rowData.name) }}
+          </div>
+          <div slot="icon-slot">
+            <span class="material-icons">chevron_right</span>
+          </div>
+        </vuetable>
+
+      </div>
+    </div>
+  </div>
+</div>

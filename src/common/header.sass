@@ -1,0 +1,137 @@
+header
+  position: fixed
+  z-index: 11
+  top: 0
+  background: $mentor-blue-shade
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%
+  padding: 25px 50px
+  height: $header-height
+  @media (max-width: 999px)
+    padding: 25px 5vw
+  #header-logo
+    display: block
+    min-width: 56px
+    svg
+      display: block
+
+nav#admin-nav
+  position: fixed
+  z-index: 10
+  top: $header-height
+  width: 100%
+  padding: 0 5vw
+  background: #fff
+  border-bottom: 1px solid #ccc
+  ul#admin-nav-links
+    display: flex
+    justify-content: space-between
+    align-items: center
+    white-space: nowrap
+    max-width: $content-width-wide
+    margin: 0 auto
+    li
+      position: relative
+      flex: 1
+      &:before,
+      &:after
+        content: ""
+        position: absolute
+        bottom: 0
+        left: 0
+        width: 100%
+        height: 2px
+        opacity: 0
+        transition: opacity 300ms
+      &:before
+        background: $ui-primary
+      &:after
+        background: $mentor-blue-shade
+      &.sign-in
+        display: none
+      &:hover
+        &:before
+          opacity: 1
+      &[data-active="true"]
+        &:before
+          opacity: 0
+        &:after
+          opacity: 1
+    a
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 100%
+      line-height: $admin-nav-height
+      color: $mentor-blue-shade
+      font-weight: 700
+      +font-tracking(13)
+      text-decoration: none
+    span
+      padding: 0 10px
+
+  ul#admin-nav-compact-menu-toggle
+    display: none
+    align-items: center
+    a
+      display: flex
+      align-items: center
+      height: $admin-nav-height
+    span
+      padding-left: 10px
+      color: $mentor-blue-shade
+      font-weight: 700
+      +font-tracking(13)
+      &:after
+        content: attr(data-label-open)
+
+
+
+
+
+nav#admin-nav.admin-menu-compact
+  ul#admin-nav-links
+    display: none
+    position: absolute
+    z-index: 1
+    top: calc(100% + 1px)
+    left: 5vw
+    width: 90%
+    flex-direction: column
+    background: #fff
+    box-shadow: 0 1px 1px rgba(#000, 0.1), 0 4px 10px rgba(#000, 0.05)
+    li
+      width: 100%
+      &:before,
+      &:after
+        width: 4px
+        height: 100%
+    a
+      justify-content: flex-start
+      span
+        padding: 0 20px
+  ul#admin-nav-compact-menu-toggle
+    display: flex
+
+nav#admin-nav.admin-menu-compact.admin-menu-compact-open
+  ul#admin-nav-links
+    display: flex
+  ul#admin-nav-compact-menu-toggle
+    span
+      &:after
+        content: attr(data-label-close)
+
+
+#user-profile-nav
+  position: absolute
+  top: 20px
+  right: 5vw
+  a
+    display: block
+    line-height: normal
+    color: #fff
+    font-weight: 700
+    +font-tracking(11)
+

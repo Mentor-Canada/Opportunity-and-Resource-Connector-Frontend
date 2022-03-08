@@ -1,0 +1,860 @@
+@import './variables.scss';
+$calendar-side-padding: 20px;
+$calendar-date-size: 34px;
+$calendar-row-padding: 10px;
+
+.vfc {
+  &-popover-container {
+    position: relative;
+    z-index: 1;
+    width: 300px;
+    padding: $calendar-side-padding;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 5px rgba(#000, 0.05), 0 3px 10px rgba(#000, 0.05);
+    &:focus {
+      outline: none;
+    }
+    &.month-year-picker-open {
+      .main-calendar-wrapper {
+        opacity: 0;
+        pointer-events: none;
+      }
+    }
+  }
+
+  &-calendar-stabilizer {
+    pointer-events: none;
+    height: ($calendar-date-size + $calendar-row-padding)
+  }
+
+  &-weeks-wrapper {
+    font-weight: 500;
+    color: $ui-primary-text-color;
+  }
+
+  &-datepicker-header {
+    margin-top: -$calendar-side-padding;
+    margin-left: -$calendar-side-padding;
+    margin-right: -$calendar-side-padding;
+    padding: $calendar-side-padding ($calendar-side-padding + 13px);
+    background-color: $ui-primary;
+    .vfc-datepicker-header-date {
+      padding: 10px 0;
+      color: #fff;
+      .vfc-datepicker-header-date-tip {
+        font-weight: 500;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        margin-bottom: 1.25em;
+
+      }
+      .vfc-datepicker-header-date-range {
+        font-size: 16px;
+        letter-spacing: -0.0240318878em;
+      }
+      span.empty {
+        opacity: 0.35;
+        &:before {
+          content: attr(data-empty)
+        }
+      }
+    }
+  }
+
+  &-date-picker-header-navigation {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding-left: 13px;
+    .vfc-top-date {
+      flex: 1 0 auto;
+      font-weight: 500;
+      span {
+        position: relative;
+        display: inline-block;
+        &.vfc-cursor-pointer,
+        &.vfc-top-date-has-delta {
+          color: $ui-primary;
+          cursor: pointer;
+          &:before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 12px);
+            border-radius: 50px;
+            background-color: rgba($ui-primary-hover, 0.2);
+            opacity: 0;
+            transition: opacity 200ms;
+          }
+          &:hover {
+            &:before {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+    .date-picker-header-navigation-buttons {
+      display: flex;
+      button {
+        position: relative;
+        padding: 0;
+        color: $ui-primary;
+        border: none;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: transparent;
+        font-weight: normal;
+        outline: none;
+        appearance: none;
+        cursor: pointer;
+        transition: background-color 200ms;
+        &:before {
+          content: "";
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          top: calc(50% - 5px);
+          border-top: 2px solid;
+          border-right: 2px solid;
+          transition: border-color 200ms
+        }
+        &:hover {
+          background-color: rgba($ui-primary-hover, 0.2);
+        }
+        &.vfc-arrow-right {
+          &:before {
+            transform: rotate(45deg);
+            left: calc(50% - 6px);
+          }
+        }
+        &.vfc-arrow-left {
+          &:before {
+            transform: rotate(-135deg);
+            right: calc(50% - 6px);
+          }
+        }
+        &.vfc-disabled {
+          opacity: 0.25;
+          color: $ui-primary-text-color;
+          pointer-events: none;
+        }
+      }
+    }
+  }
+
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: -$calendar-side-padding;
+    margin-left: -$calendar-side-padding;
+    margin-right: -$calendar-side-padding;
+    padding: 10px 20px;
+    .vfc-footer-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 13px;
+      height: 30px;
+      color: $ui-primary;
+      border: none;
+      border-radius: 15px;
+      background-color: transparent;
+      font-size: 12px;
+      letter-spacing: -0.006915603em;
+      transition: background-color 200ms, color 200ms;
+      &.vfc-footer-button-cancel {
+        color: rgba($ui-primary-text-color, 0.5);
+      }
+      &:hover {
+        color: $ui-primary;
+        background-color: rgba($ui-primary-hover, 0.2);
+      }
+    }
+  }
+
+  &-single-input,
+  &-multiple-input input {
+    font-size: inherit;
+    transition: width 200ms;
+    padding: 7px;
+    width: 143px;
+    color: $silver_chalice;
+    border: 1px solid $gallery;
+    text-align: center;
+    outline: none;
+  }
+
+  &-single-input {
+    border-radius: 10px;
+  }
+
+  &-multiple-input input {
+    &:first-child {
+      border-radius: 10px 0 0 10px;
+    }
+
+    &:last-child {
+      border-radius: 0 10px 10px 0;
+    }
+  }
+
+  &-tags-input {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+
+      &[type='text'] {
+        color: $trout;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    span {
+      margin-right: 0.3em;
+      margin-bottom: 0.3em;
+      padding-right: 0.75em;
+      padding-left: 0.6em;
+      border-radius: 10em;
+    }
+
+    &-wrapper-default {
+      width: 295px;
+      padding: 0.5em 0.25em;
+      min-height: 15px;
+      background: $white;
+      border: 1px solid $alto;
+      border-radius: 10px;
+    }
+
+    &-badge {
+      width: 85px;
+      background-color: $porcelain;
+      position: relative;
+      display: inline-block;
+      padding: 0.25em 0.4em;
+      font-size: 75%;
+      font-weight: 700;
+      line-height: 1;
+      text-align: center;
+      white-space: nowrap;
+      vertical-align: baseline;
+      border-radius: 0.25em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    &-remove {
+      cursor: pointer;
+      position: absolute;
+      display: inline-block;
+      right: 0.3em;
+      top: 0.3em;
+      padding: 0.5em;
+      overflow: hidden;
+
+      &::before,
+      &::after {
+        content: '';
+        position: absolute;
+        width: 75%;
+        left: 0.15em;
+        background: $lightred;
+        height: 2px;
+        margin-top: -1px;
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  &-dark {
+    &.vfc-multiple-input {
+      input {
+        border-color: $astronaut;
+        background-color: $mirage;
+      }
+    }
+
+    .vfc-single-input {
+      border-color: $astronaut;
+      background-color: $mirage;
+    }
+
+    &.vfc-tags-input-root {
+      .vfc-tags-input-wrapper-default {
+        background-color: $mirage;
+        border-color: $astronaut;
+
+        &.vfc-tags-input {
+          .vfc-tags-input-badge {
+            background-color: $white;
+          }
+        }
+      }
+    }
+  }
+
+  &-main-container {
+    position: relative;
+    user-select: none;
+    box-sizing: border-box;
+
+    &.vfc-modal {
+      position: absolute;
+      width: inherit;
+      z-index: 1000;
+    }
+
+    > * {
+      box-sizing: border-box;
+    }
+  }
+
+  &-time-picker {
+    &::after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    &__list {
+      float: left;
+      width: 50%;
+      height: 200px;
+      overflow-y: scroll;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: $gallery;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: $silver;
+      }
+
+      .vfc-time-picker__with-suffix & {
+        width: 33.333333%;
+      }
+    }
+
+    &__item {
+      padding: 10px 0;
+      font-size: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: font-size 0.3s;
+
+      &:hover {
+        font-size: 32px;
+      }
+
+      &--selected {
+        color: $royalblue;
+        font-size: 32px;
+      }
+
+      &--disabled {
+        opacity: 0.4;
+        cursor: default;
+        font-size: 20px !important;
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    right: 12px;
+    top: 16px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+    z-index: 100;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &::before,
+    &::after {
+      position: absolute;
+      left: 15px;
+      content: ' ';
+      height: 26px;
+      width: 2px;
+      background-color: $white;
+      transform: rotate(45deg);
+    }
+
+    &::after {
+      transform: rotate(-45deg);
+    }
+  }
+
+  &-modal {
+    &-time {
+      &-mechanic {
+        position: relative;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      &-line {
+        width: 100%;
+        background-color: $royalblue;
+        text-align: left;
+        color: $white;
+        font-size: 16px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        border-radius: 0.28571429rem 0.28571429rem 0 0;
+
+        span {
+          margin-left: 15px;
+
+          span.vfc-active {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    &-append {
+      color: $boulder;
+      font-weight: normal;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-midle {
+      display: inline-block;
+
+      &-dig {
+        display: inline-block;
+        text-align: center;
+      }
+    }
+
+    &-digits {
+      display: flex;
+      justify-content: space-between;
+      font-size: 50px;
+
+      select {
+        margin: 5px 0;
+        width: 100%;
+        text-align: center;
+        text-align-last: center;
+      }
+    }
+  }
+
+  &-arrow {
+    opacity: 0.3;
+    transition: 0.2s;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &-up {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 20px solid #333333;
+    }
+
+    &-down {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 20px solid #333333;
+    }
+  }
+
+  &-calendar {
+    position: relative;
+    flex: 1;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+
+    &s {
+      flex: 1 1 75%;
+      display: flex;
+      flex-wrap: wrap;
+
+      &-container {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        position: relative;
+      }
+    }
+
+    &-fade-enter-active,
+    &-fade-leave-active,
+    &-slide-down-enter-active,
+    &-slide-down-leave-active,
+    &-slide-left-enter-active,
+    &-slide-left-leave-active,
+    &-slide-right-enter-active,
+    &-slide-right-leave-active,
+    &-slide-up-enter-active,
+    &-slide-up-leave-active {
+      transition: all 0.25s ease-in-out;
+    }
+
+    &-fade-leave-active,
+    &-none-leave-active,
+    &-slide-down-leave-active,
+    &-slide-left-leave-active,
+    &-slide-right-leave-active,
+    &-slide-up-leave-active {
+      position: absolute;
+    }
+
+    &-none-enter-active,
+    &-none-leave-active {
+      transition-duration: 0s;
+    }
+
+    &-slide-left-enter,
+    &-slide-right-leave-to {
+      opacity: 0;
+      -webkit-transform: translateX(25px);
+      transform: translateX(25px);
+    }
+
+    &-slide-left-leave-to,
+    &-slide-right-enter {
+      opacity: 0;
+      -webkit-transform: translateX(-25px);
+      transform: translateX(-25px);
+    }
+
+    &-slide-down-leave-to,
+    &-slide-up-enter {
+      opacity: 0;
+      -webkit-transform: translateY(20px);
+      transform: translateY(20px);
+    }
+
+    &-slide-down-enter,
+    &-slide-up-leave-to {
+      opacity: 0;
+      -webkit-transform: translateY(-20px);
+      transform: translateY(-20px);
+    }
+  }
+
+  &-months {
+    flex: 1 1 75%;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .vfc-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      flex-basis: (100% / 3);
+      outline-style: none;
+      margin: 0;
+      border-radius: 0;
+      cursor: pointer;
+
+      .vfc-item-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 6em;
+        height: 36px;
+        border-radius: 18px;
+        font-weight: 500;
+        color: $ui-primary-text-color;
+        transition: background-color 200ms, color 200ms;
+      }
+
+      &:hover {
+        .vfc-item-button {
+          color: #fff;
+          background-color: $ui-primary-hover;
+        }
+      }
+
+      &.vfc-selected {
+        .vfc-item-button {
+          color: #fff;
+          background-color: $ui-primary;
+        }
+      }
+    }
+
+    &-container {
+      display: flex;
+      flex-direction: row;
+
+      &.vfc-left {
+        justify-content: flex-start;
+        margin-left: 0;
+      }
+
+      &.vfc-left {
+        justify-content: flex-start;
+        margin-left: 0;
+      }
+
+      &.vfc-center {
+        justify-content: center;
+      }
+
+      &.vfc-right {
+        justify-content: flex-end;
+      }
+
+      .vfc-content {
+        position: absolute;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+    }
+  }
+
+  &-content {
+    z-index: 100;
+  }
+
+  &-dayNames,
+  &-week {
+    display: flex;
+  }
+
+  &-dayNames {
+    margin-bottom: 10px;
+    span {
+      width: 100%;
+      text-align: center;
+      color: rgba($ui-primary-text-color, 0.75);
+    }
+  }
+
+  &-week {
+    &-number {
+      border-right: 1px solid $lightred;
+    }
+
+    .vfc-day {
+      position: relative;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding-top: $calendar-row-padding;
+      &:not(.disabled) {
+        cursor: pointer;
+      }
+
+      .vfc-day-wrapper {
+        position: relative;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .vfc-base-start,
+      .vfc-base-end {
+        position: absolute;
+        background: $ui-primary-range;
+        width: 50%;
+        height: 100%;
+        pointer-events: none;
+        .vfc-popover-container:not(.range-selected) .vfc-weeks-wrapper:not(:hover) &,
+        .vfc-popover-container.disabled-range .vfc-weeks-wrapper & {
+          opacity: 0;
+        }
+      }
+
+      .vfc-base-start {
+        right: 0;
+      }
+
+      .vfc-base-end {
+        left: 0;
+      }
+
+      span.vfc-span-day {
+
+        .vfc-day-date {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: $calendar-date-size;
+          height: $calendar-date-size;
+          border-radius: 50%;
+          margin: 0 auto;
+          line-height: normal;
+        }
+
+        &.vfc-marked {
+          &.vfc-borderd,
+          &.vfc-start-marked,
+          &.vfc-end-marked {
+            .vfc-day-date {
+              color: $white;
+              background-color: $ui-primary;
+            }
+            &:before {
+              opacity: 0;
+            }
+          }
+          &:before {
+            opacity: 1;
+          }
+        }
+
+        &.vfc-today {
+          .vfc-day-date {
+            border: 2px solid rgba($ui-primary-text-color, 0.25);
+          }
+          &.vfc-marked,
+          &.vfc-start-marked,
+          &.vfc-end-marked {
+            .vfc-day-date {
+              border: none;
+            }
+          }
+          &.vfc-marked {
+            .vfc-day-date {
+              .vfc-popover-container:not(.range-selected) .vfc-weeks-wrapper:not(:hover) &,
+              .vfc-popover-container.disabled-range .vfc-weeks-wrapper & {
+                border: 2px solid rgba($ui-primary-text-color, 0.25);
+              }
+            }
+          }
+        }
+
+        &.vfc-hide,
+        &.vfc-disabled {
+          color: rgba($ui-primary-text-color, 0.25);
+        }
+
+        &.vfc-cursor-not-allowed {
+          cursor: not-allowed;
+        }
+
+        &:before {
+          top: 0;
+          left: 0;
+          content: '';
+          position: absolute;
+          background-color: $ui-primary-range;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          pointer-events: none;
+          opacity: 0;
+          .vfc-popover-container:not(.range-selected) .vfc-weeks-wrapper:not(:hover) &,
+          .vfc-popover-container.disabled-range .vfc-weeks-wrapper & {
+            opacity: 0;
+          }
+        }
+
+      }
+
+      &:first-child {
+        span.vfc-span-day {
+          &:before {
+            left: -$calendar-side-padding;
+            width: calc(100% + #{$calendar-side-padding});
+          }
+        }
+        .vfc-base-end {
+          left: -$calendar-side-padding !important;
+          width: calc(50% + #{$calendar-side-padding}) !important;
+        }
+      }
+      &:last-child {
+        span.vfc-span-day {
+          &:before {
+            right: -$calendar-side-padding;
+            width: calc(100% + #{$calendar-side-padding});
+          }
+        }
+        .vfc-base-start {
+          right: -$calendar-side-padding !important;
+          width: calc(50% + #{$calendar-side-padding}) !important;
+        }
+      }
+
+      &:hover {
+        span.vfc-span-day {
+          .vfc-day-date {
+            color: #fff;
+            background-color: #99caff;
+          }
+          &.vfc-start-marked,
+          &.vfc-end-marked {
+            .vfc-day-date {
+              background-color: $ui-primary-selected;
+            }
+          }
+          &.vfc-disabled {
+            .vfc-day-date {
+              color: inherit;
+              background-color: transparent;
+            }
+          }
+        }
+      }
+
+
+    }
+  }
+}

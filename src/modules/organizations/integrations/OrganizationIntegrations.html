@@ -1,0 +1,43 @@
+<div class="page-body content-inner" data-content-width="wide" v-if="isReady">
+
+  <div class="page-header multi-line typography">
+    <h1>{{ t("app-integrations") }}</h1>
+    <h4>{{ organization.localizedAttributes[lang.langcode].field_display_title }}</h4>
+  </div>
+
+  <table class="vuetable ui-table fixed clickable-rows">
+    <thead>
+    <tr>
+      <th>{{ t("app-name") }}</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr @click="organization.attributes.mentor_city_enabled = !organization.attributes.mentor_city_enabled">
+      <td width="100%">{{ t("app-mentor-city") }}</td>
+      <td>
+        <div class="md-style-scoped">
+          <md-switch v-model="organization.attributes.mentor_city_enabled"></md-switch>
+        </div>
+      </td>
+    </tr>
+    <tr v-if="app.bootstrap.bbbsc" @click="organization.attributes.bbbsc_enabled = !organization.attributes.bbbsc_enabled">
+      <td width="100%">{{ t("app-title-bbbsc") }}</td>
+      <td>
+        <div class="md-style-scoped">
+          <md-switch v-model="organization.attributes.bbbsc_enabled"></md-switch>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <form v-if="isReady" v-on:submit.prevent class="standard-form-style">
+    <div class="actions">
+      <button type="button" v-if="$route.params.id" @click="save">
+        {{ t("app-save") }}
+      </button>
+    </div>
+  </form>
+
+</div>
