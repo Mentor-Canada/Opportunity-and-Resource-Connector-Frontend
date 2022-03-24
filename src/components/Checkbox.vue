@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
+import BaseMixin from '../mixins/BaseMixin';
 
 export default {
   mixins: [BaseMixin],
@@ -36,15 +36,15 @@ export default {
   data() {
     return {
       aValue: this.$props.value,
-      id: `view-uid-${this._uid}`
-    }
+      id: `view-uid-${this._uid}`,
+    };
   },
 
   watch: {
     aValue() {
-      this.$emit('input', this.aValue)
-    }
-  }
+      this.$emit('input', this.aValue);
+    },
+  },
 
-}
+};
 </script>

@@ -14,23 +14,23 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["value", "id"],
+  props: ['value', 'id'],
 
   methods: {
     remove() {
-      this.value.remove()
+      this.value.remove();
     },
 
     changed() {
-      this.value.clear = false
-    }
-  }
-}
+      this.value.clear = false;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

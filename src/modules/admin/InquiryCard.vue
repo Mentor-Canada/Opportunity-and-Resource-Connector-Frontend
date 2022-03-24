@@ -49,11 +49,7 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import RangeAdapter from "./RangeAdapter"
-import CollectionRequestUrlBuilder from "../../pages/CollectionRequestUrlBuilder"
-import globals from "../../globals"
-import Inquiry from "./Inquiry"
+import BaseMixin from 'BaseMixin';
 import {
   closestIndexTo,
   eachDayOfInterval,
@@ -64,10 +60,14 @@ import {
   endOfWeek,
   format,
   isSameMonth,
-  subSeconds
-} from "date-fns"
-import Chart from "node_modules/chart.js/dist/chart.js"
-import CardMixin from "./CardMixin"
+  subSeconds,
+} from 'date-fns';
+import Chart from 'node_modules/chart.js/dist/chart.js';
+import RangeAdapter from './RangeAdapter';
+import CollectionRequestUrlBuilder from '../../pages/CollectionRequestUrlBuilder';
+import globals from '../../globals';
+import Inquiry from './Inquiry';
+import CardMixin from './CardMixin';
 
 export default {
   mixins: [BaseMixin, CardMixin],
@@ -79,61 +79,57 @@ export default {
       uncontacted: 0,
       chart: null,
       chartData: {},
-    }
+    };
   },
 
   methods: {
     async onDateRangeInput(range) {
-      this.app.showLoading()
-      await this.load(range)
-      this.app.hideLoading()
+      this.app.showLoading();
+      await this.load(range);
+      this.app.hideLoading();
     },
 
     async load(params) {
-      if(this.date.optionsValue == false) {
-        this.date.optionsValue = params.value
+      if (this.date.optionsValue == false) {
+        this.date.optionsValue = params.value;
       }
 
-      let rangeAdapter = new RangeAdapter(params)
+      const rangeAdapter = new RangeAdapter(params);
 
       const builder = new CollectionRequestUrlBuilder()
         .path('app/inquiry')
         .addFilter('start_date', rangeAdapter.start.getTime() / 1000)
-        .addFilter('end_date', rangeAdapter.end.getTime() / 1000)
-      builder.params['view'] = 'dashboard'
-      const response = await globals.api.get(builder.build())
-      let collection = []
-      for(const row of response.data.data) {
-        const inquiry = new Inquiry()
-        inquiry.status = row.attributes.status ? "contacted" : "uncontacted"
-        inquiry.created = new Date(Date.parse(row.attributes.created))
-        collection.push(inquiry)
+        .addFilter('end_date', rangeAdapter.end.getTime() / 1000);
+      builder.params.view = 'dashboard';
+      const response = await globals.api.get(builder.build());
+      const collection = [];
+      for (const row of response.data.data) {
+        const inquiry = new Inquiry();
+        inquiry.status = row.attributes.status ? 'contacted' : 'uncontacted';
+        inquiry.created = new Date(Date.parse(row.attributes.created));
+        collection.push(inquiry);
       }
 
       const range = {
         start: rangeAdapter.start,
-        end: rangeAdapter.end
-      }
-      const data = this.format(collection, range)
-      this.total = this.numberWithCommas(collection.length)
-      this.contacted = this.numberWithCommas(collection.filter((row) => {
-        return row.status == 'contacted'
-      }).length)
-      this.uncontacted = this.numberWithCommas(collection.filter((row) => {
-        return row.status == 'uncontacted'
-      }).length)
-      this.chartData = data.chartData
+        end: rangeAdapter.end,
+      };
+      const data = this.format(collection, range);
+      this.total = this.numberWithCommas(collection.length);
+      this.contacted = this.numberWithCommas(collection.filter((row) => row.status == 'contacted').length);
+      this.uncontacted = this.numberWithCommas(collection.filter((row) => row.status == 'uncontacted').length);
+      this.chartData = data.chartData;
 
-      if(this.chart) {
-        this.chart.config.data = data.chartData
-        this.chart.update()
+      if (this.chart) {
+        this.chart.config.data = data.chartData;
+        this.chart.update();
       }
     },
 
     format(inquiries, range) {
-      let contactedTotal = 0
-      let uncontactedTotal = 0
-      let data = {
+      let contactedTotal = 0;
+      let uncontactedTotal = 0;
+      const data = {
         labels: [],
         ticks: [],
         intervals: [],
@@ -143,198 +139,194 @@ export default {
           hoverBackgroundColor: '#cce5ff',
           data: [],
           barPercentage: 0.9,
-          categoryPercentage: 0.8
+          categoryPercentage: 0.8,
         }, {
           label: this.t('app-uncontacted'),
           backgroundColor: '#80bdff',
           hoverBackgroundColor: '#80bdff',
           data: [],
           barPercentage: 0.9,
-          categoryPercentage: 0.8
+          categoryPercentage: 0.8,
         }],
-      }
+      };
 
-      let chartIntervals = []
-      let dayIntervals = eachDayOfInterval(range)
+      const chartIntervals = [];
+      const dayIntervals = eachDayOfInterval(range);
 
-      if(dayIntervals.length >= 365 * 3) {
+      if (dayIntervals.length >= 365 * 3) {
         // Group by year
-        let yearIntervals = eachYearOfInterval(range)
+        const yearIntervals = eachYearOfInterval(range);
         yearIntervals.forEach((yearInterval) => {
-          let label: string = format(yearInterval, 'yyyy')
-          let tick: Array<string> = [
+          const label: string = format(yearInterval, 'yyyy');
+          const tick: Array<string> = [
             label,
-            ''
-          ]
-          let interval = {
+            '',
+          ];
+          const interval = {
             date: yearInterval,
-            label: label,
-            tick: tick,
+            label,
+            tick,
             contacted: 0,
-            uncontacted: 0
-          }
-          chartIntervals.push(interval)
-        })
-      }
-      else if(dayIntervals.length >= 365) {
+            uncontacted: 0,
+          };
+          chartIntervals.push(interval);
+        });
+      } else if (dayIntervals.length >= 365) {
         // Group by month
-        let monthIntervals = eachMonthOfInterval(range)
+        const monthIntervals = eachMonthOfInterval(range);
         monthIntervals.forEach((monthInterval) => {
-          let label: string = format(monthInterval, 'MMM yyyy')
-          let tick: Array<string> = [
+          const label: string = format(monthInterval, 'MMM yyyy');
+          const tick: Array<string> = [
             format(monthInterval, 'MMM'),
-            format(monthInterval, 'yyyy')
-          ]
-          let interval = {
+            format(monthInterval, 'yyyy'),
+          ];
+          const interval = {
             date: monthInterval,
-            label: label,
-            tick: tick,
+            label,
+            tick,
             contacted: 0,
-            uncontacted: 0
-          }
-          chartIntervals.push(interval)
-        })
-      }
-      else if(dayIntervals.length >= 60) {
+            uncontacted: 0,
+          };
+          chartIntervals.push(interval);
+        });
+      } else if (dayIntervals.length >= 60) {
         // Group by week
-        let weekIntervals = eachWeekOfInterval(range)
+        const weekIntervals = eachWeekOfInterval(range);
         weekIntervals.forEach((weekInterval) => {
-          let lastDayOfWeek = endOfWeek(weekInterval)
-          let label: string = `${format(weekInterval, 'dd MMM')} - ${format(lastDayOfWeek, 'dd MMM')}`
+          const lastDayOfWeek = endOfWeek(weekInterval);
+          let label: string = `${format(weekInterval, 'dd MMM')} - ${format(lastDayOfWeek, 'dd MMM')}`;
           let tick: Array<string> = [
             `${format(weekInterval, 'dd MMM')} -`,
-            `${format(lastDayOfWeek, 'dd MMM')}`
-          ]
-          if(isSameMonth(weekInterval, lastDayOfWeek)) {
-            label = `${format(weekInterval, 'dd')} - ${format(lastDayOfWeek, 'dd MMM')}`
+            `${format(lastDayOfWeek, 'dd MMM')}`,
+          ];
+          if (isSameMonth(weekInterval, lastDayOfWeek)) {
+            label = `${format(weekInterval, 'dd')} - ${format(lastDayOfWeek, 'dd MMM')}`;
             tick = [
               `${format(weekInterval, 'dd')} - ${format(lastDayOfWeek, 'dd')}`,
-              `${format(weekInterval, 'MMM')}`
-            ]
+              `${format(weekInterval, 'MMM')}`,
+            ];
           }
-          let interval = {
+          const interval = {
             date: weekInterval,
-            label: label,
-            tick: tick,
+            label,
+            tick,
             contacted: 0,
-            uncontacted: 0
-          }
-          chartIntervals.push(interval)
-        })
-      }
-      else if(dayIntervals.length > 1) {
+            uncontacted: 0,
+          };
+          chartIntervals.push(interval);
+        });
+      } else if (dayIntervals.length > 1) {
         // Group by day
         // let currentMonth: string = ''
         dayIntervals.forEach((dayInterval) => {
-          let label: string = format(dayInterval, 'dd MMM')
-          let tick: Array<string> = [
+          const label: string = format(dayInterval, 'dd MMM');
+          const tick: Array<string> = [
             format(dayInterval, 'dd'),
-            format(dayInterval, 'MMM')
-          ]
-          let interval = {
+            format(dayInterval, 'MMM'),
+          ];
+          const interval = {
             date: dayInterval,
-            label: label,
-            tick: tick,
+            label,
+            tick,
             contacted: 0,
-            uncontacted: 0
-          }
-          chartIntervals.push(interval)
-        })
-      }
-      else {
+            uncontacted: 0,
+          };
+          chartIntervals.push(interval);
+        });
+      } else {
         // Group by hour
-        let hourIntervals = eachHourOfInterval(range)
+        const hourIntervals = eachHourOfInterval(range);
         hourIntervals.forEach((hourInterval) => {
-          let label: string = format(hourInterval, 'hha')
-          let tick: Array<string> = [
+          const label: string = format(hourInterval, 'hha');
+          const tick: Array<string> = [
             format(hourInterval, 'hh'),
-            format(hourInterval, 'a')
-          ]
-          let interval = {
+            format(hourInterval, 'a'),
+          ];
+          const interval = {
             date: hourInterval,
-            label: label,
-            tick: tick,
+            label,
+            tick,
             contacted: 0,
-            uncontacted: 0
-          }
-          chartIntervals.push(interval)
-        })
+            uncontacted: 0,
+          };
+          chartIntervals.push(interval);
+        });
       }
 
-      let pseudoIntervals = []
+      const pseudoIntervals = [];
       chartIntervals.forEach((chartInterval, i) => {
-        let intervalStart = chartInterval.date
-        let intervalEnd = null
-        if(i != chartIntervals.length - 1) {
-          intervalEnd = subSeconds(chartIntervals[i + 1].date, 1)
+        const intervalStart = chartInterval.date;
+        let intervalEnd = null;
+        if (i != chartIntervals.length - 1) {
+          intervalEnd = subSeconds(chartIntervals[i + 1].date, 1);
         }
-        pseudoIntervals.push(intervalStart)
-        if(intervalEnd) pseudoIntervals.push(intervalEnd)
-      })
+        pseudoIntervals.push(intervalStart);
+        if (intervalEnd) pseudoIntervals.push(intervalEnd);
+      });
 
       inquiries.forEach((inquiry) => {
-        let index = closestIndexTo(inquiry.created, pseudoIntervals)
-        let intervalIndex = Math.floor(index/2)
-        chartIntervals[intervalIndex][inquiry.status]++
-      })
+        const index = closestIndexTo(inquiry.created, pseudoIntervals);
+        const intervalIndex = Math.floor(index / 2);
+        chartIntervals[intervalIndex][inquiry.status]++;
+      });
 
       chartIntervals.forEach((chartInterval) => {
-        let contacted = chartInterval.contacted
-        let uncontacted = chartInterval.uncontacted
-        let label = chartInterval.label
-        let tick = chartInterval.tick
-        data.datasets[0].data.push(contacted)
-        data.datasets[1].data.push(uncontacted)
-        data.labels.push(label)
-        data.ticks.push(tick)
-        data.intervals.push(chartInterval.date)
-        contactedTotal += contacted
-        uncontactedTotal += uncontacted
-      })
+        const { contacted } = chartInterval;
+        const { uncontacted } = chartInterval;
+        const { label } = chartInterval;
+        const { tick } = chartInterval;
+        data.datasets[0].data.push(contacted);
+        data.datasets[1].data.push(uncontacted);
+        data.labels.push(label);
+        data.ticks.push(tick);
+        data.intervals.push(chartInterval.date);
+        contactedTotal += contacted;
+        uncontactedTotal += uncontacted;
+      });
 
-      if(chartIntervals.length > 31) {
-        data.datasets[0].barPercentage = 1
-        data.datasets[0].categoryPercentage = 1
-        data.datasets[1].barPercentage = 1
-        data.datasets[1].categoryPercentage = 1
+      if (chartIntervals.length > 31) {
+        data.datasets[0].barPercentage = 1;
+        data.datasets[0].categoryPercentage = 1;
+        data.datasets[1].barPercentage = 1;
+        data.datasets[1].categoryPercentage = 1;
       }
 
       return {
-        chartData: data
-      }
+        chartData: data,
+      };
     },
 
     renderChart() {
-      let that = this
-      let ctx = document.querySelector("#inquiries-chart")
+      const that = this;
+      const ctx = document.querySelector('#inquiries-chart');
       this.chart = new Chart(ctx, {
         type: 'bar',
         data: this.chartData,
         options: {
           plugins: {
             legend: {
-              display: false
+              display: false,
             },
             tooltip: {
               enabled: false,
-              external: function(context, b) {
+              external(context, b) {
                 that.$emit('tooltip', {
-                  context: context,
-                  tooltip: this
-                })
+                  context,
+                  tooltip: this,
+                });
               },
               callbacks: {
-                label: function(context) {
-                  let label = context.dataset.label
-                  let value = context.formattedValue
+                label(context) {
+                  const { label } = context.dataset;
+                  const value = context.formattedValue;
                   return {
-                    label: label,
-                    value: value
-                  }
-                }
+                    label,
+                    value,
+                  };
+                },
               },
               mode: 'index',
-              intersect: false
+              intersect: false,
             },
           },
           scales: {
@@ -343,70 +335,67 @@ export default {
               grid: {
                 display: false,
               },
-              beforeFit: function(axis) {
-                let lastMajorLabelComponent = ''
+              beforeFit(axis) {
+                let lastMajorLabelComponent = '';
                 axis.ticks.forEach((tick, i) => {
-                  const thisMajorLabelComponent = axis.ticks[i].label[1]
-                  if(thisMajorLabelComponent == lastMajorLabelComponent) {
-                    axis.ticks[i].label[1] = ''
+                  const thisMajorLabelComponent = axis.ticks[i].label[1];
+                  if (thisMajorLabelComponent == lastMajorLabelComponent) {
+                    axis.ticks[i].label[1] = '';
+                  } else {
+                    lastMajorLabelComponent = thisMajorLabelComponent;
                   }
-                  else {
-                    lastMajorLabelComponent = thisMajorLabelComponent
-                  }
-                })
+                });
               },
               ticks: {
                 color: 'rgba(255,255,255,1)',
                 maxRotation: 0,
                 autoSkipPadding: 20,
-                callback: (value, index, ticks) => {
-                  return this.chartData.ticks[index]
-                },
+                callback: (value, index, ticks) => this.chartData.ticks[index],
                 align: (context) => {
-                  const labelWidth = context.scale._labelSizes.widest.width
-                  const numOfBars = this.chartData.intervals.length
-                  const barWidth = context.scale.width / numOfBars
-                  if(labelWidth > barWidth) {
-                    return 'start'
+                  const labelWidth = context.scale._labelSizes.widest.width;
+                  const numOfBars = this.chartData.intervals.length;
+                  const barWidth = context.scale.width / numOfBars;
+                  if (labelWidth > barWidth) {
+                    return 'start';
                   }
-                  return 'center'
+                  return 'center';
                 },
                 labelOffset: (context) => {
-                  const labelWidth = context.scale._labelSizes.widest.width
-                  const numOfBars = this.chartData.intervals.length
-                  const barWidth = context.scale.width / numOfBars
-                  if(labelWidth > barWidth) {
-                    return -barWidth/2
+                  const labelWidth = context.scale._labelSizes.widest.width;
+                  const numOfBars = this.chartData.intervals.length;
+                  const barWidth = context.scale.width / numOfBars;
+                  if (labelWidth > barWidth) {
+                    return -barWidth / 2;
                   }
-                  return 0
-                }
-              }
+                  return 0;
+                },
+              },
             },
             y: {
               stacked: true,
               beginAtZero: true,
               position: 'right',
               grid: {
-                color: function(context) {
-                  if(context.index == 0) {
-                    return '#cce5ff'
+                color(context) {
+                  if (context.index == 0) {
+                    return '#cce5ff';
                   }
-                  else return 'rgba(204,229,255,0.25)'
+                  return 'rgba(204,229,255,0.25)';
                 },
                 drawBorder: false,
-                tickLength: 0
+                tickLength: 0,
               },
               ticks: {
                 color: 'rgba(255,255,255,1)',
                 padding: 10,
-                precision: 0
+                precision: 0,
               },
-            }
+            },
           },
-        }
-      })
+        },
+      });
     },
 
-  }
-}
+  },
+};
 </script>

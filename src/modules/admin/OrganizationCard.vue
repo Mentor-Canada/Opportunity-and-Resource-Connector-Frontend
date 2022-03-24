@@ -47,7 +47,6 @@
         </vuetable>
       </div>
 
-
     </div>
     <div class="dashboard-card-actions">
 
@@ -69,13 +68,13 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import CardMixin from "./CardMixin"
-import globals from "../../globals"
-import RangeAdapter from "./RangeAdapter"
-import Program from "./Program"
-import OrganizationListUrlBuilder from "../organizations/list/OrganizationListUrlBuilder"
-import Organization from "./Organization"
+import BaseMixin from 'BaseMixin';
+import CardMixin from './CardMixin';
+import globals from '../../globals';
+import RangeAdapter from './RangeAdapter';
+import Program from './Program';
+import OrganizationListUrlBuilder from '../organizations/list/OrganizationListUrlBuilder';
+import Organization from './Organization';
 
 export default {
 
@@ -85,10 +84,10 @@ export default {
     return {
       organizations: [],
       organizationsData: {},
-      total: "100",
+      total: '100',
       organizationsContactedInquiries: 0,
       organizationsUncontactedInquiries: 0,
-      organizationsInquiriesBreakdownOption: "contacted",
+      organizationsInquiriesBreakdownOption: 'contacted',
       organizationsInquiriesChart: null,
       organizationsInquiriesChartData: {},
       organizationsTableList: [],
@@ -98,25 +97,25 @@ export default {
         { title: this.t('app-uncontacted'), name: 'organizations_uncontacted' },
         { title: this.t('app-total'), name: 'organizations_total' },
       ],
-    }
+    };
   },
 
   watch: {
-    organizationsInquiriesBreakdownOption: function(val) {
-      this.updateOrganizationsData(false)
+    organizationsInquiriesBreakdownOption(val) {
+      this.updateOrganizationsData(false);
     },
   },
 
   methods: {
 
     async load() {
-      if(this.date.optionsValue == false) {
-        this.date.optionsValue = 90
+      if (this.date.optionsValue == false) {
+        this.date.optionsValue = 90;
       }
-      await this.getOrganizations({ type: 'lastdays', value: 90 })
-      await this.$nextTick()
-      this.updateOrganizationsData()
-      this.organizationsInquiriesChart = this.renderInquiriesBreakdownChart("#organizations-inquiries-chart", this.organizationsInquiriesChartData)
+      await this.getOrganizations({ type: 'lastdays', value: 90 });
+      await this.$nextTick();
+      this.updateOrganizationsData();
+      this.organizationsInquiriesChart = this.renderInquiriesBreakdownChart('#organizations-inquiries-chart', this.organizationsInquiriesChartData);
     },
 
     /**
@@ -126,62 +125,62 @@ export default {
      * @return Organization[]
      */
     async getOrganizations(params) {
-      let rangeAdapter = new RangeAdapter(params)
-      this.organizations = []
+      const rangeAdapter = new RangeAdapter(params);
+      this.organizations = [];
 
       const builder = new OrganizationListUrlBuilder()
         .path('app/organization')
         .addFilter('start_date', rangeAdapter.start.getTime() / 1000)
-        .addFilter('end_date', rangeAdapter.end.getTime() / 1000)
-      builder.params['view'] = 'inquiry'
-      const url = builder.build()
-      const response = await globals.api.get(url)
+        .addFilter('end_date', rangeAdapter.end.getTime() / 1000);
+      builder.params.view = 'inquiry';
+      const url = builder.build();
+      const response = await globals.api.get(url);
 
-      for(const row of response.data.data) {
-        const program = new Organization()
-        program.uuid = row.id
-        program.name = row.attributes.title
-        program.contacted = parseInt(row.attributes.contacted) || 0
-        program.uncontacted = parseInt(row.attributes.uncontacted) || 0
-        program.total = program.contacted + program.uncontacted
-        this.organizations.push(program)
+      for (const row of response.data.data) {
+        const program = new Organization();
+        program.uuid = row.id;
+        program.name = row.attributes.title;
+        program.contacted = parseInt(row.attributes.contacted) || 0;
+        program.uncontacted = parseInt(row.attributes.uncontacted) || 0;
+        program.total = program.contacted + program.uncontacted;
+        this.organizations.push(program);
       }
     },
 
     updateOrganizationsData(formatData = true) {
-      if(formatData) {
-        this.organizationsData = this.formatEntitiesData(this.organizations)
+      if (formatData) {
+        this.organizationsData = this.formatEntitiesData(this.organizations);
       }
 
-      this.total = this.nFormatter(this.organizationsData.counts.total)
-      this.organizationsContactedInquiries = this.nFormatter(this.organizationsData.counts.contacted)
-      this.organizationsUncontactedInquiries = this.nFormatter(this.organizationsData.counts.uncontacted)
+      this.total = this.nFormatter(this.organizationsData.counts.total);
+      this.organizationsContactedInquiries = this.nFormatter(this.organizationsData.counts.contacted);
+      this.organizationsUncontactedInquiries = this.nFormatter(this.organizationsData.counts.uncontacted);
 
-      this.organizationsTableList = this.organizationsData.tableData[this.organizationsInquiriesBreakdownOption]
-      for(const row of this.organizationsTableList) {
-        row.organizations_contacted = row.contacted
-        row.organizations_uncontacted = row.uncontacted
-        row.organizations_total = row.total
+      this.organizationsTableList = this.organizationsData.tableData[this.organizationsInquiriesBreakdownOption];
+      for (const row of this.organizationsTableList) {
+        row.organizations_contacted = row.contacted;
+        row.organizations_uncontacted = row.uncontacted;
+        row.organizations_total = row.total;
       }
 
       this.organizationsInquiriesChartData = {
         labels: [this.t(`app-${this.organizationsInquiriesBreakdownOption}`)],
-        datasets: this.organizationsData.chartData[this.organizationsInquiriesBreakdownOption]
-      }
-      if(this.organizationsInquiriesChart) {
-        this.organizationsInquiriesChart.config.data = this.organizationsInquiriesChartData
-        this.organizationsInquiriesChart.update()
+        datasets: this.organizationsData.chartData[this.organizationsInquiriesBreakdownOption],
+      };
+      if (this.organizationsInquiriesChart) {
+        this.organizationsInquiriesChart.config.data = this.organizationsInquiriesChartData;
+        this.organizationsInquiriesChart.update();
       }
     },
 
     async onDateRangeInput(range) {
-      globals.app.showLoading()
-      await this.getOrganizations(range)
-      this.updateOrganizationsData()
-      globals.app.hideLoading()
+      globals.app.showLoading();
+      await this.getOrganizations(range);
+      this.updateOrganizationsData();
+      globals.app.hideLoading();
     },
 
-  }
+  },
 
-}
+};
 </script>

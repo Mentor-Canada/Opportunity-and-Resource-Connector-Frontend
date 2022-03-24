@@ -24,8 +24,8 @@
 
 <script lang="ts">
 
-import BaseMixin from "BaseMixin"
-import YesOrNoOptions from "./YesOrNoOptions"
+import BaseMixin from 'BaseMixin';
+import YesOrNoOptions from './YesOrNoOptions';
 
 export default {
   props: ['program'],
@@ -33,18 +33,18 @@ export default {
 
   data() {
     return {
-      'yesOrNoOptions': YesOrNoOptions(),
-    }
+      yesOrNoOptions: YesOrNoOptions(),
+    };
   },
 
   methods: {
     onChange() {
-      if(this.program.attributes.programProvidesTraining == 'app-no') {
-        for(const language of this.languages) {
-          this.program.localizedAttributes[language.langcode].programMentorTrainingDetails = ''
+      if (this.program.attributes.programProvidesTraining == 'app-no') {
+        for (const language of this.languages) {
+          this.program.localizedAttributes[language.langcode].programMentorTrainingDetails = '';
         }
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

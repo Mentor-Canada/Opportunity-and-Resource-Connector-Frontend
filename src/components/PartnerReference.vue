@@ -28,50 +28,50 @@
 </template>
 
 <script lang="ts">
-  import OrganizationCollection from "Models/OrganizationCollection"
-  import BaseMixin from "../mixins/BaseMixin"
+import OrganizationCollection from 'Models/OrganizationCollection';
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
-    props: ["name", "value", "required", "blankString", "label", "mode"],
-    computed: {
-      aValue: {
-        get() {
-          return this.value
-        },
-        set() {}
-      }
+export default {
+  mixins: [BaseMixin],
+  props: ['name', 'value', 'required', 'blankString', 'label', 'mode'],
+  computed: {
+    aValue: {
+      get() {
+        return this.value;
+      },
+      set() {},
     },
-    data() {
-      return {
-        options: [{name: this.t('app-all'), value: 'all', id: ''}]
+  },
+  data() {
+    return {
+      options: [{ name: this.t('app-all'), value: 'all', id: '' }],
+    };
+  },
+  async mounted() {
+    const partners = await window.api.get('/a/node/partner');
+    for (const partner of partners.data.data) {
+      let title = partner.attributes.field_display_title;
+      if (!title) {
+        title = partner.attributes.field_id;
       }
-    },
-    async mounted() {
-      let partners = await window.api.get('/a/node/partner')
-      for(const partner of partners.data.data) {
-        let title = partner.attributes.field_display_title
-        if(!title) {
-          title = partner.attributes.field_id
-        }
-        this.options.push({
-          name: title,
-          id: partner.id,
-          value: partner.attributes.field_id
-        })
-      }
-    },
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("option:checked")
-        let value = option.getAttribute("value")
-        for(const row of this.options) {
-          if(value == row.value) {
-            this.$emit('input', row)
-            break
-          }
-        }
-      }
+      this.options.push({
+        name: title,
+        id: partner.id,
+        value: partner.attributes.field_id,
+      });
     }
-  }
+  },
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('option:checked');
+      const value = option.getAttribute('value');
+      for (const row of this.options) {
+        if (value == row.value) {
+          this.$emit('input', row);
+          break;
+        }
+      }
+    },
+  },
+};
 </script>

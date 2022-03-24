@@ -4,4 +4,3 @@ interface JSONAPIDocumentInterface {
   attributes?: any
   relationships?: {}
 }
-

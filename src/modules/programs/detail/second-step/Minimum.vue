@@ -40,15 +40,15 @@
 </template>
 
 <script lang="ts">
-import OptionCollection from "Models/OptionCollection"
-import YesOrNoOptions from "./YesOrNoOptions"
-import BaseMixin from "BaseMixin"
+import OptionCollection from 'Models/OptionCollection';
+import BaseMixin from 'BaseMixin';
+import YesOrNoOptions from './YesOrNoOptions';
 
 export default {
   props: ['program'],
   mixins: [BaseMixin],
 
-  data: function () {
+  data() {
     return {
       yesOrNoOptions: YesOrNoOptions(),
       monthOptions: new OptionCollection()
@@ -82,10 +82,10 @@ export default {
         .add('app-3-4-hours')
         .add('app-4-5-hours')
         .add('app-5-or-more-hours')
-        .options
-    }
-  }
-}
+        .options,
+    };
+  },
+};
 </script>
 
 <style scoped lang="scss">

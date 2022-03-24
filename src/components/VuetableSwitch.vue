@@ -7,10 +7,10 @@
 </template>
 
 <script>
-import VuetableFieldMixin from 'vuetable-2/src/components/VuetableFieldMixin'
+import VuetableFieldMixin from 'vuetable-2/src/components/VuetableFieldMixin';
 
 export default {
   mixins: [VuetableFieldMixin],
-  name: 'switch'
-}
+  name: 'switch',
+};
 </script>

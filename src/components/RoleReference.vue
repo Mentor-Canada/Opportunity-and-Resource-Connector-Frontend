@@ -30,56 +30,55 @@
 </template>
 
 <script lang="ts">
-  import BaseMixin from "../mixins/BaseMixin";
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
+export default {
+  mixins: [BaseMixin],
 
-    props: ["name", "value", "required", "blankString", "label", "mode"],
+  props: ['name', 'value', 'required', 'blankString', 'label', 'mode'],
 
-    computed: {
-      aValue: {
-        get() {
-          return this.value
-        },
-        set() {}
-      }
+  computed: {
+    aValue: {
+      get() {
+        return this.value;
+      },
+      set() {},
     },
+  },
 
-    data() {
-      return {
-        options: [{name: "All", value: ""}]
+  data() {
+    return {
+      options: [{ name: 'All', value: '' }],
+    };
+  },
+
+  async mounted() {
+    const response = await this.api.get('/a/roles');
+    for (const row of response.data.data) {
+      if (['anonymous', 'authenticated'].includes(row.attributes.drupal_internal__id)) {
+        continue;
       }
-    },
+      this.options.push({
+        name: row.attributes.label,
+        value: row.id,
+      });
+    }
+  },
 
-    async mounted() {
-      let response = await this.api.get('/a/roles')
-      for(const row of response.data.data) {
-        if(['anonymous', 'authenticated'].includes(row.attributes.drupal_internal__id)) {
-          continue
-        }
-        this.options.push({
-          name: row.attributes.label,
-          value: row.id
-        })
-      }
-    },
-
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("option:checked")
-        let value = option.getAttribute("value")
-        if(this.mode == 'object') {
-          for(const row of this.options) {
-            if(value == row.value) {
-              this.$emit('input', row)
-            }
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('option:checked');
+      const value = option.getAttribute('value');
+      if (this.mode == 'object') {
+        for (const row of this.options) {
+          if (value == row.value) {
+            this.$emit('input', row);
           }
         }
-        else {
-          this.$emit('input', value)
-        }
+      } else {
+        this.$emit('input', value);
       }
-    }
-  }
+    },
+  },
+};
 </script>

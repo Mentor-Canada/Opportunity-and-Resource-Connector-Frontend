@@ -42,30 +42,30 @@
 </template>
 
 <script lang="ts">
-  import BaseMixin from "../mixins/BaseMixin";
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
-    props: ["name", "value", "required", "label", "options", "cols", "description"],
-    data() {
-      return {
-        id: this._uid
-      }
+export default {
+  mixins: [BaseMixin],
+  props: ['name', 'value', 'required', 'label', 'options', 'cols', 'description'],
+  data() {
+    return {
+      id: this._uid,
+    };
+  },
+  computed: {
+    aValue: {
+      get() {
+        return this.value;
+      },
+      set() {},
     },
-    computed: {
-      aValue: {
-        get() {
-          return this.value
-        },
-        set() {}
-      }
+  },
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('input:checked');
+      const value = option.getAttribute('value');
+      this.$emit('input', value);
     },
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("input:checked")
-        let value = option.getAttribute("value")
-        this.$emit('input', value)
-      }
-    }
-  }
+  },
+};
 </script>

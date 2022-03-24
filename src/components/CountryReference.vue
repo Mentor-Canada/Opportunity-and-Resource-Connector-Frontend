@@ -23,34 +23,34 @@
 </template>
 
 <script lang="ts">
-  import OrganizationCollection from "Models/OrganizationCollection";
-  import BaseMixin from "../mixins/BaseMixin";
+import OrganizationCollection from 'Models/OrganizationCollection';
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
+export default {
+  mixins: [BaseMixin],
 
-    props: ["name", "label", "mode"],
+  props: ['name', 'label', 'mode'],
 
-    data() {
-      return {
-        options: [
-          { name: this.t("app-all"), value: "" },
-          { name: "Canada", value: "Canada" },
-          { name: "United States", value: "United States" }
-        ],
-      }
-    },
+  data() {
+    return {
+      options: [
+        { name: this.t('app-all'), value: '' },
+        { name: 'Canada', value: 'Canada' },
+        { name: 'United States', value: 'United States' },
+      ],
+    };
+  },
 
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("option:checked")
-        let value = option.getAttribute("value")
-        for(const row of this.options) {
-          if(value == row.value) {
-            this.$emit('input', row)
-          }
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('option:checked');
+      const value = option.getAttribute('value');
+      for (const row of this.options) {
+        if (value == row.value) {
+          this.$emit('input', row);
         }
       }
-    }
-  }
+    },
+  },
+};
 </script>

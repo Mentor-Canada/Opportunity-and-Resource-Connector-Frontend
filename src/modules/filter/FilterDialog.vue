@@ -15,25 +15,25 @@ export default {
   data() {
     return {
       show: false,
-    }
+    };
   },
 
   methods: {
     hide() {
-      this.show = false
+      this.show = false;
     },
 
     showSaveDialog(event) {
-      this.show = false
-      this.$emit('show-save-dialog')
+      this.show = false;
+      this.$emit('show-save-dialog');
     },
 
     showDeleteDialog(filter) {
-      this.show = false
-      this.$emit('show-delete-dialog', filter)
-    }
-  }
-}
+      this.show = false;
+      this.$emit('show-delete-dialog', filter);
+    },
+  },
+};
 </script>
 
 <style lang="scss">

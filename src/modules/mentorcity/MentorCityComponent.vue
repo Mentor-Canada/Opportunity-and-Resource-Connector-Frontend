@@ -105,100 +105,96 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../../mixins/BaseMixin"
-import globals from "../../globals"
-import DateStringBuilder from "Models/DateStringBuilder"
-import ManagedFile from "Models/ManagedFile"
+import DateStringBuilder from 'Models/DateStringBuilder';
+import ManagedFile from 'Models/ManagedFile';
+import BaseMixin from '../../mixins/BaseMixin';
+import globals from '../../globals';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["program"],
+  props: ['program'],
 
   data() {
     return {
       show: false,
       showEmailError: false,
-      title: "",
-      phone: "",
-      email: "",
-      firstName: "",
-      lastName: "",
-      eMentoringInviteMessage: "",
+      title: '',
+      phone: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      eMentoringInviteMessage: '',
       termsOfService: false,
       inviteSent: false,
-      logoError: false
-    }
+      logoError: false,
+    };
   },
 
   mounted() {
-    this.title = this.$props.program.localizedAttributes[this.lang.langcode].field_display_title
-    this.phone = this.$props.program.attributes.contactPhone
-    this.email = this.$props.program.attributes.contactEmail
-    this.firstName = this.$props.program.attributes.contactFirstName
-    this.lastName = this.$props.program.attributes.contactLastName
-    this.setInviteMessage({...this.$props.program.attributes.field_mentor_city})
+    this.title = this.$props.program.localizedAttributes[this.lang.langcode].field_display_title;
+    this.phone = this.$props.program.attributes.contactPhone;
+    this.email = this.$props.program.attributes.contactEmail;
+    this.firstName = this.$props.program.attributes.contactFirstName;
+    this.lastName = this.$props.program.attributes.contactLastName;
+    this.setInviteMessage({ ...this.$props.program.attributes.field_mentor_city });
   },
 
   methods: {
     setInviteMessage(data) {
-      if(data?.program_id) {
+      if (data?.program_id) {
         data.dateString = new DateStringBuilder()
-            .unixtimestamp(data?.date)
-            .format("EEEE, LLLL do, yyyy 'at' h:mm a", 'en')
-            .format("EEEE do LLLL yyyy à HH'&nbsp;h&nbsp;'mm",'fr')
-            .build()
-        this.eMentoringInviteMessage = this.t("app-mentor-city-invitation-sent", data)
-        this.inviteSent = true
+          .unixtimestamp(data?.date)
+          .format("EEEE, LLLL do, yyyy 'at' h:mm a", 'en')
+          .format("EEEE do LLLL yyyy à HH'&nbsp;h&nbsp;'mm", 'fr')
+          .build();
+        this.eMentoringInviteMessage = this.t('app-mentor-city-invitation-sent', data);
+        this.inviteSent = true;
       }
     },
 
     async request() {
-      this.show = false
-      this.app.showLoading()
+      this.show = false;
+      this.app.showLoading();
 
-      const data = new FormData()
-      data.append('title', this.title)
-      data.append('phone', this.phone)
-      data.append('email', this.email)
-      data.append('firstName', this.firstName)
-      data.append('lastName', this.lastName)
+      const data = new FormData();
+      data.append('title', this.title);
+      data.append('phone', this.phone);
+      data.append('email', this.email);
+      data.append('firstName', this.firstName);
+      data.append('lastName', this.lastName);
 
-      let fileEl: HTMLInputElement = document.querySelector('.e-mentoring-dialog input[type=file]')
-      if(fileEl) {
-        let file = fileEl.files[0]
-        if(file) {
-          data.append('files[logo]', file)
-        }
-        else {
-          if(this.program.mentorCityLogo.clear) {
-            data.append('noLogo', true)
-          }
+      const fileEl: HTMLInputElement = document.querySelector('.e-mentoring-dialog input[type=file]');
+      if (fileEl) {
+        const file = fileEl.files[0];
+        if (file) {
+          data.append('files[logo]', file);
+        } else if (this.program.mentorCityLogo.clear) {
+          data.append('noLogo', true);
         }
       }
 
-      let response = await globals.api.post(`/a/app/mentorcity/${this.$route.params.id}`, data, {
-        headers: {'Content-Type': 'multipart/form-data' }
-      })
-      if(response.data.error) {
-        if(response.data.error.code == 422) {
-          this.showEmailError = true
+      const response = await globals.api.post(`/a/app/mentorcity/${this.$route.params.id}`, data, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      if (response.data.error) {
+        if (response.data.error.code == 422) {
+          this.showEmailError = true;
         }
-        if(response.data.error.logo == 'invalid') {
-          this.show = true
-          this.logoError = true
-          await this.$nextTick()
-          this.$refs["mentor-city-logo-uploader"].remove()
+        if (response.data.error.logo == 'invalid') {
+          this.show = true;
+          this.logoError = true;
+          await this.$nextTick();
+          this.$refs['mentor-city-logo-uploader'].remove();
         }
-      }
-      else {
-        this.setInviteMessage(response.data.data)
+      } else {
+        this.setInviteMessage(response.data.data);
       }
 
-      this.app.hideLoading()
-    }
-  }
-}
+      this.app.hideLoading();
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -21,13 +21,13 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin";
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ['row-data', 'options']
-}
+  props: ['row-data', 'options'],
+};
 </script>
 
 <style lang="scss" scoped>

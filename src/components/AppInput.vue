@@ -32,32 +32,32 @@
 </template>
 
 <script lang="ts">
-  export default {
-    props: ['name', 'value', 'required', 'type', 'label', 'labelLang', 'pattern'],
+export default {
+  props: ['name', 'value', 'required', 'type', 'label', 'labelLang', 'pattern'],
 
-    data() {
-      return {
-        inputId: this.$props.name || `app-input-${this._uid}`,
-        error: false,
-        errorMessage: "",
-        classes: []
+  data() {
+    return {
+      inputId: this.$props.name || `app-input-${this._uid}`,
+      error: false,
+      errorMessage: '',
+      classes: [],
+    };
+  },
+
+  methods: {
+    setError(errorMessage?: string) {
+      this.error = true;
+      this.errorMessage = errorMessage;
+      if (this.classes.indexOf('error') == -1) {
+        this.classes.push('error');
       }
     },
+    clearError() {
+      this.error = false;
+      this.errorMessage = '';
+      this.classes.splice(this.classes.indexOf('error'));
+    },
+  },
 
-    methods: {
-      setError(errorMessage?: string) {
-        this.error = true
-        this.errorMessage = errorMessage
-        if(this.classes.indexOf("error") == -1) {
-          this.classes.push("error")
-        }
-      },
-      clearError() {
-        this.error = false
-        this.errorMessage = ""
-        this.classes.splice(this.classes.indexOf("error"))
-      }
-    }
-
-  }
+};
 </script>

@@ -17,37 +17,37 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
+import BaseMixin from '../mixins/BaseMixin';
 
 export default {
   mixins: [BaseMixin],
-  props: ["name", "value", "options"],
+  props: ['name', 'value', 'options'],
   data() {
     return {
       id: this._uid,
-      isOpen: false
-    }
+      isOpen: false,
+    };
   },
   computed: {
     aValue: {
       get() {
-        return this.value
+        return this.value;
       },
-      set() {}
-    }
+      set() {},
+    },
   },
   methods: {
     onInput() {
-      let option = this.$el.querySelector("input:checked")
-      let value = option.getAttribute("value")
-      this.isOpen = false
-      this.$emit('input', value)
+      const option = this.$el.querySelector('input:checked');
+      const value = option.getAttribute('value');
+      this.isOpen = false;
+      this.$emit('input', value);
     },
     toggle() {
-      this.isOpen = !this.isOpen
-    }
-  }
-}
+      this.isOpen = !this.isOpen;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

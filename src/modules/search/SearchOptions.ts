@@ -1,25 +1,24 @@
-import globals from "../../globals"
-import OptionCollection from "Models/OptionCollection"
+import OptionCollection from 'Models/OptionCollection';
+import globals from '../../globals';
 
 export default class SearchOptions {
-
-  howDidYouHearAboutUs: any[] = []
+  howDidYouHearAboutUs: any[] = [];
 
   constructor() {
-    this.howDidYouHearAboutUs = this.getHowDidYouHearAboutUs()
+    this.howDidYouHearAboutUs = this.getHowDidYouHearAboutUs();
   }
 
   private getHowDidYouHearAboutUs() {
     return globals.app.bootstrap.country == 'ca' ? new OptionCollection()
-        .add('')
-        .add('app-ca-hear-about-us-mentoring-canada-website')
-        .add('app-ca-hear-about-us-alberta-mentoring-partnership')
-        .add('app-ca-hear-about-us-ontario-mentoring-coalition')
-        .add('app-ca-hear-about-us-linkedin')
-        .add('app-ca-hear-about-us-mentoring-partnership-in-my-province-region')
-        .add('app-ca-hear-about-us-national-mentoring-month-materials')
-        .add('other', 'app-other')
-        .options
+      .add('')
+      .add('app-ca-hear-about-us-mentoring-canada-website')
+      .add('app-ca-hear-about-us-alberta-mentoring-partnership')
+      .add('app-ca-hear-about-us-ontario-mentoring-coalition')
+      .add('app-ca-hear-about-us-linkedin')
+      .add('app-ca-hear-about-us-mentoring-partnership-in-my-province-region')
+      .add('app-ca-hear-about-us-national-mentoring-month-materials')
+      .add('other', 'app-other')
+      .options
       : new OptionCollection()
         .add('')
         .add('app-us-hear-about-us-mentor-web-site')
@@ -37,6 +36,6 @@ export default class SearchOptions {
         .add('app-us-hear-about-us-equality')
         .add('app-us-hear-about-us-yes-project')
         .add('other', 'app-other')
-        .options
+        .options;
   }
 }

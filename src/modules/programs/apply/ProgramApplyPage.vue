@@ -46,7 +46,6 @@
 
         <div class="details-pane">
 
-
           <div class="info-groups">
 
             <div class="info-group-label">{{ t("app-program-details") }}</div>
@@ -114,7 +113,6 @@
 
           </div>
 
-
           <div class="info-groups">
 
             <div class="info-group-label">{{ t("app-types-of-mentoring") }}</div>
@@ -133,7 +131,6 @@
             </div>
 
           </div>
-
 
           <div class="info-groups">
             <div class="info-group-label">{{ t("Description") }}</div>
@@ -289,7 +286,6 @@
             </button>
           </div>
         </div>
-
 
         <div v-for="program in moreResults" class="carousel-item">
           <button type="button" class="carousel-button" v-on:click.prevent="handleClick(program.UUID)">

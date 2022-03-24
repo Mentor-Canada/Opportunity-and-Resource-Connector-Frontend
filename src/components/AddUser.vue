@@ -51,14 +51,14 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
-import UserAccounts from "Models/UserAccounts"
-import Vue from "../../node_modules/vue/dist/vue"
+import UserAccounts from 'Models/UserAccounts';
+import BaseMixin from '../mixins/BaseMixin';
+import Vue from '../../node_modules/vue/dist/vue';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["entity", "title", "queue"],
+  props: ['entity', 'title', 'queue'],
 
   data() {
     return {
@@ -71,87 +71,83 @@ export default {
       noResults: false,
       input: null,
       loading: false,
-      refreshNeeded: false
-    }
+      refreshNeeded: false,
+    };
   },
 
   watch: {
     mail(newValue, oldValue) {
-      if(this.loading) {
-        this.refreshNeeded = true
-        return
+      if (this.loading) {
+        this.refreshNeeded = true;
+        return;
       }
 
       const search = async () => {
-        if(this.mail == '') {
-          this.accounts.list = []
-          this.newUser = false
-          this.noResults = false
-          this.loading = false
-          this.refreshNeeded = false
-          return
+        if (this.mail == '') {
+          this.accounts.list = [];
+          this.newUser = false;
+          this.noResults = false;
+          this.loading = false;
+          this.refreshNeeded = false;
+          return;
         }
-        this.loading = true
-        await this.accounts.get(this.mail)
-        this.newUser = false
-        this.noResults = false
-        if(!this.accounts.list.length) {
-          if(this.mail.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) && !this.queue) {
-            this.newUser = true
+        this.loading = true;
+        await this.accounts.get(this.mail);
+        this.newUser = false;
+        this.noResults = false;
+        if (!this.accounts.list.length) {
+          if (this.mail.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) && !this.queue) {
+            this.newUser = true;
+          } else {
+            this.noResults = true;
           }
-          else {
-            this.noResults = true
-          }
         }
-        if(this.refreshNeeded) {
-          this.refreshNeeded = false
-          await search()
+        if (this.refreshNeeded) {
+          this.refreshNeeded = false;
+          await search();
+        } else {
+          this.loading = false;
         }
-        else {
-          this.loading = false
-        }
-      }
+      };
 
-      search()
-
+      search();
     },
 
     async show(newValue, oldValue) {
-      if(newValue) {
-        await Vue.nextTick()
-        let el = document.body.querySelector(`#view-uid-${this.id}`)
-        this.input = el.querySelector("input")
+      if (newValue) {
+        await Vue.nextTick();
+        const el = document.body.querySelector(`#view-uid-${this.id}`);
+        this.input = el.querySelector('input');
       } else {
-        this.mail = ""
+        this.mail = '';
       }
-    }
+    },
   },
 
   methods: {
     async save(mail?, account?) {
-      if(!mail) mail = this.mail
-      if(!this.queue) {
-        this.loading = true
-        let data = {
+      if (!mail) mail = this.mail;
+      if (!this.queue) {
+        this.loading = true;
+        const data = {
           uilang: this.app.language.langcode,
-        }
+        };
         await this.api.post(`a/app/${this.entity.type}/${this.entity.document.id}/administrator/${mail}`, data)
-            .then(() => {
-              this.$emit('change')
-            })
-            .catch(() => {})
-        this.loading = false
-        this.show = false
-        this.mail = ''
-      }
-      else {
-        this.show = false
-        this.$emit('change', account)
+          .then(() => {
+            this.$emit('change');
+          })
+          .catch(() => {});
+        this.loading = false;
+        this.show = false;
+        this.mail = '';
+      } else {
+        this.show = false;
+        this.$emit('change', account);
       }
     },
-  }
+  },
 
-}
+};
 </script>
 
 <style lang="scss">

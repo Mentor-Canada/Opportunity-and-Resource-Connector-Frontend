@@ -34,8 +34,8 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import OptionCollection from "Models/OptionCollection"
+import BaseMixin from 'BaseMixin';
+import OptionCollection from 'Models/OptionCollection';
 
 export default {
   mixins: [BaseMixin],
@@ -45,8 +45,8 @@ export default {
     return {
       nationalOption: new OptionCollection()
         .add('true', 'app-national-e-mentoring-programs')
-        .options
-    }
-  }
-}
+        .options,
+    };
+  },
+};
 </script>

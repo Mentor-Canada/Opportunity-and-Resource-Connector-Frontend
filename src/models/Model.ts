@@ -1,11 +1,11 @@
-import App from "../App";
-import {AxiosInstance} from "axios";
-import WindowInterface from "../WindowInterface";
-declare const window: WindowInterface
+import { AxiosInstance } from 'axios';
+import App from '../App';
+import WindowInterface from '../WindowInterface';
+
+declare const window: WindowInterface;
 
 export default class Model {
-
-  protected readonly api: AxiosInstance
+  protected readonly api: AxiosInstance;
 
   constructor() {
     this.api = window.api;
@@ -18,5 +18,4 @@ export default class Model {
   // get api(): AxiosInstance {
   //   return window.app.api
   // }
-
 }

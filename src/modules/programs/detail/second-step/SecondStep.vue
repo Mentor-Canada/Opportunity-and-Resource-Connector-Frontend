@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import BackgroundChecks from "./BackgroundChecks.vue"
-import BaseMixin from "BaseMixin"
-import Training from "./Training.vue"
-import Minimum from "./Minimum.vue"
+import BaseMixin from 'BaseMixin';
+import BackgroundChecks from './BackgroundChecks.vue';
+import Training from './Training.vue';
+import Minimum from './Minimum.vue';
 
 export default {
   props: ['program'],
@@ -29,10 +29,10 @@ export default {
 
   components: {
     'background-checks': BackgroundChecks,
-    'training': Training,
-    'minimum': Minimum
-  }
-}
+    training: Training,
+    minimum: Minimum,
+  },
+};
 </script>
 
 <style lang="scss" scoped>

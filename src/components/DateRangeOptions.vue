@@ -60,185 +60,180 @@
 </template>
 
 <script lang="ts">
-  import BaseMixin from "../mixins/BaseMixin"
-  import FunctionalCalendar from '../contrib/vue-functional-calendar/src/components/FunctionalCalendar.vue'
-  import DateRangeFormatMixin from "./DateRangeFormatMixin"
+import BaseMixin from '../mixins/BaseMixin';
+import FunctionalCalendar from '../contrib/vue-functional-calendar/src/components/FunctionalCalendar.vue';
+import DateRangeFormatMixin from './DateRangeFormatMixin';
 
-  export default {
-    mixins: [BaseMixin, DateRangeFormatMixin],
+export default {
+  mixins: [BaseMixin, DateRangeFormatMixin],
 
-    components:  {
-      FunctionalCalendar
+  components: {
+    FunctionalCalendar,
+  },
+
+  props: {
+    value: {
+      type: Object,
+      default: {
+        type: 'lastdays',
+        value: 7,
+      },
+    },
+    options: {
+      type: Array,
+      default: [0, 1, 7, 30, 90, 180, 365, 'custom'],
+    },
+    isDateRange: {
+      type: Boolean,
+      default: true,
+    },
+    disabledDates: {
+      type: [String, Array],
+      default: '',
+    },
+    limits: {
+      type: [Object, Boolean],
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      id: this._uid,
+      optionsVisible: false,
+      datepickerVisible: false,
+    };
+  },
+
+  mounted() {
+    this.onBodyClick = () => {
+      this.close();
+    };
+    document.querySelector('body').addEventListener('click', this.onBodyClick);
+  },
+
+  beforeDestroy() {
+    document.querySelector('body').removeEventListener('click', this.onBodyClick);
+  },
+
+  computed: {
+    isActive() {
+      return (this.optionsVisible || this.datepickerVisible);
     },
 
-    props: {
-      value: {
-        type: Object,
-        default: {
-          type: 'lastdays',
-          value: 7
+    disabledDatesInDatepickerFormat() {
+      const normalizeDateForDatepickerInternalFormat = (val) => {
+        if (val == 'afterToday' || val == 'beforeToday') {
+          return val;
         }
-      },
-      options: {
-        type: Array,
-        default: [0, 1, 7, 30, 90, 180, 365, 'custom']
-      },
-      isDateRange: {
-        type: Boolean,
-        default: true
-      },
-      disabledDates: {
-        type: [String, Array],
-        default: ''
-      },
-      limits: {
-        type: [Object, Boolean],
-        default: false
+
+        return this.formatDate(val);
+      };
+      if (typeof (this.disabledDates) === 'string' || typeof (this.disabledDates) === 'number') {
+        return normalizeDateForDatepickerInternalFormat(this.disabledDates);
       }
+      if (typeof (this.disabledDates) === 'object') {
+        this.disabledDates.forEach((date, i) => {
+          this[i] = normalizeDateForDatepickerInternalFormat(date);
+        }, this.disabledDates);
+        return this.disabledDates;
+      }
+      return '';
     },
 
-    data() {
+    limitsInDatepickerFormat() {
+      if (typeof (this.limits) === 'boolean') return this.limits;
       return {
-        id: this._uid,
-        optionsVisible: false,
-        datepickerVisible: false
+        min: this.limits.min ? this.formatDate(this.limits.min) : '',
+        max: this.limits.max ? this.formatDate(this.limits.max) : '',
+      };
+    },
+
+    label() {
+      if (!this.value.optionsValue && !this.value.datepickerSelected) {
+        if (this.isDateRange) {
+          return this.isDateRange
+            ? this.t('app-pick-date-range')
+            : this.t('app-pick-date');
+        }
+      } else if (this.value.optionsValue === 'custom') {
+        return this.value.datepickerSelected;
+      } else if (this.isFilterOption(this.value.optionsValue)) {
+        return this.t(`app-${this.value.optionsValue}`);
       }
+      return this.t(`app-last-${this.value.optionsValue}-days`);
     },
+  },
 
-    mounted() {
-      this.onBodyClick = () => {
-        this.close()
+  watch: {
+    isActive(val) {
+      if (val) this.$emit('active', this._uid);
+    },
+  },
+
+  methods: {
+    onOptionsValue(ev) {
+      const val = ev.target.value;
+      this.optionsVisible = false;
+      if (this.isFilterOption(val)) {
+        this.value.type = 'filter';
+        this.value.val = val;
+      } else {
+        this.value.type = 'lastdays';
+        this.value.value = val;
       }
-      document.querySelector('body').addEventListener('click', this.onBodyClick)
+      this.$emit('input', this.value);
     },
 
-    beforeDestroy() {
-      document.querySelector('body').removeEventListener('click', this.onBodyClick)
+    close() {
+      this.optionsVisible = false;
+      this.datepickerVisible = false;
     },
 
-    computed: {
-      isActive() {
-        return (this.optionsVisible || this.datepickerVisible)
-      },
-
-      disabledDatesInDatepickerFormat() {
-        const normalizeDateForDatepickerInternalFormat = (val) => {
-          if(val == 'afterToday' || val == 'beforeToday') {
-            return val
-          }
-          else {
-            return this.formatDate(val)
-          }
-        }
-        if(typeof(this.disabledDates) == 'string' || typeof(this.disabledDates) == 'number') {
-          return normalizeDateForDatepickerInternalFormat(this.disabledDates)
-        }
-        if(typeof(this.disabledDates) == 'object') {
-          this.disabledDates.forEach((date, i) => {
-            this[i] = normalizeDateForDatepickerInternalFormat(date)
-          }, this.disabledDates)
-          return this.disabledDates
-        }
-        return ''
-      },
-
-      limitsInDatepickerFormat() {
-        if(typeof(this.limits) == 'boolean') return this.limits
-        return {
-          min: this.limits.min ? this.formatDate(this.limits.min) : '',
-          max: this.limits.max ? this.formatDate(this.limits.max) : ''
-        }
-      },
-
-      label() {
-        if(!this.value.optionsValue && !this.value.datepickerSelected) {
-          if(this.isDateRange) {
-            return this.isDateRange
-              ? this.t('app-pick-date-range')
-              : this.t('app-pick-date')
-          }
-        }
-        else if(this.value.optionsValue === 'custom') {
-          return this.value.datepickerSelected
-        }
-        else if(this.isFilterOption(this.value.optionsValue)) {
-          return this.t(`app-${this.value.optionsValue}`)
-        }
-        return this.t(`app-last-${this.value.optionsValue}-days`)
+    getRange(val) {
+      if (!val.range.start || !val.range.end) {
+        this.value.datepickerValue = {};
+        return false;
       }
+      const start = val.range.start as Date;
+      const end = val.range.end as Date;
+      const startTs = (start.getTime() / 1000);
+      let endTs = (end.getTime() / 1000);
+      endTs += (24 * 60 * 60) - 1;
+      return {
+        start: startTs,
+        end: endTs,
+      };
     },
 
-    watch: {
-      isActive(val) {
-        if(val) this.$emit('active', this._uid)
+    onDatepickerApply(val) {
+      this.datepickerVisible = false;
+      if (this.isDateRange) {
+        const range = this.getRange(val);
+        if (!range) return;
+        this.value.type = 'range';
+        this.value.value = range;
+        this.value.datepickerSelected = val.rangeAsString;
+      } else {
+        if (!val.date) return;
+        this.value.type = 'date';
+        this.value.value = val.date.getTime() / 1000;
+        this.value.datepickerSelected = val.dateAsString;
       }
+      this.value.optionsValue = 'custom';
+      this.$emit('input', this.value);
     },
 
-    methods: {
-      onOptionsValue(ev) {
-        let val = ev.target.value
-        this.optionsVisible = false
-        if(this.isFilterOption(val)) {
-          this.value.type = 'filter'
-          this.value.val = val
-        }
-        else {
-          this.value.type = 'lastdays'
-          this.value.value = val
-        }
-        this.$emit('input', this.value)
-      },
+    isFilterOption(option) {
+      if (typeof (option) === 'string') {
+        return option.substring(0, 6) == 'filter';
+      }
+      return false;
+    },
 
-      close() {
-        this.optionsVisible = false
-        this.datepickerVisible = false
-      },
+  },
 
-      getRange(val) {
-        if(!val.range.start || !val.range.end) {
-          this.value.datepickerValue = {}
-          return false
-        }
-        let start = val.range.start as Date
-        let end = val.range.end as Date
-        let startTs = (start.getTime() / 1000)
-        let endTs = (end.getTime() / 1000)
-        endTs += (24 * 60 * 60) - 1
-        return {
-          start: startTs,
-          end: endTs
-        }
-      },
-
-      onDatepickerApply(val) {
-        this.datepickerVisible = false
-        if(this.isDateRange) {
-          let range = this.getRange(val)
-          if(!range) return
-          this.value.type = 'range'
-          this.value.value = range
-          this.value.datepickerSelected = val.rangeAsString
-        }
-        else {
-          if(!val.date) return
-          this.value.type = 'date'
-          this.value.value = val.date.getTime() / 1000
-          this.value.datepickerSelected = val.dateAsString
-        }
-        this.value.optionsValue = 'custom'
-        this.$emit('input', this.value)
-      },
-
-      isFilterOption(option) {
-        if(typeof(option) == 'string') {
-          return option.substring(0, 6) == 'filter'
-        }
-        return false
-      },
-
-    }
-
-  }
+};
 </script>
 
 <style lang="scss" scoped>

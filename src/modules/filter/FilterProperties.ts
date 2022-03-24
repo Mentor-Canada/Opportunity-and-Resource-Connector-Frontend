@@ -1,17 +1,18 @@
-import FilterEntity from "./FilterEntity"
-import OrganizationFilterCollection from "../organizations/list/OrganizationFilterCollection"
+import FilterEntity from './FilterEntity';
+import OrganizationFilterCollection from '../organizations/list/OrganizationFilterCollection';
 
 export default class FilterProperties {
+  delegate;
 
-  delegate
-  filter
-  open = {}
-  filters
+  filter;
+
+  open = {};
+
+  filters;
 
   constructor(type, delegate) {
-    this.filter = new FilterEntity(type)
-    this.filters = new OrganizationFilterCollection(type)
-    this.delegate = delegate
+    this.filter = new FilterEntity(type);
+    this.filters = new OrganizationFilterCollection(type);
+    this.delegate = delegate;
   }
-
 }

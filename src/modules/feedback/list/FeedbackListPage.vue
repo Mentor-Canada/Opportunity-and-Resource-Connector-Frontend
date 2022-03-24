@@ -9,16 +9,16 @@
 </template>
 
 <script lang="ts">
-import TableMixin from "../../../components/Table/TableMixin"
-import FeedbackListDelegate from "./FeedbackListDelegate"
+import TableMixin from '../../../components/Table/TableMixin';
+import FeedbackListDelegate from './FeedbackListDelegate';
 
 export default {
   mixins: [TableMixin],
 
   data() {
     return {
-      delegate: new FeedbackListDelegate()
-    }
-  }
-}
+      delegate: new FeedbackListDelegate(),
+    };
+  },
+};
 </script>

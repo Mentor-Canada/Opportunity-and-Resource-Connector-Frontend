@@ -19,15 +19,15 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import Search from "Models/Search"
-import PageMixin from "../../mixins/PageMixin"
-import Map from "./map/Map.vue"
-import List from "./list/List.vue"
-import ResultCollectionBuilder from "./ResultCollectionBuilder"
-import RequestQueue from "../../pages/RequestQueue"
-import Footer from "./footer/Footer.vue"
-import paginationResultsPerPage from "./paginationResultsPerPage"
+import BaseMixin from 'BaseMixin';
+import Search from 'Models/Search';
+import PageMixin from '../../mixins/PageMixin';
+import Map from './map/Map.vue';
+import List from './list/List.vue';
+import ResultCollectionBuilder from './ResultCollectionBuilder';
+import RequestQueue from '../../pages/RequestQueue';
+import Footer from './footer/Footer.vue';
+import paginationResultsPerPage from './paginationResultsPerPage';
 
 export default {
 
@@ -36,101 +36,101 @@ export default {
   components: {
     // 'map-component': Map,
     'list-component': List,
-    'footer-component': Footer
+    'footer-component': Footer,
   },
 
   data() {
     return {
       search: new Search(),
       rows: [],
-      headline: "",
-      subheadline: "",
+      headline: '',
+      subheadline: '',
       response: '',
-      loading: true
-    }
+      loading: true,
+    };
   },
 
   async mounted() {
-    this.app.showLoading()
-    this.id = this.$route.params.id
-    await this.search.load(this.id)
+    this.app.showLoading();
+    this.id = this.$route.params.id;
+    await this.search.load(this.id);
 
-    this.request = new RequestQueue()
+    this.request = new RequestQueue();
 
     this.builder = new ResultCollectionBuilder(this.id)
-        .offset(0)
-        .limit(paginationResultsPerPage[0])
-    this.response = await this.builder.build()
+      .offset(0)
+      .limit(paginationResultsPerPage[0]);
+    this.response = await this.builder.build();
 
-    this.ready()
+    this.ready();
   },
 
   methods: {
     async mapCenterChanged(data) {
       this.request.callback = async () => {
         this.response = await this.builder
-            .lat(data.lat)
-            .lng(data.lng)
-            .offset(0)
-            .build()
-        this.$refs.list.refresh(this.response)
-        this.request.end()
-      }
-      this.request.begin()
+          .lat(data.lat)
+          .lng(data.lng)
+          .offset(0)
+          .build();
+        this.$refs.list.refresh(this.response);
+        this.request.end();
+      };
+      this.request.begin();
     },
 
     onLoadingChanged(value) {
-      this.loading = value
+      this.loading = value;
     },
 
     gotoPage(data) {
       this.request.begin(async () => {
-        this.app.showLoading()
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop = 0
+        this.app.showLoading();
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         this.response = await this.builder
-            .offset(data.offset)
-            .build()
-        this.$refs.list.refresh(this.response)
-        this.request.end()
-        this.app.hideLoading()
-      })
+          .offset(data.offset)
+          .build();
+        this.$refs.list.refresh(this.response);
+        this.request.end();
+        this.app.hideLoading();
+      });
     },
 
     updatePagination(data) {
       this.request.begin(async () => {
-        this.app.showLoading()
-        document.documentElement.scrollTop = 0
-        document.body.scrollTop = 0
+        this.app.showLoading();
+        document.documentElement.scrollTop = 0;
+        document.body.scrollTop = 0;
         this.response = await this.builder
-            .offset(0)
-            .limit(data.resultsPerPage)
-            .build()
-        this.$refs.list.refresh(this.response)
-        this.request.end()
-        this.app.hideLoading()
-      })
+          .offset(0)
+          .limit(data.resultsPerPage)
+          .build();
+        this.$refs.list.refresh(this.response);
+        this.request.end();
+        this.app.hideLoading();
+      });
     },
 
     async updateSearch() {
-      this.loading = true
-      this.app.showLoading()
-      await this.search.update()
+      this.loading = true;
+      this.app.showLoading();
+      await this.search.update();
 
       // update list
       this.request.begin(async () => {
         this.response = await this.builder
-            .build()
-        this.$refs.list.refresh(this.response)
-        this.request.end()
-        this.app.hideLoading()
-      })
+          .build();
+        this.$refs.list.refresh(this.response);
+        this.request.end();
+        this.app.hideLoading();
+      });
 
       // update map
       // this.$refs.map.resultMap.clear()
       // this.$refs.map.request.begin()
-    }
-  }
+    },
+  },
 
-}
+};
 </script>

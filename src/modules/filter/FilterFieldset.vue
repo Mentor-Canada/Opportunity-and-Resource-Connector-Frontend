@@ -11,11 +11,11 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["title", "value"]
-}
+  props: ['title', 'value'],
+};
 </script>

@@ -79,11 +79,11 @@
 </template>
 
 <script lang="ts">
-import FilterMixin from "../../../modules/filter/FilterMixin"
-import InquiryFilterOptions from "./InquiryFilterOptions"
-import SearchOptions from "../../search/SearchOptions"
-import InquiryFields from "./InquiryFields"
-import globals from "../../../globals"
+import FilterMixin from '../../filter/FilterMixin';
+import InquiryFilterOptions from './InquiryFilterOptions';
+import SearchOptions from '../../search/SearchOptions';
+import InquiryFields from './InquiryFields';
+import globals from '../../../globals';
 
 export default {
   mixins: [FilterMixin],
@@ -93,20 +93,20 @@ export default {
       Fields: InquiryFields,
       options: new InquiryFilterOptions(),
       searchOptions: new SearchOptions(),
-      programOptions: [{ value: "", name: "" }],
-      programFilterOptions: [{ value: "", name: "" }]
-    }
+      programOptions: [{ value: '', name: '' }],
+      programFilterOptions: [{ value: '', name: '' }],
+    };
   },
 
   async mounted() {
-    const programs = await globals.api.get('a/app/program?sort=title')
-    for(const program of programs.data.data) {
-      this.programOptions.push({ value: program.attributes.nid, name: program.attributes.title })
+    const programs = await globals.api.get('a/app/program?sort=title');
+    for (const program of programs.data.data) {
+      this.programOptions.push({ value: program.attributes.nid, name: program.attributes.title });
     }
-    const programFilters = await globals.api.get('a/app/filter?type=program')
-    for(const filter of programFilters.data) {
-      this.programFilterOptions.push({ value: filter.id, name: filter.title })
+    const programFilters = await globals.api.get('a/app/filter?type=program');
+    for (const filter of programFilters.data) {
+      this.programFilterOptions.push({ value: filter.id, name: filter.title });
     }
-  }
-}
+  },
+};
 </script>

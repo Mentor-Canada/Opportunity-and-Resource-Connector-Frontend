@@ -1,10 +1,13 @@
 export default class OrganizationFilterViewModel {
+  delegate;
 
-  delegate
-  filter
-  open = []
-  Fields
-  filters
-  options
+  filter;
 
+  open = [];
+
+  Fields;
+
+  filters;
+
+  options;
 }

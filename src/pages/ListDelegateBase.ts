@@ -1,32 +1,35 @@
-import globals from "../globals"
+import globals from '../globals';
 
 export default abstract class ListDelegateBase {
+  tableClasses: string[] = ['ui-table'];
 
-  tableClasses: string[] = ['ui-table']
+  startDate: string = '';
 
-  startDate: string = ''
-  endDate: string = ''
-  dateMode: string = ''
-  fields: any[] = []
-  sort: any[] = []
-  offset: number
+  endDate: string = '';
 
-  filter: any = {}
+  dateMode: string = '';
+
+  fields: any[] = [];
+
+  sort: any[] = [];
+
+  offset: number;
+
+  filter: any = {};
 
   loadSavedFilter(attributes) {
-    if(attributes) {
-      this.filter = attributes
+    if (attributes) {
+      this.filter = attributes;
     }
   }
 
   clearFilter() {
-    for(const field in this.filter) {
-      this.filter[field] = ""
+    for (const field in this.filter) {
+      this.filter[field] = '';
     }
   }
 
   t(value: string) {
-    return globals.app.t(value)
+    return globals.app.t(value);
   }
-
 }

@@ -50,12 +50,12 @@
 </template>
 
 <script lang="ts">
-import globals from "../../../globals"
-import BaseMixin from "BaseMixin"
-import ResultMap from "./ResultMap"
-import ResultMapRequestBuilder from "./ResultMapRequestBuilder"
-import RequestQueue from "../../../pages/RequestQueue"
-import Result from "../Result"
+import BaseMixin from 'BaseMixin';
+import globals from '../../../globals';
+import ResultMap from './ResultMap';
+import ResultMapRequestBuilder from './ResultMapRequestBuilder';
+import RequestQueue from '../../../pages/RequestQueue';
+import Result from '../Result';
 
 export default {
   mixins: [BaseMixin],
@@ -65,36 +65,36 @@ export default {
   data() {
     return {
       updateSearch: true,
-      loading: true
-    }
+      loading: true,
+    };
   },
 
   watch: {
     updateSearch() {
-      if(this.updateSearch) {
-        this.request.begin()
-        this.$emit('center-changed', this.resultMap.getCenter().toJSON())
+      if (this.updateSearch) {
+        this.request.begin();
+        this.$emit('center-changed', this.resultMap.getCenter().toJSON());
       }
     },
     loading() {
-      this.$emit('loading-changed', this.loading)
-    }
+      this.$emit('loading-changed', this.loading);
+    },
   },
 
   async mounted() {
-    if(!this.$props.lat) {
-      this.loading = false
-      return
+    if (!this.$props.lat) {
+      this.loading = false;
+      return;
     }
 
-    this.request = new RequestQueue()
+    this.request = new RequestQueue();
     this.request.callback = async () => {
-      await this.getMapResults()
-      if(!this.request.queue) {
-        this.loading = false
+      await this.getMapResults();
+      if (!this.request.queue) {
+        this.loading = false;
       }
-      this.request.end()
-    }
+      this.request.end();
+    };
 
     this.resultMap = new ResultMap()
       .el(this.$el.querySelector('#map'))
@@ -102,47 +102,47 @@ export default {
       .lat(this.$props.lat)
       .lng(this.$props.lng)
       .onChange(() => {
-        if(this.updateSearch) {
-          this.request.begin()
+        if (this.updateSearch) {
+          this.request.begin();
         }
       })
       .onCenterChange(() => {
-        if(this.updateSearch) {
-          this.$emit('center-changed', this.resultMap.getCenter().toJSON())
+        if (this.updateSearch) {
+          this.$emit('center-changed', this.resultMap.getCenter().toJSON());
         }
       })
-      .render()
+      .render();
   },
 
   methods: {
     async getMapResults() {
-      let latlng = this.resultMap.getCenter().toJSON()
-      this.loading = true
-      let lang = this.app.language.langcode
-      let bounds = this.resultMap.getBounds()
-      let builder = new ResultMapRequestBuilder()
-          .lat(latlng.lat)
-          .lng(latlng.lng)
-          .langcode(lang)
+      const latlng = this.resultMap.getCenter().toJSON();
+      this.loading = true;
+      const lang = this.app.language.langcode;
+      const bounds = this.resultMap.getBounds();
+      const builder = new ResultMapRequestBuilder()
+        .lat(latlng.lat)
+        .lng(latlng.lng)
+        .langcode(lang)
         .id(this.$props.id)
-        .bounds(bounds.toUrlValue())
-      let response = await globals.api.get(builder.build())
-      let results = Result.collection(response.data.data)
-      this.resultMap.renderPrograms(results)
+        .bounds(bounds.toUrlValue());
+      const response = await globals.api.get(builder.build());
+      const results = Result.collection(response.data.data);
+      this.resultMap.renderPrograms(results);
     },
 
     zoomIn() {
-      let zoom = this.resultMap.map.getZoom()
-      this.resultMap.map.setZoom(zoom + 1)
+      const zoom = this.resultMap.map.getZoom();
+      this.resultMap.map.setZoom(zoom + 1);
     },
 
     zoomOut() {
-      let zoom = this.resultMap.map.getZoom()
-      this.resultMap.map.setZoom(zoom - 1)
+      const zoom = this.resultMap.map.getZoom();
+      this.resultMap.map.setZoom(zoom - 1);
     },
-  }
+  },
 
-}
+};
 </script>
 
 <style lang="scss" scoped>

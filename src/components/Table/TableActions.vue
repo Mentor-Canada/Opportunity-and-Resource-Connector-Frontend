@@ -26,10 +26,10 @@
 </template>
 
 <script lang="ts">
-  import BaseMixin from "../../mixins/BaseMixin"
+import BaseMixin from '../../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
-    props: ['label', 'to', 'export']
-  }
+export default {
+  mixins: [BaseMixin],
+  props: ['label', 'to', 'export'],
+};
 </script>

@@ -129,17 +129,17 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import SearchCriteriaList from "../../../components/SearchCriteriaList.vue"
-import searchOptionsFocusArea from "../../search/searchOptionsFocusArea"
-import searchOptionsAgesProgramServes from "../../search/searchOptionsAgesProgramServes"
-import searchOptionsGrade from "../../search/searchOptionsGrade"
-import searchOptionsYouthProgramServes from "../../search/searchOptionsYouthProgramServes"
-import searchOptionsTypeOfMentoring from "../../search/searchOptionsTypeOfMentoring"
-import searchOptionsDistance from "../../search/searchOptionsDistance"
-import Pagination from "./Pagination.vue"
-import Result from "../Result"
-import ProgramSearchDelivery from "../../search/ProgramSearchDelivery.vue"
+import BaseMixin from 'BaseMixin';
+import SearchCriteriaList from '../../../components/SearchCriteriaList.vue';
+import searchOptionsFocusArea from '../../search/searchOptionsFocusArea';
+import searchOptionsAgesProgramServes from '../../search/searchOptionsAgesProgramServes';
+import searchOptionsGrade from '../../search/searchOptionsGrade';
+import searchOptionsYouthProgramServes from '../../search/searchOptionsYouthProgramServes';
+import searchOptionsTypeOfMentoring from '../../search/searchOptionsTypeOfMentoring';
+import searchOptionsDistance from '../../search/searchOptionsDistance';
+import Pagination from './Pagination.vue';
+import Result from '../Result';
+import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
 
 export default {
   mixins: [BaseMixin],
@@ -147,17 +147,17 @@ export default {
   props: ['id', 'search', 'response'],
 
   components: {
-    "search-criteria-list": SearchCriteriaList,
+    'search-criteria-list': SearchCriteriaList,
     'program-search-delivery': ProgramSearchDelivery,
-    "pagination": Pagination
+    pagination: Pagination,
   },
 
   data() {
-    const countryCode = BaseMixin.computed.countryCode()
+    const countryCode = BaseMixin.computed.countryCode();
     return {
       rows: [],
-      headline: "",
-      subheadline: "",
+      headline: '',
+      subheadline: '',
       search: this.$props.search,
       searchOptionsFocusArea: searchOptionsFocusArea(countryCode),
       searchOptionsAgesProgramServes: searchOptionsAgesProgramServes(countryCode),
@@ -165,94 +165,92 @@ export default {
       searchOptionsYouthProgramServes: searchOptionsYouthProgramServes(countryCode),
       searchOptionsTypeOfMentoring: searchOptionsTypeOfMentoring(),
       searchOptionsDistance: searchOptionsDistance(countryCode),
-    }
+    };
   },
 
   async mounted() {
     this.onBodyClick = () => {
-      for(const id in this.$refs) {
-        let ref = this.$refs[id]
-        if(ref) ref.isOpen = false
+      for (const id in this.$refs) {
+        const ref = this.$refs[id];
+        if (ref) ref.isOpen = false;
       }
-      if(this.$refs['pagination']) {
-        this.$refs['pagination'].paginationResultsPerPageVisible = false
+      if (this.$refs.pagination) {
+        this.$refs.pagination.paginationResultsPerPageVisible = false;
       }
-    }
-    document.querySelector('body').addEventListener('click', this.onBodyClick)
-    this.refresh(this.$props.response)
+    };
+    document.querySelector('body').addEventListener('click', this.onBodyClick);
+    this.refresh(this.$props.response);
   },
 
   beforeDestroy() {
-    document.querySelector('body').removeEventListener('click', this.onBodyClick)
+    document.querySelector('body').removeEventListener('click', this.onBodyClick);
   },
 
   methods: {
     searchAgain() {
-      this.router.push(this.link(''))
+      this.router.push(this.link(''));
     },
 
     handleClick(routeParamsId, programId) {
-      this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`))
+      this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`));
     },
 
     async refresh(response) {
-      this.rows = []
+      this.rows = [];
       response.data.data.forEach((row) => {
-        this.rows.push(new Result(row))
-      })
+        this.rows.push(new Result(row));
+      });
 
-      this.headline = this.t("app-results-headline", {
-        firstName: this.search.attributes.firstName
-      })
+      this.headline = this.t('app-results-headline', {
+        firstName: this.search.attributes.firstName,
+      });
 
-      let total = response.data.meta.pagination.total
+      const { total } = response.data.meta.pagination;
 
-      let source = total == 1 ? "app-us-results-subheadline-singular" : "app-us-results-subheadline"
-      if(this.countryCode == "ca") {
-        source = total == 1 ? "app-ca-results-subheadline-singular" : "app-ca-results-subheadline"
+      let source = total == 1 ? 'app-us-results-subheadline-singular' : 'app-us-results-subheadline';
+      if (this.countryCode == 'ca') {
+        source = total == 1 ? 'app-ca-results-subheadline-singular' : 'app-ca-results-subheadline';
       }
-      if(this.search.attributes.zip == 'app-national') {
-        source = total == 1 ? "app-results-nationwide-subheadline-singular" : "app-results-nationwide-subheadline"
+      if (this.search.attributes.zip == 'app-national') {
+        source = total == 1 ? 'app-results-nationwide-subheadline-singular' : 'app-results-nationwide-subheadline';
       }
       this.subheadline = this.t(source, {
         count: total,
-        distance: this.search.attributes.distance
-      })
+        distance: this.search.attributes.distance,
+      });
 
-      await this.$nextTick()
+      await this.$nextTick();
 
-      if(this.rows.length) {
-        this.$refs.pagination.update(response.data.meta.pagination)
+      if (this.rows.length) {
+        this.$refs.pagination.update(response.data.meta.pagination);
       }
     },
 
     onCriteriaClick(criteriaToToggle) {
-      for(const id in this.$refs) {
-        if(id != criteriaToToggle) {
-          let ref = this.$refs[id]
-          if(ref) ref.isOpen = false
-        }
-        else {
-          this.$refs[criteriaToToggle].toggle()
+      for (const id in this.$refs) {
+        if (id != criteriaToToggle) {
+          const ref = this.$refs[id];
+          if (ref) ref.isOpen = false;
+        } else {
+          this.$refs[criteriaToToggle].toggle();
         }
       }
     },
 
     onDeliveryClick(deliveryToggle) {
-      let index = this.search.attributes.delivery.indexOf(deliveryToggle)
-      if(index == -1) {
-        this.search.attributes.delivery.push(deliveryToggle)
-      }
-      else {
-        if(this.search.attributes.delivery.length == 1) {
-          return
+      const index = this.search.attributes.delivery.indexOf(deliveryToggle);
+      if (index == -1) {
+        this.search.attributes.delivery.push(deliveryToggle);
+      } else {
+        if (this.search.attributes.delivery.length == 1) {
+          return;
         }
-        this.search.attributes.delivery.splice(index, 1)
+        this.search.attributes.delivery.splice(index, 1);
       }
-      this.$emit('update-search')
-    }
+      this.$emit('update-search');
+    },
 
-  }
+  },
 
-}
+};
 </script>

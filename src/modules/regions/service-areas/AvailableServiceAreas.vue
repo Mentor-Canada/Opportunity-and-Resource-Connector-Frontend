@@ -78,28 +78,28 @@
 </style>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import globals from "../../../globals"
-import Pagination from "./Pagination.vue"
-import UsStates from "./UsStates"
-import CollectionRequestUrlBuilder from "../../../pages/CollectionRequestUrlBuilder"
-import RequestQueue from "../../../pages/RequestQueue"
+import BaseMixin from 'BaseMixin';
+import globals from '../../../globals';
+import Pagination from './Pagination.vue';
+import UsStates from './UsStates';
+import CollectionRequestUrlBuilder from '../../../pages/CollectionRequestUrlBuilder';
+import RequestQueue from '../../../pages/RequestQueue';
 
 export default {
   mixins: [BaseMixin],
 
   props: [
-    'route'
+    'route',
   ],
 
   components: {
-    'pagination': Pagination
+    pagination: Pagination,
   },
 
   data() {
-    UsStates.forEach(state => {
-      state.value = state["alpha-2"]
-    })
+    UsStates.forEach((state) => {
+      state.value = state['alpha-2'];
+    });
 
     return {
       dataUrl: null,
@@ -118,22 +118,22 @@ export default {
         { title: 'County', name: 'available_service_areas_zip_county' },
         { title: 'City', name: 'available_service_areas_city' },
         { title: 'Zip', name: 'available_service_areas_zip' },
-        { title:  '', name: 'add-slot' }
-      ]
-    }
+        { title: '', name: 'add-slot' },
+      ],
+    };
   },
 
   mounted() {
     this.request.callback = () => {
-      this.$refs.vuetable.refresh()
-    }
+      this.$refs.vuetable.refresh();
+    };
   },
 
   methods: {
     getData(apiUrl, httpOptions) {
-      window.app.showLoading()
+      window.app.showLoading();
 
-      let url = new CollectionRequestUrlBuilder()
+      const url = new CollectionRequestUrlBuilder()
         .path(this.$props.route)
         .filter('state', this.state)
         .filter('county', this.county)
@@ -141,54 +141,53 @@ export default {
         .filter('zip', this.zip)
         .offset((this.page - 1) * this.limit)
         .limit(20)
-        .build()
+        .build();
 
-      return globals.api.get(url)
+      return globals.api.get(url);
     },
 
     refresh() {
-      this.request.begin()
+      this.request.begin();
     },
 
     transformData(response) {
-      this.request.end()
-      if(!this.request.loading) {
-        window.app.hideLoading()
+      this.request.end();
+      if (!this.request.loading) {
+        window.app.hideLoading();
       }
-      let transformed = []
-      for(const row of response.data) {
-        let transformedRow = {}
-        for(const property in row) {
-          transformedRow[`available_service_areas_${property}`] = row[property]
+      const transformed = [];
+      for (const row of response.data) {
+        const transformedRow = {};
+        for (const property in row) {
+          transformedRow[`available_service_areas_${property}`] = row[property];
         }
-        transformed.push(transformedRow)
+        transformed.push(transformedRow);
       }
       return {
-        data: transformed
-      }
+        data: transformed,
+      };
     },
 
     onPaginationData(paginationData) {
-      this.$refs.pagination.setPaginationData(paginationData)
+      this.$refs.pagination.setPaginationData(paginationData);
     },
 
     onChangePage(page: any) {
-      if(page == 'next') {
-        page = this.page + 1
+      if (page == 'next') {
+        page = this.page + 1;
+      } else if (page == 'prev') {
+        page = this.page - 1;
       }
-      else if(page == 'prev') {
-        page = this.page - 1
-      }
-      if(page != this.page) {
-        this.page = page
-        this.$refs.vuetable.refresh()
+      if (page != this.page) {
+        this.page = page;
+        this.$refs.vuetable.refresh();
         window.scroll({
-          top: this.$el.offsetTop + document.querySelector("header").offsetHeight - 10,
-          behavior: 'smooth'
-        })
+          top: this.$el.offsetTop + document.querySelector('header').offsetHeight - 10,
+          behavior: 'smooth',
+        });
       }
-    }
+    },
 
-  }
-}
+  },
+};
 </script>

@@ -1,16 +1,15 @@
-import Stats from "Models/stats/Stats"
-import WindowInterface from "Interfaces/WindowInterface"
+import Stats from 'Models/stats/Stats';
+import WindowInterface from 'Interfaces/WindowInterface';
 
-declare const window: WindowInterface
+declare const window: WindowInterface;
 
 export default class extends Stats {
+  type = 'partner';
 
-  type = 'partner'
-  partners
+  partners;
 
   async load() {
-    let response = await super.load()
-    this.partners = response.data.data.partners
+    const response = await super.load();
+    this.partners = response.data.data.partners;
   }
-
 }

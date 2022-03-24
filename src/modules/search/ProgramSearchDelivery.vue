@@ -28,8 +28,8 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import SearchAttributes from "Models/SearchAttributes"
+import BaseMixin from 'BaseMixin';
+import SearchAttributes from 'Models/SearchAttributes';
 
 export default {
   mixins: [BaseMixin],
@@ -38,28 +38,28 @@ export default {
 
   data() {
     return {
-      required: false
-    }
+      required: false,
+    };
   },
 
   mounted() {
-    this.value = this.search.attributes.delivery
-    this.$el.querySelector(".community-delivery-row input").checked = this.value.indexOf(SearchAttributes.COMMUNITY_BASED_DELIVERY) != -1
-    this.$el.querySelector(".site-delivery-row input").checked = this.value.indexOf(SearchAttributes.SITE_BASED_DELIVERY) != -1
-    this.$el.querySelector(".e-mentoring-delivery-row input").checked = this.value.indexOf(SearchAttributes.E_MENTORING_DELIVERY) != -1
-    this.required = !this.value.length
+    this.value = this.search.attributes.delivery;
+    this.$el.querySelector('.community-delivery-row input').checked = this.value.indexOf(SearchAttributes.COMMUNITY_BASED_DELIVERY) != -1;
+    this.$el.querySelector('.site-delivery-row input').checked = this.value.indexOf(SearchAttributes.SITE_BASED_DELIVERY) != -1;
+    this.$el.querySelector('.e-mentoring-delivery-row input').checked = this.value.indexOf(SearchAttributes.E_MENTORING_DELIVERY) != -1;
+    this.required = !this.value.length;
   },
 
   methods: {
     onInput(checked, key) {
-      const index = this.value.indexOf(key)
-      if(!checked && index != -1) this.value.splice(index, 1)
-      else if(checked && index == -1) this.value.push(key)
-      this.required = !this.value.length
-    }
-  }
+      const index = this.value.indexOf(key);
+      if (!checked && index != -1) this.value.splice(index, 1);
+      else if (checked && index == -1) this.value.push(key);
+      this.required = !this.value.length;
+    },
+  },
 
-}
+};
 </script>
 
 <style lang="scss">

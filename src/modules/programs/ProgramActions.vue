@@ -36,45 +36,45 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["program", "active"],
+  props: ['program', 'active'],
 
   data() {
     return {
-      showRemoveConfirmation: false
-    }
+      showRemoveConfirmation: false,
+    };
   },
 
   methods: {
     onDetailsClick() {
-      this.router.push(this.link(`admin/programs/detail/${this.program.document.id}`))
+      this.router.push(this.link(`admin/programs/detail/${this.program.document.id}`));
     },
 
     onAdminsClick() {
-      this.router.push(this.link(`admin/programs/administrators/${this.program.document.id}`))
+      this.router.push(this.link(`admin/programs/administrators/${this.program.document.id}`));
     },
 
     onApprovalClick() {
-      this.router.push(this.link(`admin/programs/approval/${this.program.document.id}`))
+      this.router.push(this.link(`admin/programs/approval/${this.program.document.id}`));
     },
 
     onSettingsClick() {
-      this.router.push(this.link(`admin/programs/settings/${this.program.document.id}`))
+      this.router.push(this.link(`admin/programs/settings/${this.program.document.id}`));
     },
 
     remove() {
-      this.app.showLoading()
+      this.app.showLoading();
       this.program.remove()
         .then(() => {
-          this.router.push(this.link('admin/programs'))
-        })
-    }
-  }
-}
+          this.router.push(this.link('admin/programs'));
+        });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

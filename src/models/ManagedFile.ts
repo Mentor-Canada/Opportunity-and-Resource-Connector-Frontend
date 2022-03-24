@@ -1,21 +1,20 @@
 export default class ManagedFile {
+  public url: URL;
 
-  public url: URL
-  public clear: boolean = false
+  public clear: boolean = false;
 
   public setData(jsonApiFileData: any) {
-    this.url = this.urlAdapter(jsonApiFileData.attributes.uri.url)
+    this.url = this.urlAdapter(jsonApiFileData.attributes.uri.url);
   }
 
   public remove() {
-    this.url = null
-    this.clear = true
+    this.url = null;
+    this.clear = true;
   }
 
   private urlAdapter(urlString: string): URL {
-    let apiUrl = new URL(API_URL)
-    let baseUrl = `${apiUrl.protocol}//${apiUrl.host}`
-    return new URL(urlString, baseUrl)
+    const apiUrl = new URL(API_URL);
+    const baseUrl = `${apiUrl.protocol}//${apiUrl.host}`;
+    return new URL(urlString, baseUrl);
   }
-
 }

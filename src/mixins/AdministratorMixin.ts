@@ -1,50 +1,50 @@
-import WindowInterface from "Interfaces/WindowInterface"
+import WindowInterface from 'Interfaces/WindowInterface';
 
-declare const window: WindowInterface
+declare const window: WindowInterface;
 
 export default {
   methods: {
     async onAddContact() {
-      this.app.showLoading()
-      let mail = this.entity.attributes.contactEmail
-      let data = {
+      this.app.showLoading();
+      const mail = this.entity.attributes.contactEmail;
+      const data = {
         uilang: this.app.language.langcode,
-      }
-      let response = await this.api.post(`a/app/${this.entity.type}/${this.entity.document.id}/administrator/${mail}`, data)
-        .catch(() => {})
-      await this.entity.load()
-      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin()
-      this.app.hideLoading()
+      };
+      const response = await this.api.post(`a/app/${this.entity.type}/${this.entity.document.id}/administrator/${mail}`, data)
+        .catch(() => {});
+      await this.entity.load();
+      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin();
+      this.app.hideLoading();
     },
 
     async onNewAdministrator() {
-      this.app.showLoading()
-      await this.entity.load()
-      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin()
-      this.app.hideLoading()
+      this.app.showLoading();
+      await this.entity.load();
+      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin();
+      this.app.hideLoading();
     },
 
     async removeUser(account) {
-      this.app.showLoading()
-      let response = await this.api.delete(`a/app/${this.entity.type}/${this.entity.document.id}/administrator/${account.mail}`)
-      await this.entity.load()
-      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin()
-      this.app.hideLoading()
+      this.app.showLoading();
+      const response = await this.api.delete(`a/app/${this.entity.type}/${this.entity.document.id}/administrator/${account.mail}`);
+      await this.entity.load();
+      this.showAddContactAsAdmin = this.shouldShowAddContactAsAdmin();
+      this.app.hideLoading();
     },
 
     shouldShowAddContactAsAdmin() {
-      for(const account of this.entity.accounts) {
-        if(account.mail == this.entity.attributes.contactEmail) {
-          return false
+      for (const account of this.entity.accounts) {
+        if (account.mail == this.entity.attributes.contactEmail) {
+          return false;
         }
       }
-      return true
+      return true;
     },
 
     onAddUser() {
-      this.$refs['add-user'].show = true
-    }
+      this.$refs['add-user'].show = true;
+    },
 
   },
 
-}
+};

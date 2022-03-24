@@ -1,49 +1,46 @@
-import CollectionRequestUrlBuilder from "../../../pages/CollectionRequestUrlBuilder"
+import CollectionRequestUrlBuilder from '../../../pages/CollectionRequestUrlBuilder';
 
 export default class OrganizationListUrlBuilder extends CollectionRequestUrlBuilder {
-
-  private _search: string
+  private _search: string;
 
   search(value: string): OrganizationListUrlBuilder {
-    if(value) {
-      this.params["filter[field_display_title][value]"] = value
-      this.params["filter[field_display_title][operator]"] = "CONTAINS"
+    if (value) {
+      this.params['filter[field_display_title][value]'] = value;
+      this.params['filter[field_display_title][operator]'] = 'CONTAINS';
     }
-    return this
+    return this;
   }
 
   standing(value: string): OrganizationListUrlBuilder {
-    if(value == 'app-all') value = ''
-    if(value) {
+    if (value == 'app-all') value = '';
+    if (value) {
       if (value == 'app-pending') {
-        this.params['filter[field_standing][condition][path]'] = 'field_standing'
-        this.params['filter[field_standing][condition][operator]'] = 'IS NULL'
+        this.params['filter[field_standing][condition][path]'] = 'field_standing';
+        this.params['filter[field_standing][condition][operator]'] = 'IS NULL';
       } else {
-        this.params['filter[field_standing][value]'] = value
+        this.params['filter[field_standing][value]'] = value;
       }
     }
-    return this
+    return this;
   }
 
   province(value: string): OrganizationListUrlBuilder {
-    if(value == 'app-all') value = ''
-    if(value == 'app-unknown') {
-      this.params['filter[province-filter][condition][path]'] = 'field_physical_location.province'
-      this.params['filter[province-filter][condition][operator]'] = 'IS NULL'
+    if (value == 'app-all') value = '';
+    if (value == 'app-unknown') {
+      this.params['filter[province-filter][condition][path]'] = 'field_physical_location.province';
+      this.params['filter[province-filter][condition][operator]'] = 'IS NULL';
+    } else if (value) {
+      this.params['filter[field_physical_location.province][value]'] = value;
     }
-    else if(value) {
-      this.params['filter[field_physical_location.province][value]'] = value
-    }
-    return this
+    return this;
   }
 
   addFilter(field: string, value: string): OrganizationListUrlBuilder {
-    if(value == 'app-all') value = ''
-    if(value == 'app-pending') value = 'IS NULL'
-    if(value) {
-      this.params[`filter[${field}]`] = JSON.stringify(value)
+    if (value == 'app-all') value = '';
+    if (value == 'app-pending') value = 'IS NULL';
+    if (value) {
+      this.params[`filter[${field}]`] = JSON.stringify(value);
     }
-    return this
+    return this;
   }
-
 }

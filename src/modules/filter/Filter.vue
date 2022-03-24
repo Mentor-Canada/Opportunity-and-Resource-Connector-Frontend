@@ -64,22 +64,22 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import OptionCollection from "Models/OptionCollection"
-import DateRangeAdapter from "./DateRangeAdapter"
-import {format} from "date-fns"
-import SaveFilterDialog from "./SaveFilterDialog.vue"
-import DeleteFilterConfirmDialog from "./DeleteFilterConfirmDialog.vue"
-import DateRangeFormatMixin from "../../components/DateRangeFormatMixin"
-import DateRangeOptions from "../../components/DateRangeOptions.vue"
+import BaseMixin from 'BaseMixin';
+import OptionCollection from 'Models/OptionCollection';
+import { format } from 'date-fns';
+import DateRangeAdapter from './DateRangeAdapter';
+import SaveFilterDialog from './SaveFilterDialog.vue';
+import DeleteFilterConfirmDialog from './DeleteFilterConfirmDialog.vue';
+import DateRangeFormatMixin from '../../components/DateRangeFormatMixin';
+import DateRangeOptions from '../../components/DateRangeOptions.vue';
 
 export default {
   mixins: [BaseMixin, DateRangeFormatMixin],
 
-  components:  {
+  components: {
     DateRangeOptions,
     SaveFilterDialog,
-    DeleteFilterConfirmDialog
+    DeleteFilterConfirmDialog,
   },
 
   // props: ['savedFilters'],
@@ -93,10 +93,10 @@ export default {
       savedFilters: null,
       _uid: this._uid,
       fieldsetEmailOpen: true,
-      mode: "app-filter",
+      mode: 'app-filter',
       modes: new OptionCollection()
-        .add("app-filter")
-        .add("app-saved-filters")
+        .add('app-filter')
+        .add('app-saved-filters')
         .options,
       dateOptions: [
         'filter-this-week',
@@ -106,89 +106,88 @@ export default {
         'filter-this-year',
         'filter-last-year',
         'filter-all-time',
-        'custom'
+        'custom',
       ],
       date: {
         datepickerValue: {},
         optionsValue: false,
-        datepickerSelected: false
-      }
-    }
+        datepickerSelected: false,
+      },
+    };
   },
 
   methods: {
     onDateRangeInput(val) {
-      this.calculateDateRange(val)
-      this.$emit("input")
+      this.calculateDateRange(val);
+      this.$emit('input');
     },
 
     clearFilter(emit = false) {
-      this.delegate.clearFilter()
-      this.date.datepickerValue = {}
-      this.date.optionsValue = false
-      this.date.datepickerSelected = false
-      if(emit) {
-        this.$emit('clear')
-        this.$emit('input')
+      this.delegate.clearFilter();
+      this.date.datepickerValue = {};
+      this.date.optionsValue = false;
+      this.date.datepickerSelected = false;
+      if (emit) {
+        this.$emit('clear');
+        this.$emit('input');
       }
     },
 
     clearFilterInDialog() {
-      this.$parent.$parent.$emit('hide-dialog')
-      this.clearFilter(true)
+      this.$parent.$parent.$emit('hide-dialog');
+      this.clearFilter(true);
     },
 
     loadSavedFilter(filter) {
-      this.clearFilter()
-      const data = filter.attributes.data
+      this.clearFilter();
+      const { data } = filter.attributes;
       if (data.dateMode) {
         if (data.dateMode != 'range') {
-          this.date.optionsValue = data.dateMode
+          this.date.optionsValue = data.dateMode;
         } else {
-          this.date.optionsValue = 'custom'
+          this.date.optionsValue = 'custom';
           this.date.datepickerSelected = this.formatInputDateRange({
             start: data.start_date,
-            end: data.end_date
-          }).asString
+            end: data.end_date,
+          }).asString;
 
-          const date = new Date()
-          date.setTime(data.start_date * 1000)
-          const startString = format(date, 'd/M/yyyy')
-          date.setTime(data.end_date * 1000)
-          const endString = format(date, 'd/M/yyyy')
+          const date = new Date();
+          date.setTime(data.start_date * 1000);
+          const startString = format(date, 'd/M/yyyy');
+          date.setTime(data.end_date * 1000);
+          const endString = format(date, 'd/M/yyyy');
 
           this.date.datepickerValue.dateRange = {
             start: startString,
-            end: endString
-          }
+            end: endString,
+          };
         }
       }
-      this.delegate.loadSavedFilter?.({...filter.attributes.data})
-      if(data.dateMode) {
-        this.date.type = 'filter'
-        this.date.val = data.dateMode
-        this.calculateDateRange(this.date)
+      this.delegate.loadSavedFilter?.({ ...filter.attributes.data });
+      if (data.dateMode) {
+        this.date.type = 'filter';
+        this.date.val = data.dateMode;
+        this.calculateDateRange(this.date);
       }
-      this.$emit('input')
+      this.$emit('input');
     },
 
     showDeleteConfirmationDialog(filter) {
-      if(!this.isDialog) {
-        this.$refs['delete-filter-confirm-dialog'].show(filter)
-      }
-      else {
-        this.$parent.$parent.$emit('show-delete-dialog', filter)
+      if (!this.isDialog) {
+        this.$refs['delete-filter-confirm-dialog'].show(filter);
+      } else {
+        this.$parent.$parent.$emit('show-delete-dialog', filter);
       }
     },
 
     calculateDateRange(val) {
-      const adapter = new DateRangeAdapter(this.date)
-      this.delegate.filter.start_date = adapter.start
-      this.delegate.filter.end_date = adapter.end
-      this.delegate.filter.dateMode = val.type != 'range' ? val.val : val.type
-    }
-  }
-}
+      const adapter = new DateRangeAdapter(this.date);
+      this.delegate.filter.start_date = adapter.start;
+      this.delegate.filter.end_date = adapter.end;
+      this.delegate.filter.dateMode = val.type != 'range' ? val.val : val.type;
+    },
+  },
+};
 </script>
 
 <style lang="scss">

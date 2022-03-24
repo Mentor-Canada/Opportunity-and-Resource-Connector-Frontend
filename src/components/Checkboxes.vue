@@ -47,72 +47,69 @@
 </template>
 
 <script lang="ts">
-  import BaseMixin from "../mixins/BaseMixin";
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    mixins: [BaseMixin],
-    props: ["value", "name", "required", "label", "options", "cols", "description", "mode"],
+export default {
+  mixins: [BaseMixin],
+  props: ['value', 'name', 'required', 'label', 'options', 'cols', 'description', 'mode'],
 
-    data() {
-      return {
-        id: this._uid,
-        aValue: this.value,
-        isRequired: this.isRequiredOnLoad()
+  data() {
+    return {
+      id: this._uid,
+      aValue: this.value,
+      isRequired: this.isRequiredOnLoad(),
+    };
+  },
+  methods: {
+    isRequiredOnLoad() {
+      if (!this.required) {
+        return false;
       }
+      if (this.value.length) {
+        return false;
+      }
+      return true;
     },
-    methods: {
-      isRequiredOnLoad() {
-        if(!this.required) {
-          return false
+    isChecked(values, option) {
+      let isChecked = false;
+      values?.map((row) => {
+        if (row.value === option) {
+          isChecked = true;
         }
-        if(this.value.length) {
-          return false
-        } else {
-          return true
-        }
-      },
-      isChecked(values, option) {
-        let isChecked = false
-        values?.map(row => {
-          if(row.value === option) {
-            isChecked = true
-          }
-        })
-        return isChecked
-      },
-      onInput(e: Event) {
-        if(!this.value) this.value = []
+      });
+      return isChecked;
+    },
+    onInput(e: Event) {
+      if (!this.value) this.value = [];
 
-        let el = e.currentTarget as HTMLInputElement
-        let obj = {
-          name: el.getAttribute('name'),
-          value: el.getAttribute('value')
+      const el = e.currentTarget as HTMLInputElement;
+      const obj = {
+        name: el.getAttribute('name'),
+        value: el.getAttribute('value'),
+      };
+      if (el.checked) {
+        if (this.mode == 'value') {
+          this.value.push(obj.value);
+        } else {
+          this.value.push(obj);
         }
-        if(el.checked) {
-          if(this.mode == 'value') {
-            this.value.push(obj.value)
-          }
-          else {
-            this.value.push(obj)
-          }
-        }
-        else {
-          let index = this.value.findIndex((row) => row.value == obj.value)
-          this.value.splice(index, 1)
-        }
-        if(this.required) {
-          let inputs = this.$el.querySelectorAll("input")
-          let checked = this.$el.querySelectorAll("input:checked")
-          for(const input of inputs) {
-            if(checked.length) {
-              input.removeAttribute("required")
-            } else {
-              input.setAttribute("required", "required")
-            }
-          }
-        }
-        this.$emit('input', this.value)
+      } else {
+        const index = this.value.findIndex((row) => row.value == obj.value);
+        this.value.splice(index, 1);
       }
-    }
-  }
+      if (this.required) {
+        const inputs = this.$el.querySelectorAll('input');
+        const checked = this.$el.querySelectorAll('input:checked');
+        for (const input of inputs) {
+          if (checked.length) {
+            input.removeAttribute('required');
+          } else {
+            input.setAttribute('required', 'required');
+          }
+        }
+      }
+      this.$emit('input', this.value);
+    },
+  },
+};
 </script>

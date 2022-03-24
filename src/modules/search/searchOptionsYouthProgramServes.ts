@@ -1,9 +1,9 @@
-import globals from "../../globals"
+import globals from '../../globals';
 
 export default function searchOptionsYouthProgramServes(countryCode = null) {
-  if(countryCode == 'ca') {
+  if (countryCode == 'ca') {
     return [
-      { value: "all", name: globals.app.t('app-all') },
+      { value: 'all', name: globals.app.t('app-all') },
       { value: 'app-ca-academically-at-risk', name: globals.app.t('app-ca-academically-at-risk') },
       { value: 'app-ca-college-post-secondary-student', name: globals.app.t('app-ca-college-post-secondary-student') },
       { value: 'app-ca-foster-residential-or-kinship-care', name: globals.app.t('app-ca-foster-residential-or-kinship-care') },
@@ -25,11 +25,11 @@ export default function searchOptionsYouthProgramServes(countryCode = null) {
       { value: 'app-ca-pregnant-parenting', name: globals.app.t('app-ca-pregnant-parenting') },
       { value: 'app-ca-school-drop-out', name: globals.app.t('app-ca-school-drop-out') },
       { value: 'app-ca-special-education', name: globals.app.t('app-ca-special-education') },
-      { value: 'other', name: globals.app.t('app-other') }
-    ]
+      { value: 'other', name: globals.app.t('app-other') },
+    ];
   }
   return [
-    { value: "all", name: globals.app.t('app-all') },
+    { value: 'all', name: globals.app.t('app-all') },
     { value: 'app-us-academically-at-risk', name: globals.app.t('app-us-academically-at-risk') },
     { value: 'app-us-college-post-secondary-student', name: globals.app.t('app-us-college-post-secondary-student') },
     { value: 'app-us-foster-residential-or-kinship-care', name: globals.app.t('app-us-foster-residential-or-kinship-care') },
@@ -53,6 +53,6 @@ export default function searchOptionsYouthProgramServes(countryCode = null) {
     { value: 'app-us-pregnant-parenting', name: globals.app.t('app-us-pregnant-parenting') },
     { value: 'app-us-school-drop-out', name: globals.app.t('app-us-school-drop-out') },
     { value: 'app-us-special-education', name: globals.app.t('app-us-special-education') },
-    { value: 'other', name: globals.app.t('app-other') }
-  ]
+    { value: 'other', name: globals.app.t('app-other') },
+  ];
 }

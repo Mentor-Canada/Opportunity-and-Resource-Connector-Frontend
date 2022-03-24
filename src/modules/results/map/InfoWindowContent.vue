@@ -96,7 +96,7 @@ $typography-color: #222;
 </style>
 
 <script>
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
@@ -105,9 +105,9 @@ export default {
     return {
       result: '',
       resultTip: '',
-      url: ''
-    }
-  }
+      url: '',
+    };
+  },
 
-}
+};
 </script>

@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
@@ -18,15 +18,15 @@ export default {
   data() {
     return {
       showBool: false,
-      filter: null
-    }
+      filter: null,
+    };
   },
 
   methods: {
     show(filter) {
-      this.filter = filter
-      this.showBool = true
-    }
-  }
-}
+      this.filter = filter;
+      this.showBool = true;
+    },
+  },
+};
 </script>

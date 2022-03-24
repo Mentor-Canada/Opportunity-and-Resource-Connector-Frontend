@@ -1,6 +1,6 @@
-import BaseMixin from "../../../mixins/BaseMixin"
-import Inquiry from "./Inquiry"
-import PageMixin from "../../../mixins/PageMixin"
+import BaseMixin from '../../../mixins/BaseMixin';
+import Inquiry from './Inquiry';
+import PageMixin from '../../../mixins/PageMixin';
 
 export default {
   mixins: [BaseMixin, PageMixin],
@@ -12,14 +12,14 @@ export default {
         { title: 'app-inquiries', url: 'admin/applications' },
         { title: 'app-inquiry-details', url: null },
       ],
-      inquiry: new Inquiry()
-    }
+      inquiry: new Inquiry(),
+    };
   },
 
   async mounted() {
-    this.app.showLoading()
-    this.inquiry.id = this.$route.params.id
-    await this.inquiry.load()
-    this.ready()
-  }
-}
+    this.app.showLoading();
+    this.inquiry.id = this.$route.params.id;
+    await this.inquiry.load();
+    this.ready();
+  },
+};

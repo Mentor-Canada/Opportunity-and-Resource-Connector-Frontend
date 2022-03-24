@@ -17,35 +17,35 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
-import globals from "../globals"
+import BaseMixin from '../mixins/BaseMixin';
+import globals from '../globals';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ["headline", "message"],
+  props: ['headline', 'message'],
 
   data() {
     return {
-      visible: true
-    }
+      visible: true,
+    };
   },
 
   watch: {
     visible: () => {
-      console.log("HERE")
-    }
+      console.log('HERE');
+    },
   },
 
   mounted() {
     this.$nextTick(() => {
-      console.log("HELLO?")
-    })
+      console.log('HELLO?');
+    });
   },
 
   methods: {
-  }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -97,8 +97,6 @@ export default {
         }
       }
     }
-
-
 
   }
 

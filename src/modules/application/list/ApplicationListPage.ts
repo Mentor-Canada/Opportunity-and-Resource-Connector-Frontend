@@ -1,31 +1,31 @@
-import ApplicationListDelegate from "./ApplicationListDelegate"
-import TableMixin from "../../../components/Table/TableMixin"
-import FilterProperties from "../../filter/FilterProperties"
-import InquiryFilter from "./InquiryFilter.vue"
-import FilterListMixin from "../../filter/FilterListMixin"
+import ApplicationListDelegate from './ApplicationListDelegate';
+import TableMixin from '../../../components/Table/TableMixin';
+import FilterProperties from '../../filter/FilterProperties';
+import InquiryFilter from './InquiryFilter.vue';
+import FilterListMixin from '../../filter/FilterListMixin';
 
 export default {
   mixins: [TableMixin, FilterListMixin],
 
   components: {
-    InquiryFilter
+    InquiryFilter,
   },
 
   data() {
-    const delegate = new ApplicationListDelegate()
+    const delegate = new ApplicationListDelegate();
 
     return {
-      delegate: delegate,
-      filterProperties: new FilterProperties("inquiry", delegate),
-      isReady: false
-    }
+      delegate,
+      filterProperties: new FilterProperties('inquiry', delegate),
+      isReady: false,
+    };
   },
 
   methods: {
     rowClicked(data) {
-      let id = data.data.attributes.uuid
-      this.router.push(this.link(`${this.delegate.baseUrl}/detail/${id}`))
-    }
-  }
+      const id = data.data.attributes.uuid;
+      this.router.push(this.link(`${this.delegate.baseUrl}/detail/${id}`));
+    },
+  },
 
-}
+};

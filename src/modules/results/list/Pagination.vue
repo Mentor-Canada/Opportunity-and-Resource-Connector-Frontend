@@ -62,15 +62,15 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import paginationResultsPerPage from "../paginationResultsPerPage"
+import BaseMixin from 'BaseMixin';
+import paginationResultsPerPage from '../paginationResultsPerPage';
 
 export default {
   mixins: [BaseMixin],
   props: ['initial'],
 
   data() {
-    let result = {
+    const result = {
       paginationPages: this.$props.initial.totalPages,
       paginationPosition: this.$props.initial.position,
       paginationRangeStart: this.$props.initial.rangeStart,
@@ -78,70 +78,70 @@ export default {
       paginationTotal: this.$props.initial.total,
       paginationArray: [],
       paginationResultsPerPageVisible: false,
-      paginationResultsPerPageOptions: paginationResultsPerPage
-    }
-    result.paginationResultsPerPage = result.paginationResultsPerPageOptions[0]
-    return result
+      paginationResultsPerPageOptions: paginationResultsPerPage,
+    };
+    result.paginationResultsPerPage = result.paginationResultsPerPageOptions[0];
+    return result;
   },
 
   watch: {
     paginationResultsPerPage() {
-      this.$parent.$emit('update-pagination', { resultsPerPage: this.paginationResultsPerPage })
-    }
+      this.$parent.$emit('update-pagination', { resultsPerPage: this.paginationResultsPerPage });
+    },
   },
 
   methods: {
     getPageList(totalPages, page, maxLength) {
-      if (maxLength < 5) throw "maxLength must be at least 5"
+      if (maxLength < 5) throw 'maxLength must be at least 5';
 
       function range(start, end) {
-        return Array.from(Array(end - start + 1), (_, i) => i + start)
+        return Array.from(Array(end - start + 1), (_, i) => i + start);
       }
 
-      var sideWidth = maxLength < 9 ? 1 : 2
-      var leftWidth = (maxLength - sideWidth*2 - 3) >> 1
-      var rightWidth = (maxLength - sideWidth*2 - 2) >> 1
+      const sideWidth = maxLength < 9 ? 1 : 2;
+      const leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
+      const rightWidth = (maxLength - sideWidth * 2 - 2) >> 1;
       if (totalPages <= maxLength) {
         // no breaks in list
-        return range(1, totalPages)
+        return range(1, totalPages);
       }
       if (page <= maxLength - sideWidth - 1 - rightWidth) {
         // no break on left of page
-        return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages))
+        return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
       }
       if (page >= totalPages - sideWidth - 1 - rightWidth) {
         // no break on right of page
-        return range(1, sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages))
+        return range(1, sideWidth).concat(0, range(totalPages - sideWidth - 1 - rightWidth - leftWidth, totalPages));
       }
       // Breaks on both sides
-      return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages))
+      return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
     },
 
     gotoPage(number) {
-      this.paginationPosition = number - 1
-      this.$parent.$emit('goto-page', { offset: this.paginationPosition })
+      this.paginationPosition = number - 1;
+      this.$parent.$emit('goto-page', { offset: this.paginationPosition });
     },
 
     previousPage() {
-      this.paginationPosition = this.paginationPosition - 1
-      this.$parent.$emit('goto-page', { offset: this.paginationPosition })
+      this.paginationPosition -= 1;
+      this.$parent.$emit('goto-page', { offset: this.paginationPosition });
     },
 
     nextPage() {
-      this.paginationPosition = this.paginationPosition + 1
-      this.$parent.$emit('goto-page', { offset: this.paginationPosition })
+      this.paginationPosition += 1;
+      this.$parent.$emit('goto-page', { offset: this.paginationPosition });
     },
 
     update(data: any) {
-      this.paginationPosition = data.position
-      this.paginationPages = data.totalPages
-      this.paginationRangeStart = data.rangeStart
-      this.paginationRangeEnd = data.rangeEnd
-      this.paginationTotal = data.total
-      this.paginationArray = this.getPageList(this.paginationPages, this.paginationPosition + 1, 7)
-    }
-  }
-}
+      this.paginationPosition = data.position;
+      this.paginationPages = data.totalPages;
+      this.paginationRangeStart = data.rangeStart;
+      this.paginationRangeEnd = data.rangeEnd;
+      this.paginationTotal = data.total;
+      this.paginationArray = this.getPageList(this.paginationPages, this.paginationPosition + 1, 7);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

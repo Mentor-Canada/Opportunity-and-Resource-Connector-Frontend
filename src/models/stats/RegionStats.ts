@@ -1,21 +1,20 @@
-import Stats from "Models/stats/Stats"
-import WindowInterface from "Interfaces/WindowInterface"
+import Stats from 'Models/stats/Stats';
+import WindowInterface from 'Interfaces/WindowInterface';
 
-declare const window: WindowInterface
+declare const window: WindowInterface;
 
 export default class extends Stats {
+  type = 'region';
 
-  type = 'region'
-  regions
+  regions;
 
   constructor() {
-    super()
-    this.attributes.country = null
+    super();
+    this.attributes.country = null;
   }
 
   async load() {
-    let response = await super.load()
-    this.regions = response.data.data.regions
+    const response = await super.load();
+    this.regions = response.data.data.regions;
   }
-
 }

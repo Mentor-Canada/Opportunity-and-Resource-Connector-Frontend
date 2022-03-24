@@ -1,84 +1,105 @@
-import UserParams from "../UserParams"
+import UserParams from '../UserParams';
 
 export default class SearchAttributes {
-  static readonly COMMUNITY_BASED_DELIVERY = "community"
-  static readonly SITE_BASED_DELIVERY = "siteBased"
-  static readonly E_MENTORING_DELIVERY = "eMentoring"
+  static readonly COMMUNITY_BASED_DELIVERY = 'community';
 
-  public zip: string
-  public role: string = 'mentor'
-  public distance: string = '30'
-  public typeOfMentoring: string = 'all'
-  public age: string = 'all'
-  public grade: string = 'all'
-  public youth: string = 'all'
-  public focus: string = 'all'
-  public howDidYouHearAboutUs: string
-  public howDidYouHearAboutUsOther: string
-  public lat: string
-  public lng: string
-  public partnerId: string = '1'
-  public national: boolean = false
-  public firstName: string = ''
-  public lastName: string = ''
-  public email: string = ''
-  public id: string
-  public delivery = []
+  static readonly SITE_BASED_DELIVERY = 'siteBased';
+
+  static readonly E_MENTORING_DELIVERY = 'eMentoring';
+
+  public zip: string;
+
+  public role: string = 'mentor';
+
+  public distance: string = '30';
+
+  public typeOfMentoring: string = 'all';
+
+  public age: string = 'all';
+
+  public grade: string = 'all';
+
+  public youth: string = 'all';
+
+  public focus: string = 'all';
+
+  public howDidYouHearAboutUs: string;
+
+  public howDidYouHearAboutUsOther: string;
+
+  public lat: string;
+
+  public lng: string;
+
+  public partnerId: string = '1';
+
+  public national: boolean = false;
+
+  public firstName: string = '';
+
+  public lastName: string = '';
+
+  public email: string = '';
+
+  public id: string;
+
+  public delivery = [];
 
   loadUserParams() {
-    const params = UserParams.getInstance()
-    this.firstName = params.firstName
-    this.lastName = params.lastName
-    this.email = params.email
-    this.zip = params.zip
-    if(params.communityBased) this.delivery.push(SearchAttributes.COMMUNITY_BASED_DELIVERY)
-    if(params.siteBased) this.delivery.push(SearchAttributes.SITE_BASED_DELIVERY)
-    if(params.eMentoring) this.delivery.push(SearchAttributes.E_MENTORING_DELIVERY)
-    this.national = params.nationalEMentoring
+    const params = UserParams.getInstance();
+    this.firstName = params.firstName;
+    this.lastName = params.lastName;
+    this.email = params.email;
+    this.zip = params.zip;
+    if (params.communityBased) this.delivery.push(SearchAttributes.COMMUNITY_BASED_DELIVERY);
+    if (params.siteBased) this.delivery.push(SearchAttributes.SITE_BASED_DELIVERY);
+    if (params.eMentoring) this.delivery.push(SearchAttributes.E_MENTORING_DELIVERY);
+    this.national = params.nationalEMentoring;
   }
 
   updateUserParams() {
-    const params = UserParams.getInstance()
-    params.firstName = this.firstName
-    params.lastName = this.lastName
-    params.email = this.email
-    params.zip = this.zip
-    params.communityBased = this.delivery.indexOf(SearchAttributes.COMMUNITY_BASED_DELIVERY) != -1
-    params.siteBased = this.delivery.indexOf(SearchAttributes.SITE_BASED_DELIVERY) != -1
-    params.eMentoring = this.delivery.indexOf(SearchAttributes.E_MENTORING_DELIVERY) != -1
-    params.nationalEMentoring = this.national
+    const params = UserParams.getInstance();
+    params.firstName = this.firstName;
+    params.lastName = this.lastName;
+    params.email = this.email;
+    params.zip = this.zip;
+    params.communityBased = this.delivery.indexOf(SearchAttributes.COMMUNITY_BASED_DELIVERY) != -1;
+    params.siteBased = this.delivery.indexOf(SearchAttributes.SITE_BASED_DELIVERY) != -1;
+    params.eMentoring = this.delivery.indexOf(SearchAttributes.E_MENTORING_DELIVERY) != -1;
+    params.nationalEMentoring = this.national;
   }
 
   load(row: any) {
-    let attributes = row.data.attributes
-    this.id = attributes.id
+    const { attributes } = row.data;
+    this.id = attributes.id;
     // this.zip = attributes.field_zip
-    this.distance = attributes.distance
-    this.typeOfMentoring = JSON.parse(attributes.typeOfMentoring)[0]
-    this.age = JSON.parse(attributes.age)[0]
-    this.youth = JSON.parse(attributes.youth)[0]
+    this.distance = attributes.distance;
+    this.typeOfMentoring = JSON.parse(attributes.typeOfMentoring)[0];
+    this.age = JSON.parse(attributes.age)[0];
+    this.youth = JSON.parse(attributes.youth)[0];
     // this.role = attributes.field_role
-    this.focus = JSON.parse(attributes.focus)[0]
+    this.focus = JSON.parse(attributes.focus)[0];
     // this.howDidYouHearAboutUs = attributes.field_how_did_you_hear_about_us
     // this.howDidYouHearAboutUsOther = attributes.field_how_did_you_hear_other
     // this.lat = attributes.field_physical_location?.lat
     // this.lng = attributes.field_physical_location?.lng
-    this.grade = JSON.parse(attributes.grade)[0]
-    this.national = attributes.nationWideEMentoring == "1"
-    this.delivery = []
-    if(attributes.communityBasedDelivery == "1") {
-      this.delivery.push(SearchAttributes.COMMUNITY_BASED_DELIVERY)
+    this.grade = JSON.parse(attributes.grade)[0];
+    this.national = attributes.nationWideEMentoring == '1';
+    this.delivery = [];
+    if (attributes.communityBasedDelivery == '1') {
+      this.delivery.push(SearchAttributes.COMMUNITY_BASED_DELIVERY);
     }
-    if(attributes.siteBasedDelivery == "1") {
-      this.delivery.push(SearchAttributes.SITE_BASED_DELIVERY)
+    if (attributes.siteBasedDelivery == '1') {
+      this.delivery.push(SearchAttributes.SITE_BASED_DELIVERY);
     }
-    if(attributes.eMentoringDelivery == "1") {
-      this.delivery.push(SearchAttributes.E_MENTORING_DELIVERY)
+    if (attributes.eMentoringDelivery == '1') {
+      this.delivery.push(SearchAttributes.E_MENTORING_DELIVERY);
     }
   }
+
   serialize() {
-    if(this.national) {
-      this.delivery = [SearchAttributes.E_MENTORING_DELIVERY]
+    if (this.national) {
+      this.delivery = [SearchAttributes.E_MENTORING_DELIVERY];
     }
     return {
       field_first_name: this.firstName,
@@ -95,9 +116,7 @@ export default class SearchAttributes {
       field_how_did_you_hear_other: this.howDidYouHearAboutUsOther,
       field_partner_id: this.partnerId,
       field_youth_grade: this.grade,
-      delivery: this.delivery
-    }
+      delivery: this.delivery,
+    };
   }
-
 }
-

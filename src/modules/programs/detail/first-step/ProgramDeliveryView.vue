@@ -67,8 +67,8 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import EMentoringServiceArea from "./EMentoringServiceArea.vue"
+import BaseMixin from 'BaseMixin';
+import EMentoringServiceArea from './EMentoringServiceArea.vue';
 
 export default {
   mixins: [BaseMixin],
@@ -81,28 +81,27 @@ export default {
 
   data() {
     return {
-      required: null
-    }
+      required: null,
+    };
   },
 
   mounted() {
-    this.onInput()
+    this.onInput();
   },
 
   methods: {
     onInput() {
-      if(!this.program.attributes.delivery.siteBased
+      if (!this.program.attributes.delivery.siteBased
         && !this.program.attributes.delivery.community
         && !this.program.attributes.delivery.eMentoring) {
-        this.required = true
+        this.required = true;
+      } else {
+        this.required = false;
       }
-      else {
-        this.required = false
-      }
-    }
-  }
+    },
+  },
 
-}
+};
 </script>
 
 <style lang="scss">

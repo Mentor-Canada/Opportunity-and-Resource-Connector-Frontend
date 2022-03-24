@@ -1,62 +1,62 @@
-import BaseMixin from "BaseMixin"
-import FilterProperties from "./FilterProperties"
+import BaseMixin from 'BaseMixin';
+import FilterProperties from './FilterProperties';
 
 export default {
   mixins: [BaseMixin],
 
   props: {
     properties: {
-      type: FilterProperties
+      type: FilterProperties,
     },
     isDialog: {
-      type: Boolean
-    }
+      type: Boolean,
+    },
   },
 
   mounted() {
-    const filterComponent = this.$refs['filter-component']
-    filterComponent.delegate = this.properties.delegate
-    filterComponent.filter = this.properties.filter
-    filterComponent.savedFilters = this.properties.filters
-    filterComponent.isDialog = this.isDialog
+    const filterComponent = this.$refs['filter-component'];
+    filterComponent.delegate = this.properties.delegate;
+    filterComponent.filter = this.properties.filter;
+    filterComponent.savedFilters = this.properties.filters;
+    filterComponent.isDialog = this.isDialog;
 
     filterComponent.$on('input', () => {
-      this.$emit('input')
-    })
+      this.$emit('input');
+    });
 
     filterComponent.$on('save', () => {
-      this.$emit('save')
-    })
+      this.$emit('save');
+    });
 
     filterComponent.$on('delete', (filter) => {
-      this.$emit('save', filter)
-    })
+      this.$emit('save', filter);
+    });
 
     filterComponent.$on('clear', () => {
-      for(const i in this.properties.open) {
-        this.properties.open[i] = false
+      for (const i in this.properties.open) {
+        this.properties.open[i] = false;
       }
-    })
+    });
   },
 
   methods: {
     refresh() {
-      this.$emit('input')
+      this.$emit('input');
     },
 
     /**
      * Ensure 'blank' option for filter.
      */
     optionsFilterAdapter(options) {
-      for(const property in options) {
-        if(options.hasOwnProperty(property)) {
-          let option = options[property]
-          if(option[0].name != '') {
-            option.unshift({name: "", value: ""})
+      for (const property in options) {
+        if (options.hasOwnProperty(property)) {
+          const option = options[property];
+          if (option[0].name != '') {
+            option.unshift({ name: '', value: '' });
           }
         }
       }
-      return options
-    }
-  }
-}
+      return options;
+    },
+  },
+};

@@ -3,17 +3,17 @@ export const mixin = {
     save(): void {
       this.item.save()
         .then(() => {
-          this.router.push(this.parentUrl)
-        })
+          this.router.push(this.parentUrl);
+        });
     },
     remove(): void {
       this.item.remove()
         .then(() => {
-          this.router.push(this.parentUrl)
-        })
-    }
-  }
-}
+          this.router.push(this.parentUrl);
+        });
+    },
+  },
+};
 
 export interface data {
   item: EntityInterface

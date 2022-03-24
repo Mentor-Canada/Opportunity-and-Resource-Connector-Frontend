@@ -32,54 +32,53 @@
 </template>
 
 <script lang="ts">
-  import OrganizationCollection from "Models/OrganizationCollection";
-  import RequestBuilder from "Models/RequestBuilder"
-  import globals from "../globals"
+import OrganizationCollection from 'Models/OrganizationCollection';
+import RequestBuilder from 'Models/RequestBuilder';
+import globals from '../globals';
 
-  export default {
-    props: ["name", "value", "required", "blankString", "label", "mode"],
-    computed: {
-      aValue: {
-        get() {
-          return this.value
-        },
-        set() {}
-      }
+export default {
+  props: ['name', 'value', 'required', 'blankString', 'label', 'mode'],
+  computed: {
+    aValue: {
+      get() {
+        return this.value;
+      },
+      set() {},
     },
-    data() {
-      return {
-        options: []
-      }
-    },
-    async mounted() {
-      let show = this.$route.query.organization || ""
-      let url = new RequestBuilder()
-        .langcode('en')
-        .resource(`a/app/organization?show=${show}`)
-        .build()
-      let response = await globals.api.get(url)
-      for(const row of response.data.data) {
-        this.options.push({
-          value: row.attributes.id,
-          name: row.attributes.title
-        })
-      }
-    },
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("option:checked")
-        let value = option.getAttribute("value")
-        if(this.mode == 'object') {
-          for(const row of this.options) {
-            if(value == row.value) {
-              this.$emit('input', row)
-            }
+  },
+  data() {
+    return {
+      options: [],
+    };
+  },
+  async mounted() {
+    const show = this.$route.query.organization || '';
+    const url = new RequestBuilder()
+      .langcode('en')
+      .resource(`a/app/organization?show=${show}`)
+      .build();
+    const response = await globals.api.get(url);
+    for (const row of response.data.data) {
+      this.options.push({
+        value: row.attributes.id,
+        name: row.attributes.title,
+      });
+    }
+  },
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('option:checked');
+      const value = option.getAttribute('value');
+      if (this.mode == 'object') {
+        for (const row of this.options) {
+          if (value == row.value) {
+            this.$emit('input', row);
           }
         }
-        else {
-          this.$emit('input', value)
-        }
+      } else {
+        this.$emit('input', value);
       }
-    }
-  }
+    },
+  },
+};
 </script>

@@ -4,9 +4,9 @@
 </template>
 
 <script lang="ts">
-import FilterMixin from "../../../modules/filter/FilterMixin"
+import FilterMixin from '../../filter/FilterMixin';
 
 export default {
-  mixins: [FilterMixin]
-}
+  mixins: [FilterMixin],
+};
 </script>

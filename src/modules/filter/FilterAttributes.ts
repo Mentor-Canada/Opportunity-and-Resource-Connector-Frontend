@@ -1,8 +1,9 @@
 export default class FilterAttributes {
+  public id;
 
-  public id
-  public title
-  public type
-  public data
+  public title;
 
+  public type;
+
+  public data;
 }

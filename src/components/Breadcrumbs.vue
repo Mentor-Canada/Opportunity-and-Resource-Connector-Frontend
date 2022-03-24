@@ -15,12 +15,12 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
+import BaseMixin from '../mixins/BaseMixin';
 
 export default {
   mixins: [BaseMixin],
-  props: ['trail']
-}
+  props: ['trail'],
+};
 </script>
 
 <style lang="scss" scoped>

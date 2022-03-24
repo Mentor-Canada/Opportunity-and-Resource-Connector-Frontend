@@ -47,7 +47,6 @@
         </vuetable>
       </div>
 
-
     </div>
     <div class="dashboard-card-actions">
 
@@ -69,12 +68,12 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import CardMixin from "./CardMixin"
-import Program from "./Program"
-import globals from "../../globals"
-import RangeAdapter from "./RangeAdapter"
-import {ProgramListUrlBuilder} from "../programs/list/ProgramListUrlBuilder"
+import BaseMixin from 'BaseMixin';
+import CardMixin from './CardMixin';
+import Program from './Program';
+import globals from '../../globals';
+import RangeAdapter from './RangeAdapter';
+import { ProgramListUrlBuilder } from '../programs/list/ProgramListUrlBuilder';
 
 export default {
   mixins: [BaseMixin, CardMixin],
@@ -86,7 +85,7 @@ export default {
       programsTotalInquiries: 0,
       programsContactedInquiries: 0,
       programsUncontactedInquiries: 0,
-      programsInquiriesBreakdownOption: "contacted",
+      programsInquiriesBreakdownOption: 'contacted',
       programsInquiriesChart: null,
       programsInquiriesChartData: {},
       programsTableList: [],
@@ -96,93 +95,92 @@ export default {
         { title: this.t('app-uncontacted'), name: 'programs_uncontacted' },
         { title: this.t('app-total'), name: 'programs_total' },
       ],
-    }
+    };
   },
 
   watch: {
-    programsInquiriesBreakdownOption: function(val) {
-      this.updateProgramsData(false)
+    programsInquiriesBreakdownOption(val) {
+      this.updateProgramsData(false);
     },
   },
 
   methods: {
 
     async load(range) {
-      await this.getPrograms(range)
-      this.updateProgramsData()
-      this.programsInquiriesChart = this.renderInquiriesBreakdownChart("#programs-inquiries-chart", this.programsInquiriesChartData)
+      await this.getPrograms(range);
+      this.updateProgramsData();
+      this.programsInquiriesChart = this.renderInquiriesBreakdownChart('#programs-inquiries-chart', this.programsInquiriesChartData);
     },
 
     async getPrograms(params) {
-      if(this.date.optionsValue == false) {
-        this.date.optionsValue = params.value
+      if (this.date.optionsValue == false) {
+        this.date.optionsValue = params.value;
       }
-      let rangeAdapter = new RangeAdapter(params)
-      this.programs = []
+      const rangeAdapter = new RangeAdapter(params);
+      this.programs = [];
 
       const builder = new ProgramListUrlBuilder()
         .path('app/program')
         .addFilter('start_date', rangeAdapter.start.getTime() / 1000)
-        .addFilter('end_date', rangeAdapter.end.getTime() / 1000)
-      builder.params['view'] = 'inquiry'
-      const url = builder.build()
-      const response = await globals.api.get(url)
+        .addFilter('end_date', rangeAdapter.end.getTime() / 1000);
+      builder.params.view = 'inquiry';
+      const url = builder.build();
+      const response = await globals.api.get(url);
 
-      for(const row of response.data.data) {
-        const program = new Program()
-        program.uuid = row.id
-        program.name = row.attributes.title
-        program.contacted = parseInt(row.attributes.contacted) || 0
-        program.uncontacted = parseInt(row.attributes.uncontacted) || 0
-        program.total = program.contacted + program.uncontacted
-        this.programs.push(program)
+      for (const row of response.data.data) {
+        const program = new Program();
+        program.uuid = row.id;
+        program.name = row.attributes.title;
+        program.contacted = parseInt(row.attributes.contacted) || 0;
+        program.uncontacted = parseInt(row.attributes.uncontacted) || 0;
+        program.total = program.contacted + program.uncontacted;
+        this.programs.push(program);
       }
     },
 
     updateProgramsData(formatData = true) {
-      if(formatData) {
-        this.programsData = this.formatEntitiesData(this.programs)
+      if (formatData) {
+        this.programsData = this.formatEntitiesData(this.programs);
       }
 
-      this.programsTotalInquiries = this.nFormatter(this.programsData.counts.total)
-      this.programsContactedInquiries = this.nFormatter(this.programsData.counts.contacted)
-      this.programsUncontactedInquiries = this.nFormatter(this.programsData.counts.uncontacted)
+      this.programsTotalInquiries = this.nFormatter(this.programsData.counts.total);
+      this.programsContactedInquiries = this.nFormatter(this.programsData.counts.contacted);
+      this.programsUncontactedInquiries = this.nFormatter(this.programsData.counts.uncontacted);
 
-      this.programsTableList = this.programsData.tableData[this.programsInquiriesBreakdownOption]
-      for(const row of this.programsTableList) {
-        row.programs_contacted = row.contacted
-        row.programs_uncontacted = row.uncontacted
-        row.programs_total = row.total
+      this.programsTableList = this.programsData.tableData[this.programsInquiriesBreakdownOption];
+      for (const row of this.programsTableList) {
+        row.programs_contacted = row.contacted;
+        row.programs_uncontacted = row.uncontacted;
+        row.programs_total = row.total;
       }
 
       this.programsInquiriesChartData = {
         labels: [this.t(`app-${this.programsInquiriesBreakdownOption}`)],
-        datasets: this.programsData.chartData[this.programsInquiriesBreakdownOption]
-      }
-      if(this.programsInquiriesChart) {
-        this.programsInquiriesChart.config.data = this.programsInquiriesChartData
-        this.programsInquiriesChart.update()
+        datasets: this.programsData.chartData[this.programsInquiriesBreakdownOption],
+      };
+      if (this.programsInquiriesChart) {
+        this.programsInquiriesChart.config.data = this.programsInquiriesChartData;
+        this.programsInquiriesChart.update();
       }
     },
 
     async onProgramsDateRangeInput(range) {
-      globals.app.showLoading()
-      await this.getPrograms(range)
-      this.updateProgramsData()
-      globals.app.hideLoading()
+      globals.app.showLoading();
+      await this.getPrograms(range);
+      this.updateProgramsData();
+      globals.app.hideLoading();
     },
 
     rowClicked(payload) {
-      let uuid = payload.data.uuid
-      let type = `${payload.data.type.toLowerCase()}s`
-      if(uuid) {
-        this.router.push(this.link(`admin/${type}/detail/${uuid}`))
-      }
-      else {
-        this.router.push(this.link(`admin/${type}`))
+      const { uuid } = payload.data;
+      const type = `${payload.data.type.toLowerCase()}s`;
+      if (uuid) {
+        this.router.push(this.link(`admin/${type}/detail/${uuid}`));
+      } else {
+        this.router.push(this.link(`admin/${type}`));
       }
     },
 
-  }
-}
+  },
+};
 </script>

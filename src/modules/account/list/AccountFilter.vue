@@ -19,8 +19,8 @@
 </template>
 
 <script lang="ts">
-import FilterMixin from "../../../modules/filter/FilterMixin"
-import OptionCollection from "Models/OptionCollection"
+import OptionCollection from 'Models/OptionCollection';
+import FilterMixin from '../../filter/FilterMixin';
 
 export default {
   mixins: [FilterMixin],
@@ -28,18 +28,18 @@ export default {
   data() {
     return {
       accountTypeOptions: (new OptionCollection())
-        .add("")
-        .add("app-global-administrator")
-        .add("app-affiliate-administrator")
-        .add("app-organization-administrator")
-        .add("app-program-administrator")
+        .add('')
+        .add('app-global-administrator')
+        .add('app-affiliate-administrator')
+        .add('app-organization-administrator')
+        .add('app-program-administrator')
         .options,
       yesNoOptions: (new OptionCollection())
-        .add("")
-        .add("app-yes")
-        .add("app-no")
-        .options
-    }
-  }
-}
+        .add('')
+        .add('app-yes')
+        .add('app-no')
+        .options,
+    };
+  },
+};
 </script>

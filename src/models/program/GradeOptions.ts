@@ -1,4 +1,4 @@
-import OptionCollection from "Models/OptionCollection"
+import OptionCollection from 'Models/OptionCollection';
 
 export default function gradeOptions() {
   return new OptionCollection()
@@ -6,5 +6,5 @@ export default function gradeOptions() {
     .add('app-grade-6-8')
     .add('app-grade-9-12')
     .add('app-grade-college')
-    .options
+    .options;
 }

@@ -30,11 +30,11 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import globals from "../../../globals"
+import BaseMixin from 'BaseMixin';
+import globals from '../../../globals';
 
 export default {
   mixins: [BaseMixin],
-  props: ["search"]
-}
+  props: ['search'],
+};
 </script>

@@ -349,10 +349,10 @@
 </template>
 
 <script lang="ts">
-import FilterMixin from "../../../modules/filter/FilterMixin"
-import ProgramFields from "./ProgramFields"
-import ProgramOptions from "./ProgramOptions"
-import globals from "../../../globals"
+import FilterMixin from '../../filter/FilterMixin';
+import ProgramFields from './ProgramFields';
+import ProgramOptions from './ProgramOptions';
+import globals from '../../../globals';
 
 export default {
   mixins: [FilterMixin],
@@ -361,25 +361,25 @@ export default {
     return {
       Fields: ProgramFields,
       options: this.optionsFilterAdapter(new ProgramOptions()),
-      organizationOptions: [{ value: "", name: "" }],
-      organizationFilterOptions: [{ value: "", name: "" }],
-      sourceOptions: [{ value: "", name: "" }],
-    }
+      organizationOptions: [{ value: '', name: '' }],
+      organizationFilterOptions: [{ value: '', name: '' }],
+      sourceOptions: [{ value: '', name: '' }],
+    };
   },
 
   async mounted() {
-    const organizations = await globals.api.get('a/app/organization?sort=title')
-    for(const organization of organizations.data.data) {
-      this.organizationOptions.push({ value: organization.attributes.nid, name: organization.attributes.title })
+    const organizations = await globals.api.get('a/app/organization?sort=title');
+    for (const organization of organizations.data.data) {
+      this.organizationOptions.push({ value: organization.attributes.nid, name: organization.attributes.title });
     }
-    const organizationFilters = await globals.api.get('a/app/filter?type=organization')
-    for(const filter of organizationFilters.data) {
-      this.organizationFilterOptions.push({ value: filter.id, name: filter.title })
+    const organizationFilters = await globals.api.get('a/app/filter?type=organization');
+    for (const filter of organizationFilters.data) {
+      this.organizationFilterOptions.push({ value: filter.id, name: filter.title });
     }
-    const sources = await globals.api.get('a/app/program/sources')
-    for(const source of sources.data) {
-      this.sourceOptions.push({ value: source, name: source })
+    const sources = await globals.api.get('a/app/program/sources');
+    for (const source of sources.data) {
+      this.sourceOptions.push({ value: source, name: source });
     }
-  }
-}
+  },
+};
 </script>

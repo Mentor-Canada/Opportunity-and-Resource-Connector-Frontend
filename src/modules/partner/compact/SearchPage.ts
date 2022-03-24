@@ -1,15 +1,15 @@
-import BaseMixin from "../../../mixins/BaseMixin"
-import WindowInterface from "Interfaces/WindowInterface"
-import Search from "Models/Search"
-import PageMixin from "../../../mixins/PageMixin"
-import template from "./Search.html"
-import CAOptions from "Models/CAOptions"
+import WindowInterface from 'Interfaces/WindowInterface';
+import Search from 'Models/Search';
+import CAOptions from 'Models/CAOptions';
+import BaseMixin from '../../../mixins/BaseMixin';
+import PageMixin from '../../../mixins/PageMixin';
+import template from './Search.html';
 
-declare const window: WindowInterface
+declare const window: WindowInterface;
 
 export default {
 
-  template: template,
+  template,
 
   mixins: [BaseMixin, PageMixin],
 
@@ -18,38 +18,38 @@ export default {
       search: new Search(),
       handler: '',
       optionsRoleInMentoring: [
-        {value: "mentor", name: this.t("app-become-a-mentor")},
-        {value: "mentee", name: this.t("app-become-a-mentee")},
+        { value: 'mentor', name: this.t('app-become-a-mentor') },
+        { value: 'mentee', name: this.t('app-become-a-mentee') },
       ],
       optionsTypeOfMentoring: [
-        {value: 'all', name: this.t('app-all')},
-        {value: 'app-type-of-mentoring-1-to-1', name: this.t('app-type-of-mentoring-1-to-1')},
-        {value: 'app-type-of-mentoring-group', name: this.t('app-type-of-mentoring-group')},
-        {value: 'app-type-of-mentoring-team', name: this.t('app-type-of-mentoring-team')},
-        {value: 'app-type-of-mentoring-e-mentoring', name: this.t('app-type-of-mentoring-e-mentoring')},
-        {value: 'app-type-of-mentoring-peer', name: this.t('app-type-of-mentoring-peer')},
-        {value: 'app-type-of-mentoring-school', name: this.t('app-type-of-mentoring-school')},
-        {value: 'other', name: this.t('app-other')}
-      ]
-    }
+        { value: 'all', name: this.t('app-all') },
+        { value: 'app-type-of-mentoring-1-to-1', name: this.t('app-type-of-mentoring-1-to-1') },
+        { value: 'app-type-of-mentoring-group', name: this.t('app-type-of-mentoring-group') },
+        { value: 'app-type-of-mentoring-team', name: this.t('app-type-of-mentoring-team') },
+        { value: 'app-type-of-mentoring-e-mentoring', name: this.t('app-type-of-mentoring-e-mentoring') },
+        { value: 'app-type-of-mentoring-peer', name: this.t('app-type-of-mentoring-peer') },
+        { value: 'app-type-of-mentoring-school', name: this.t('app-type-of-mentoring-school') },
+        { value: 'other', name: this.t('app-other') },
+      ],
+    };
   },
 
   computed: {
     optionsDistanceToMentoring() {
       if (this.countryCode == 'ca') {
-        return CAOptions.distanceOptions()
+        return CAOptions.distanceOptions();
       }
       return [
-        {value: "5", name: this.t("app-5-miles")},
-        {value: "10", name: this.t("app-10-miles")},
-        {value: "15", name: this.t("app-15-miles")},
-        {value: "25", name: this.t("app-25-miles")},
-      ]
+        { value: '5', name: this.t('app-5-miles') },
+        { value: '10', name: this.t('app-10-miles') },
+        { value: '15', name: this.t('app-15-miles') },
+        { value: '25', name: this.t('app-25-miles') },
+      ];
     },
     optionsFocusArea() {
-      if(this.countryCode == 'ca') {
+      if (this.countryCode == 'ca') {
         return [
-          { value: "all", name: this.t('app-all') },
+          { value: 'all', name: this.t('app-all') },
           { value: 'app-ca-program-focus-academics-literacy', name: this.t('app-ca-program-focus-academics-literacy') },
           { value: 'app-ca-program-focus-arts', name: this.t('app-ca-program-focus-arts') },
           { value: 'app-ca-program-focus-job-skills-career-readiness', name: this.t('app-ca-program-focus-job-skills-career-readiness') },
@@ -60,46 +60,46 @@ export default {
           { value: 'app-ca-program-focus-health-and-well-being', name: this.t('app-ca-program-focus-health-and-well-being') },
           { value: 'app-ca-program-focus-faith', name: this.t('app-ca-program-focus-faith') },
           { value: 'app-ca-program-focus-culture', name: this.t('app-ca-program-focus-culture') },
-          { value: 'other', name: this.t('app-other') }
-        ]
+          { value: 'other', name: this.t('app-other') },
+        ];
       }
       return [
-        { value: "all", name: this.t('app-all') },
+        { value: 'all', name: this.t('app-all') },
         { value: 'app-us-program-focus-academics', name: this.t('app-us-program-focus-academics') },
         { value: 'app-us-program-focus-arts', name: this.t('app-us-program-focus-arts') },
         { value: 'app-us-program-focus-job-skills', name: this.t('app-us-program-focus-job-skills') },
         { value: 'app-us-program-focus-job-sports', name: this.t('app-us-program-focus-job-sports') },
         { value: 'app-us-program-focus-job-stem', name: this.t('app-us-program-focus-job-stem') },
-        { value: 'other', name: this.t('app-other') }
-      ]
+        { value: 'other', name: this.t('app-other') },
+      ];
     },
     optionsAgesProgramServes() {
-      if(this.countryCode == 'ca') {
+      if (this.countryCode == 'ca') {
         return [
-          { value: "all", name: this.t('app-all') },
+          { value: 'all', name: this.t('app-all') },
           { value: 'app-ca-7-and-under', name: this.t('app-ca-7-and-under') },
           { value: 'app-ca-8-11', name: this.t('app-ca-8-11') },
           { value: 'app-ca-12-14', name: this.t('app-ca-12-14') },
           { value: 'app-ca-15-17', name: this.t('app-ca-15-17') },
           { value: 'app-ca-18-24', name: this.t('app-ca-18-24') },
           { value: 'app-ca-25-and-over', name: this.t('app-ca-25-and-over') },
-          { value: 'other', name: this.t('app-other') }
-        ]
+          { value: 'other', name: this.t('app-other') },
+        ];
       }
       return [
-        { value: "all", name: this.t('app-all') },
+        { value: 'all', name: this.t('app-all') },
         { value: 'app-us-7-and-under', name: this.t('app-us-7-and-under') },
         { value: 'app-us-8-10', name: this.t('app-us-8-10') },
         { value: 'app-us-11-14', name: this.t('app-us-11-14') },
         { value: 'app-us-15-18', name: this.t('app-us-15-18') },
         { value: 'app-us-19-24', name: this.t('app-us-19-24') },
-        { value: 'other', name: this.t('app-other') }
-      ]
+        { value: 'other', name: this.t('app-other') },
+      ];
     },
     optionsYouthProgramServes() {
-      if(this.countryCode == 'ca') {
+      if (this.countryCode == 'ca') {
         return [
-          { value: "all", name: this.t('app-all') },
+          { value: 'all', name: this.t('app-all') },
           { value: 'app-ca-academically-at-risk', name: this.t('app-ca-academically-at-risk') },
           { value: 'app-ca-college-post-secondary-student', name: this.t('app-ca-college-post-secondary-student') },
           { value: 'app-ca-foster-residential-or-kinship-care', name: this.t('app-ca-foster-residential-or-kinship-care') },
@@ -121,11 +121,11 @@ export default {
           { value: 'app-ca-pregnant-parenting', name: this.t('app-ca-pregnant-parenting') },
           { value: 'app-ca-school-drop-out', name: this.t('app-ca-school-drop-out') },
           { value: 'app-ca-special-education', name: this.t('app-ca-special-education') },
-          { value: 'other', name: this.t('app-other') }
-        ]
+          { value: 'other', name: this.t('app-other') },
+        ];
       }
       return [
-        { value: "all", name: this.t('app-all') },
+        { value: 'all', name: this.t('app-all') },
         { value: 'app-us-academically-at-risk', name: this.t('app-us-academically-at-risk') },
         { value: 'app-us-college-post-secondary-student', name: this.t('app-us-college-post-secondary-student') },
         { value: 'app-us-foster-residential-or-kinship-care', name: this.t('app-us-foster-residential-or-kinship-care') },
@@ -149,11 +149,11 @@ export default {
         { value: 'app-us-pregnant-parenting', name: this.t('app-us-pregnant-parenting') },
         { value: 'app-us-school-drop-out', name: this.t('app-us-school-drop-out') },
         { value: 'app-us-special-education', name: this.t('app-us-special-education') },
-        { value: 'other', name: this.t('app-other') }
-      ]
+        { value: 'other', name: this.t('app-other') },
+      ];
     },
     optionsHowDidYouHearAboutUs() {
-      if(this.countryCode == 'ca') {
+      if (this.countryCode == 'ca') {
         return [
           { value: 'app-ca-hear-about-us-mentoring-canada-website', name: this.t('app-ca-hear-about-us-mentoring-canada-website') },
           { value: 'app-ca-hear-about-us-alberta-mentoring-partnership', name: this.t('app-ca-hear-about-us-alberta-mentoring-partnership') },
@@ -161,8 +161,8 @@ export default {
           { value: 'app-ca-hear-about-us-linkedin', name: this.t('app-ca-hear-about-us-linkedin') },
           { value: 'app-ca-hear-about-us-mentoring-partnership-in-my-province-region', name: this.t('app-ca-hear-about-us-mentoring-partnership-in-my-province-region') },
           { value: 'app-ca-hear-about-us-national-mentoring-month-materials', name: this.t('app-ca-hear-about-us-national-mentoring-month-materials') },
-          { value: 'other', name: this.t('app-other') }
-        ]
+          { value: 'other', name: this.t('app-other') },
+        ];
       }
       return [
         { value: 'app-us-hear-about-us-mentor-web-site', name: this.t('app-us-hear-about-us-mentor-web-site') },
@@ -179,15 +179,15 @@ export default {
         { value: 'app-us-hear-about-us-generation-to-generation', name: this.t('app-us-hear-about-us-generation-to-generation') },
         { value: 'app-us-hear-about-us-equality', name: this.t('app-us-hear-about-us-equality') },
         { value: 'app-us-hear-about-us-yes-project', name: this.t('app-us-hear-about-us-yes-project') },
-        { value: 'other', name: this.t('app-other') }
-      ]
+        { value: 'other', name: this.t('app-other') },
+      ];
     },
   },
 
   mounted() {
-    document.body.classList.add('partner-search-compact')
-    this.ready()
-    this.handler = `${window.location.origin}/${this.app.language.langcode}/handler`
-  }
+    document.body.classList.add('partner-search-compact');
+    this.ready();
+    this.handler = `${window.location.origin}/${this.app.language.langcode}/handler`;
+  },
 
-}
+};

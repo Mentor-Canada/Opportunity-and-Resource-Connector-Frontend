@@ -9,59 +9,59 @@
 </template>
 
 <script lang="ts">
-  import Accounts from "Models/UserAccounts";
-  import UserAccount from "Models/UserAccount";
-  import Vue from "../../node_modules/vue/dist/vue"
-  import BaseMixin from "../mixins/BaseMixin";
+import Accounts from 'Models/UserAccounts';
+import UserAccount from 'Models/UserAccount';
+import Vue from '../../node_modules/vue/dist/vue';
+import BaseMixin from '../mixins/BaseMixin';
 
-  export default {
-    props: ['value'],
+export default {
+  props: ['value'],
 
-    mixins: [BaseMixin],
+  mixins: [BaseMixin],
 
-    data() {
-      return {
-        accounts: [],
-        userSearchValue: "",
-        users: [],
-      }
+  data() {
+    return {
+      accounts: [],
+      userSearchValue: '',
+      users: [],
+    };
+  },
+
+  mounted() {
+    this.getUsers();
+  },
+
+  methods: {
+    async getUsers() {
+      const accounts = new Accounts();
+      const list = [];
+      await accounts.get(this.userSearchValue);
+      accounts.list.forEach((item) => {
+        let skip = false;
+        this.value.forEach((val) => {
+          if (val.mail == item.mail) {
+            skip = true;
+          }
+        });
+        if (!skip) list.push(item.mail);
+      });
+      this.users = list;
     },
 
-    mounted() {
-      this.getUsers()
+    async selectUser(mail) {
+      Vue.nextTick(() => {
+        this.userSearchValue = '';
+      });
+      const selectedAccount = new UserAccount();
+      await selectedAccount.loadByMail(mail);
+      this.value.push(selectedAccount);
     },
 
-    methods: {
-      async getUsers() {
-        const accounts = new Accounts()
-        let list = []
-        await accounts.get(this.userSearchValue)
-        accounts.list.forEach((item) => {
-          let skip = false
-          this.value.forEach((val) => {
-            if (val.mail == item.mail) {
-              skip = true
-            }
-          })
-          if (!skip) list.push(item.mail)
-        })
-        this.users = list
-      },
-
-      async selectUser(mail) {
-        Vue.nextTick(() => {
-          this.userSearchValue = ""
-        })
-        const selectedAccount = new UserAccount()
-        await selectedAccount.loadByMail(mail)
-        this.value.push(selectedAccount)
-      },
-
-      removeAccount(i) {
-        this.value.splice(i, 1)
-      }
-    }
-  }
+    removeAccount(i) {
+      this.value.splice(i, 1);
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -150,6 +150,5 @@
     }
   }
 }
-
 
 </style>

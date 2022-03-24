@@ -1,4 +1,4 @@
-import CollectionRequestUrlBuilder from "./CollectionRequestUrlBuilder"
+import CollectionRequestUrlBuilder from './CollectionRequestUrlBuilder';
 
 export default interface ListDelegateInterface {
 

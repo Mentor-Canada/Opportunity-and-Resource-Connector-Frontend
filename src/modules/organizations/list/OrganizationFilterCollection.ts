@@ -1,24 +1,23 @@
-import globals from "../../../globals"
-import FilterEntity from "../../filter/FilterEntity"
+import globals from '../../../globals';
+import FilterEntity from '../../filter/FilterEntity';
 
 export default class OrganizationFilterCollection {
+  collection: FilterEntity[] = [];
 
-  collection: FilterEntity[] = []
-  private readonly type
+  private readonly type;
 
   constructor(type) {
-    this.type = type
+    this.type = type;
   }
 
   async load() {
-    this.collection = []
-    let response = await globals.api.get(`/a/app/filter?type=${this.type}`)
-    for(const row of response.data) {
-      const filter = new FilterEntity(this.type)
-      filter.id = row.id
-      filter.attributes = row
-      this.collection.push(filter)
+    this.collection = [];
+    const response = await globals.api.get(`/a/app/filter?type=${this.type}`);
+    for (const row of response.data) {
+      const filter = new FilterEntity(this.type);
+      filter.id = row.id;
+      filter.attributes = row;
+      this.collection.push(filter);
     }
   }
-
 }

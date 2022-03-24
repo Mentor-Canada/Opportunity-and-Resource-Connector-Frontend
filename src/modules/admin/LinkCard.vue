@@ -43,11 +43,11 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
 
-  props: ['eyebrow', 'headline', 'body', 'link', 'url']
-}
+  props: ['eyebrow', 'headline', 'body', 'link', 'url'],
+};
 </script>

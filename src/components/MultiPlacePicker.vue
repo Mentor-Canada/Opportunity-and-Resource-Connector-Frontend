@@ -17,46 +17,46 @@
 </template>
 
 <script lang="ts">
-  import GooglePlace from "Models/GooglePlace"
+import GooglePlace from 'Models/GooglePlace';
 
-  export default {
-    props: ['value', 'label', 'required'],
-    data() {
-      return {
-        id: this._uid,
-        location: new GooglePlace(),
-        input: null
-      }
+export default {
+  props: ['value', 'label', 'required'],
+  data() {
+    return {
+      id: this._uid,
+      location: new GooglePlace(),
+      input: null,
+    };
+  },
+  async mounted() {
+    const el = document.body.querySelector(`#view-uid-${this.id}`);
+    this.input = el.querySelector('input');
+    this.updateRequiredAttribute();
+  },
+  methods: {
+    handleInput(place: any) {
+      const aPlace = new GooglePlace(place.data);
+      this.value.push(aPlace);
+      this.location = new GooglePlace();
+      this.$emit('input', this.value);
+      this.$emit('add', aPlace);
+      this.updateRequiredAttribute();
     },
-    async mounted() {
-      let el = document.body.querySelector(`#view-uid-${this.id}`)
-      this.input = el.querySelector("input")
-      this.updateRequiredAttribute()
+    remove(pos: number) {
+      this.$emit('remove', pos);
+      this.updateRequiredAttribute();
     },
-    methods: {
-      handleInput(place: any) {
-        let aPlace = new GooglePlace(place.data)
-        this.value.push(aPlace)
-        this.location = new GooglePlace()
-        this.$emit('input', this.value)
-        this.$emit('add', aPlace)
-        this.updateRequiredAttribute()
-      },
-      remove(pos: number) {
-        this.$emit('remove', pos)
-        this.updateRequiredAttribute()
-      },
-      updateRequiredAttribute() {
-        if(this.required) {
-          if(this.value.length) {
-            this.input.removeAttribute("required")
-          } else {
-            this.input.setAttribute("required", "required")
-          }
+    updateRequiredAttribute() {
+      if (this.required) {
+        if (this.value.length) {
+          this.input.removeAttribute('required');
+        } else {
+          this.input.setAttribute('required', 'required');
         }
       }
-    }
-  }
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

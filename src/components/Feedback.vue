@@ -32,8 +32,8 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../mixins/BaseMixin"
-import globals from "../globals"
+import BaseMixin from '../mixins/BaseMixin';
+import globals from '../globals';
 
 export default {
   mixins: [BaseMixin],
@@ -43,42 +43,42 @@ export default {
       email: '',
       feedbackVisible: false,
       message: '',
-      submitModalVisible: false
-    }
+      submitModalVisible: false,
+    };
   },
 
   mounted() {
     this.onBodyClick = (e) => {
-      if(e.target.closest("#feedback")) return
-      this.feedbackVisible = false
-    }
-    document.querySelector('body').addEventListener('click', this.onBodyClick)
+      if (e.target.closest('#feedback')) return;
+      this.feedbackVisible = false;
+    };
+    document.querySelector('body').addEventListener('click', this.onBodyClick);
   },
 
   beforeDestroy() {
-    document.querySelector('body').removeEventListener('click', this.onBodyClick)
+    document.querySelector('body').removeEventListener('click', this.onBodyClick);
   },
 
   methods: {
     async submitFeedback() {
-      let data = {
+      const data = {
         location: window.location.pathname,
         email: this.email,
         message: this.message,
-        uilang: globals.app.language.langcode
-      }
-      this.feedbackVisible = false
-      this.app.showLoading()
-      await globals.api.post('/a/app/feedback', data)
-      this.email = ''
-      this.message = ''
-      this.app.hideLoading()
+        uilang: globals.app.language.langcode,
+      };
+      this.feedbackVisible = false;
+      this.app.showLoading();
+      await globals.api.post('/a/app/feedback', data);
+      this.email = '';
+      this.message = '';
+      this.app.hideLoading();
     },
     openFeedback() {
-      this.feedbackVisible = true
-    }
-  }
-}
+      this.feedbackVisible = true;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

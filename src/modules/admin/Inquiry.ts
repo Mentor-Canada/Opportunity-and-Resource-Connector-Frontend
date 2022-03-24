@@ -1,9 +1,9 @@
 export default class Inquiry {
+  uuid: string;
 
-  uuid: string
-  status: string
-  created: Date
+  status: string;
 
+  created: Date;
 }
 
 // lastdays = 0 // Last 0 days (Today)

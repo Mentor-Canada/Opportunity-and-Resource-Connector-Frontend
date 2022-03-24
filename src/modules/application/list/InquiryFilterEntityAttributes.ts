@@ -1,9 +1,11 @@
 export default class InquiryFilterEntityAttributes {
+  id: string;
 
-  id: string
-  title: string = ""
-  date_mode: string = ""
-  start_time
-  end_time
+  title: string = '';
 
+  date_mode: string = '';
+
+  start_time;
+
+  end_time;
 }

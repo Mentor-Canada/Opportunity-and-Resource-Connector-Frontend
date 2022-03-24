@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
+import BaseMixin from 'BaseMixin';
 
 export default {
   mixins: [BaseMixin],
@@ -28,17 +28,17 @@ export default {
   data() {
     return {
       show: false,
-      filter: this.$props.value
-    }
+      filter: this.$props.value,
+    };
   },
 
   watch: {
     show() {
-      if(this.show) {
-        this.filter.attributes.title = ""
-        this.filter.attributes.id = null
+      if (this.show) {
+        this.filter.attributes.title = '';
+        this.filter.attributes.id = null;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

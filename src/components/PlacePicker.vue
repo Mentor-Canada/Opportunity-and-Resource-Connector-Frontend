@@ -11,49 +11,47 @@
 </template>
 
 <script lang="ts">
-  import WindowInterface from "Interfaces/WindowInterface"
-  declare const window: WindowInterface
+import WindowInterface from 'Interfaces/WindowInterface';
 
-  export default {
-    props: ['value', 'mode', 'label', 'required'],
-    computed: {
-      title() {
-        return this.value.title
-      }
+declare const window: WindowInterface;
+
+export default {
+  props: ['value', 'mode', 'label', 'required'],
+  computed: {
+    title() {
+      return this.value.title;
     },
-    mounted() {
-      const input: HTMLInputElement = this.$el.querySelector("input")
-      const searchBox = new window.google.maps.places.SearchBox(input)
+  },
+  mounted() {
+    const input: HTMLInputElement = this.$el.querySelector('input');
+    const searchBox = new window.google.maps.places.SearchBox(input);
 
-      if(this.mode === 'country') this.required = true
+    if (this.mode === 'country') this.required = true;
 
-      input.addEventListener('keypress', (e) => {
-        if(e.keyCode != 13) return
-        e.preventDefault()
-        return false
-      })
+    input.addEventListener('keypress', (e) => {
+      if (e.keyCode != 13) return;
+      e.preventDefault();
+      return false;
+    });
 
-      searchBox.addListener('places_changed', () => {
-        const places = searchBox.getPlaces()
-        if (places.length == 0) {
-          return;
-        }
+    searchBox.addListener('places_changed', () => {
+      const places = searchBox.getPlaces();
+      if (places.length == 0) {
+        return;
+      }
 
-        this.value.update(places[0])
-        if(this.mode == 'country') {
-          this.value.title = this.value.getCountry()
-          this.value.data.name = this.value.getCountry()
-        }
-        else {
-          this.$emit('input', this.value)
-        }
+      this.value.update(places[0]);
+      if (this.mode == 'country') {
+        this.value.title = this.value.getCountry();
+        this.value.data.name = this.value.getCountry();
+      } else {
+        this.$emit('input', this.value);
+      }
 
-        this.$el.querySelector('input[name=place-picker]').setCustomValidity('')
-        this.$emit('placePickerEnded')
+      this.$el.querySelector('input[name=place-picker]').setCustomValidity('');
+      this.$emit('placePickerEnded');
+    });
+  },
 
-      })
-
-    }
-
-  }
+};
 </script>

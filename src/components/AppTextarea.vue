@@ -26,12 +26,12 @@
 </template>
 
 <script lang="ts">
-  export default {
-    props: ["value", "label", "labelLang", "required", "rows", "minlength"],
-    data() {
-      return {
-        id: this._uid
-      }
-    }
-  }
+export default {
+  props: ['value', 'label', 'labelLang', 'required', 'rows', 'minlength'],
+  data() {
+    return {
+      id: this._uid,
+    };
+  },
+};
 </script>

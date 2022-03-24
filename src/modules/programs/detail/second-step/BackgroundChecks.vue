@@ -59,9 +59,9 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import YesOrNoOptions from "./YesOrNoOptions"
-import OptionCollection from "Models/OptionCollection"
+import BaseMixin from 'BaseMixin';
+import OptionCollection from 'Models/OptionCollection';
+import YesOrNoOptions from './YesOrNoOptions';
 
 export default {
   props: ['program'],
@@ -69,73 +69,71 @@ export default {
 
   data() {
     let backgroundCheckType = new OptionCollection()
-        .add('app-background-check-type-fingerprint')
-        .add('app-background-check-type-name')
-        .add('app-background-check-type-other')
-        .options
-    if(window.app.bootstrap.country == 'ca') {
+      .add('app-background-check-type-fingerprint')
+      .add('app-background-check-type-name')
+      .add('app-background-check-type-other')
+      .options;
+    if (window.app.bootstrap.country == 'ca') {
       backgroundCheckType = new OptionCollection()
         .add('app-background-check-type-ca-child-and-family')
         .add('app-background-check-type-ca-vulnerable-sector-check')
-        .options
+        .options;
     }
     return {
-      'yesOrNoOptions': YesOrNoOptions(),
-      'backgroundCheckRootOptions': new OptionCollection()
+      yesOrNoOptions: YesOrNoOptions(),
+      backgroundCheckRootOptions: new OptionCollection()
         .add('app-yes')
         .add('app-no')
         .add('app-background-check-type-peer')
         .options,
-      'backgroundCheckType': backgroundCheckType,
-      'backgroundCheckFingerprintType': new OptionCollection()
+      backgroundCheckType,
+      backgroundCheckFingerprintType: new OptionCollection()
         .add('app-background-check-fingerprint-fbi')
         .add('app-background-check-fingerprint-state')
         .options,
-      'backgroundCheckNameType': new OptionCollection()
+      backgroundCheckNameType: new OptionCollection()
         .add('app-background-check-name-multi-state')
         .add('app-background-check-name-state')
         .add('app-background-check-name-local')
         .options,
-      'backgroundCheckOtherType': new OptionCollection()
+      backgroundCheckOtherType: new OptionCollection()
         .add('app-background-check-other-abuse')
         .add('app-background-check-other-offender')
         .options,
-      'yesOrNo': new OptionCollection()
+      yesOrNo: new OptionCollection()
         .add('app-yes')
         .add('app-no')
-        .options
-    }
+        .options,
+    };
   },
 
   methods: {
     onBackgroundCheckChanged() {
-      if(this.program.attributes.programPerformsBackgroundCheck == 'app-no') {
-        this.program.attributes.backgroundCheckType = []
-        this.program.attributes.backgroundCheckFingerprintType = ""
+      if (this.program.attributes.programPerformsBackgroundCheck == 'app-no') {
+        this.program.attributes.backgroundCheckType = [];
+        this.program.attributes.backgroundCheckFingerprintType = '';
       }
     },
 
     onBackgroundCheckTypeChanged() {
-      if(this.app.bootstrap.country == 'ca') {
-        return
+      if (this.app.bootstrap.country == 'ca') {
+        return;
       }
-      if(!this.isChecked(0)) {
-        this.program.attributes.backgroundCheckFingerprintType = ""
+      if (!this.isChecked(0)) {
+        this.program.attributes.backgroundCheckFingerprintType = '';
       }
-      if(!this.isChecked(1)) {
-        this.program.attributes.backgroundCheckNameType = ""
+      if (!this.isChecked(1)) {
+        this.program.attributes.backgroundCheckNameType = '';
       }
-      if(!this.isChecked(2)) {
-        this.program.attributes.backgroundCheckOtherType = []
+      if (!this.isChecked(2)) {
+        this.program.attributes.backgroundCheckOtherType = [];
       }
     },
 
     isChecked(index) {
-      let values = this.program.attributes.field_ns_bg_check_types.map((row) => {
-        return row.value
-      })
-      return values.includes(this.backgroundCheckType[index].value)
-    }
-  }
-}
+      const values = this.program.attributes.field_ns_bg_check_types.map((row) => row.value);
+      return values.includes(this.backgroundCheckType[index].value);
+    },
+  },
+};
 </script>

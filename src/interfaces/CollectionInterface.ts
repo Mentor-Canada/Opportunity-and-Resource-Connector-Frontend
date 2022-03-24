@@ -1,4 +1,4 @@
-import Organization from "Models/Organization"
+import Organization from 'Models/Organization';
 
 export interface CollectionInterface {
   list: EntityInterface[]

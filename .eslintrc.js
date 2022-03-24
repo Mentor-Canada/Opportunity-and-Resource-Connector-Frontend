@@ -1,16 +1,22 @@
 module.exports = {
-  parser: "@typescript-eslint/parser",
-  parserOptions: {
-    ecmaVersion: 6,
-    sourceType: "module"
-    // babelOptions: {
-    //   configFile: "./babel.config.json",
-    // },
-  },
-  rules: {
-    semi: ["error", "never"]
-  },
+  ignorePatterns: ['*.js'],
   env: {
-    "browser": true
+    browser: true,
+    es2021: true,
   },
-}
+  extends: [
+    'plugin:vue/essential',
+    'airbnb-base',
+    'airbnb-typescript/base',
+  ],
+  parser: "vue-eslint-parser",
+  parserOptions: {
+    parser: "@typescript-eslint/parser",
+    project: './tsconfig.eslint.json',
+    "extraFileExtensions": [".vue"]
+  },
+  // plugins: [
+  //   'vue',
+  //   '@typescript-eslint',
+  // ],
+};

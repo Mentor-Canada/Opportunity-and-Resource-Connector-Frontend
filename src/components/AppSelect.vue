@@ -53,66 +53,65 @@
 </template>
 
 <script lang="ts">
-  export default {
-    props: ["name", "value", "required", "blankString", "label", "options", "mode", "disabled", "multi"],
+export default {
+  props: ['name', 'value', 'required', 'blankString', 'label', 'options', 'mode', 'disabled', 'multi'],
 
-    data() {
-      let name = this.name || "select"
-      return {
-        id: `${name}-${this._uid}`,
-        multiValueMode: false
+  data() {
+    const name = this.name || 'select';
+    return {
+      id: `${name}-${this._uid}`,
+      multiValueMode: false,
+    };
+  },
+
+  methods: {
+    onInput() {
+      const option = this.$el.querySelector('option:checked');
+      const value = option.getAttribute('value');
+      this.value = value;
+      if (this.mode == 'object') {
+        for (const row of this.options) {
+          if (value == row.value) {
+            this.$emit('input', row);
+          }
+        }
+      } else {
+        this.$emit('input', value);
       }
     },
 
-    methods: {
-      onInput() {
-        let option = this.$el.querySelector("option:checked")
-        let value = option.getAttribute("value")
-        this.value = value
-        if(this.mode == 'object') {
-          for(const row of this.options) {
-            if(value == row.value) {
-              this.$emit('input', row)
-            }
-          }
-        }
-        else {
-          this.$emit('input', value)
-        }
-      },
+    onMultiInput() {
+      const value = this.getValues();
+      this.$emit('input', value);
+    },
 
-      onMultiInput() {
-        const value = this.getValues()
-        this.$emit('input', value)
-      },
-
-      switchToSingleValue() {
-        const value = this.getValues()[0]
-        if(value) {
-          this.value = value
-          this.$emit('input', value)
-        }
-        this.multiValueMode = false
-      },
-
-      switchToMultiValue() {
-        const value = this.value
-        this.value = []
-        if(value) {
-          this.value.push(value)
-        }
-        this.multiValueMode = true
-      },
-
-      getValues() {
-        let values = []
-        this.$el.querySelectorAll(":checked").forEach((el) => {
-          values.push(el.value)
-        })
-        return values
+    switchToSingleValue() {
+      const value = this.getValues()[0];
+      if (value) {
+        this.value = value;
+        this.$emit('input', value);
       }
-    }
-  }
+      this.multiValueMode = false;
+    },
+
+    switchToMultiValue() {
+      const { value } = this;
+      this.value = [];
+      if (value) {
+        this.value.push(value);
+      }
+      this.multiValueMode = true;
+    },
+
+    getValues() {
+      const values = [];
+      this.$el.querySelectorAll(':checked').forEach((el) => {
+        values.push(el.value);
+      });
+      return values;
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,21 +1,22 @@
-import globals from "../../../globals"
+import ProgramAttributes from 'Models/program/ProgramAttributes';
+import globals from '../../../globals';
 // import ApplicationAttributes from "Models/ApplicationAttributes"
 // import ProgramListDelegate from "./ProgramListDelegate"
-import InquiryFilterEntityAttributes from "../../../modules/applications/list/InquiryFilterEntityAttributes"
-import ProgramAttributes from "Models/program/ProgramAttributes"
-import FilterEntity from "./FilterEntity"
+import InquiryFilterEntityAttributes from '../../../modules/applications/list/InquiryFilterEntityAttributes';
+import FilterEntity from './FilterEntity';
 
 export default class OrganizationFilterEntity {
+  attributes = new InquiryFilterEntityAttributes();
 
-  attributes = new InquiryFilterEntityAttributes()
-  programAttributes: ProgramAttributes
-  entity: any
+  programAttributes: ProgramAttributes;
 
-  private url: string  = '/a/app/program/filter'
+  entity: any;
+
+  private url: string = '/a/app/program/filter';
 
   private update(params) {
-    console.log("UPDATE")
-    console.log(params)
+    console.log('UPDATE');
+    console.log(params);
     // this.programAttributes = new ProgramAttributes()
     // // this.inquiryAttributes.call = undefined
     // // this.inquiryAttributes.sms = undefined
@@ -78,10 +79,10 @@ export default class OrganizationFilterEntity {
   }
 
   async save() {
-    const filter = new FilterEntity()
-    filter.attributes.type = "organization"
-    filter.attributes.title = "test"
-    await filter.save()
+    const filter = new FilterEntity();
+    filter.attributes.type = 'organization';
+    filter.attributes.title = 'test';
+    await filter.save();
     // console.log("SAVE")
     // // let data: any = {}
     // // data.attributes = this.attributes
@@ -90,8 +91,7 @@ export default class OrganizationFilterEntity {
   }
 
   async delete() {
-    console.log("DELETE")
+    console.log('DELETE');
     // await globals.api.post(`${this.url}/delete/${this.attributes.id}`)
   }
-
 }

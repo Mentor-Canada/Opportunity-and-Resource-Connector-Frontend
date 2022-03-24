@@ -68,9 +68,9 @@
 </style>
 
 <script lang="ts">
-import VueTablePaginationMixin from "node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue"
+import VueTablePaginationMixin from 'node_modules/vuetable-2/src/components/VuetablePaginationMixin.vue';
 
 export default {
-  mixins: [VueTablePaginationMixin]
-}
+  mixins: [VueTablePaginationMixin],
+};
 </script>

@@ -44,49 +44,49 @@
 </template>
 
 <script lang="ts">
-import Program from "Models/program/Program"
-import PageMixin from "../../../mixins/PageMixin"
-import BaseMixin from "BaseMixin"
-import ProgramActions from "../ProgramActions.vue"
+import Program from 'Models/program/Program';
+import BaseMixin from 'BaseMixin';
+import PageMixin from '../../../mixins/PageMixin';
+import ProgramActions from '../ProgramActions.vue';
 
 export default {
   mixins: [BaseMixin, PageMixin],
 
   components: {
-    ProgramActions
+    ProgramActions,
   },
 
   data() {
     return {
       program: new Program(),
-      trail: null
-    }
+      trail: null,
+    };
   },
 
   async mounted() {
-    this.app.showLoading()
-    this.program.document.id = this.$route.params.id
-    this.program.settings.id = this.$route.params.id
-    await this.program.load()
+    this.app.showLoading();
+    this.program.document.id = this.$route.params.id;
+    this.program.settings.id = this.$route.params.id;
+    await this.program.load();
 
     this.trail = [
       { title: 'app-mentor-connector', url: '' },
       { title: 'app-programs', url: 'admin/programs' },
       { title: this.program.title, url: `admin/programs/detail/${this.$route.params.id}` },
       { title: 'app-program-settings', url: null },
-    ]
+    ];
 
-    this.ready()
+    this.ready();
   },
 
   methods: {
     async save() {
-      this.app.showLoading()
-      await this.program.settings.save()
-      await this.router.push(this.link("admin/programs"))
-    }
-  }
-}
+      this.app.showLoading();
+      await this.program.settings.save();
+      await this.router.push(this.link('admin/programs'));
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

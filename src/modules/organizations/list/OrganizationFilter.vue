@@ -126,18 +126,18 @@
 </template>
 
 <script lang="ts">
-import OrganizationOptions from "../OrganizationOptions"
-import Fields from "./OrganizationFields"
-import FilterMixin from "../../filter/FilterMixin"
+import OrganizationOptions from '../OrganizationOptions';
+import Fields from './OrganizationFields';
+import FilterMixin from '../../filter/FilterMixin';
 
 export default {
   mixins: [FilterMixin],
 
   data() {
     return {
-      Fields: Fields,
-      options: this.optionsFilterAdapter(new OrganizationOptions())
-    }
-  }
-}
+      Fields,
+      options: this.optionsFilterAdapter(new OrganizationOptions()),
+    };
+  },
+};
 </script>

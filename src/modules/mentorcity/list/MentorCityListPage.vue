@@ -53,70 +53,70 @@
 </style>
 
 <script lang="ts">
-import TableMixin from "../../../components/Table/TableMixin"
-import MentorCityListDelegate from "./MentorCityListDelegate"
-import globals from "../../../globals"
-import slotTemplate from "./MentorCityListSlots.html"
-import GroupMixin from "../../../components/Table/GroupMixin"
-import FilterListMixin from "../../../modules/filter/FilterListMixin"
-import FilterProperties from "../../../modules/filter/FilterProperties"
-import MentorCityFilter from "./MentorCityFilter.vue"
+import TableMixin from '../../../components/Table/TableMixin';
+import MentorCityListDelegate from './MentorCityListDelegate';
+import globals from '../../../globals';
+import slotTemplate from './MentorCityListSlots.html';
+import GroupMixin from '../../../components/Table/GroupMixin';
+import FilterListMixin from '../../filter/FilterListMixin';
+import FilterProperties from '../../filter/FilterProperties';
+import MentorCityFilter from './MentorCityFilter.vue';
 
 export default {
   mixins: [TableMixin, GroupMixin, FilterListMixin],
 
   components: {
-    MentorCityFilter
+    MentorCityFilter,
   },
 
   data() {
-    const delegate = new MentorCityListDelegate()
+    const delegate = new MentorCityListDelegate();
     return {
-      delegate: delegate,
-      filterProperties: new FilterProperties("program", delegate),
+      delegate,
+      filterProperties: new FilterProperties('program', delegate),
       vueTableSlots: slotTemplate,
       typeOfMentoringOptions: [
-        {value: 'app-type-of-mentoring-1-to-1', name: globals.app.t('app-type-of-mentoring-1-to-1')},
-        {value: 'app-type-of-mentoring-group', name: globals.app.t('app-type-of-mentoring-group')},
-        {value: 'app-type-of-mentoring-team', name: globals.app.t('app-type-of-mentoring-team')},
-        {value: 'app-type-of-mentoring-e-mentoring', name: globals.app.t('app-type-of-mentoring-e-mentoring')},
-        {value: 'app-type-of-mentoring-peer', name: globals.app.t('app-type-of-mentoring-peer')},
-        {value: 'app-type-of-mentoring-school', name: globals.app.t('app-type-of-mentoring-school')},
-        {value: 'other', name: globals.app.t('app-other')}
+        { value: 'app-type-of-mentoring-1-to-1', name: globals.app.t('app-type-of-mentoring-1-to-1') },
+        { value: 'app-type-of-mentoring-group', name: globals.app.t('app-type-of-mentoring-group') },
+        { value: 'app-type-of-mentoring-team', name: globals.app.t('app-type-of-mentoring-team') },
+        { value: 'app-type-of-mentoring-e-mentoring', name: globals.app.t('app-type-of-mentoring-e-mentoring') },
+        { value: 'app-type-of-mentoring-peer', name: globals.app.t('app-type-of-mentoring-peer') },
+        { value: 'app-type-of-mentoring-school', name: globals.app.t('app-type-of-mentoring-school') },
+        { value: 'other', name: globals.app.t('app-other') },
       ],
-      tableIsReady: false
-    }
+      tableIsReady: false,
+    };
   },
 
   created() {
-    document.body.setAttribute('data-page', 'program-list')
+    document.body.setAttribute('data-page', 'program-list');
   },
 
   destroyed() {
-    document.body.removeAttribute('data-page')
+    document.body.removeAttribute('data-page');
   },
 
   async mounted() {
-    this.app.showLoading()
-    if(this.tableIsReady) {
-      this.ready()
+    this.app.showLoading();
+    if (this.tableIsReady) {
+      this.ready();
     }
   },
 
   methods: {
     emailClicked(attributes) {
-      let name = encodeURIComponent(`${attributes.field_mentor_city_first_name} ${attributes.field_mentor_city_last_name}`)
-      window.location.href = `mailto:${name}<${attributes.field_mentor_city_email}>`
+      const name = encodeURIComponent(`${attributes.field_mentor_city_first_name} ${attributes.field_mentor_city_last_name}`);
+      window.location.href = `mailto:${name}<${attributes.field_mentor_city_email}>`;
     },
 
     redirectToProgram(rowData) {
-      this.router.push(`/${globals.app.languages.list[0].langcode}/admin/programs/detail/${rowData.id}`)
+      this.router.push(`/${globals.app.languages.list[0].langcode}/admin/programs/detail/${rowData.id}`);
     },
 
     tableReady() {
-      this.tableIsReady = true
-      this.ready()
-    }
-  }
-}
+      this.tableIsReady = true;
+      this.ready();
+    },
+  },
+};
 </script>

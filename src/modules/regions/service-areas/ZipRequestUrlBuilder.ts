@@ -1,4 +1,4 @@
-import CollectionRequestUrlBuilder from "../../../pages/CollectionRequestUrlBuilder"
+import CollectionRequestUrlBuilder from '../../../pages/CollectionRequestUrlBuilder';
 
 export default class ZipRequestUrlBuilder extends CollectionRequestUrlBuilder {
 

@@ -28,8 +28,8 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "BaseMixin"
-import OptionCollection from "Models/OptionCollection"
+import BaseMixin from 'BaseMixin';
+import OptionCollection from 'Models/OptionCollection';
 
 export default {
   mixins: [BaseMixin],
@@ -41,16 +41,16 @@ export default {
       options: new OptionCollection()
         .add('app-nationwide')
         .add('app-specific-service-area')
-        .options
-    }
+        .options,
+    };
   },
 
   methods: {
     onChangeServiceAreaType() {
-      if(this.program.attributes.field_e_mentoring_service_area == 'app-nationwide') {
-        this.program.attributes.locations = []
+      if (this.program.attributes.field_e_mentoring_service_area == 'app-nationwide') {
+        this.program.attributes.locations = [];
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>

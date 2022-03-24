@@ -1,9 +1,11 @@
 export default class Organization {
+  uuid: string;
 
-  uuid: string
-  name: string
-  contacted: number
-  uncontacted: number
-  total: number
+  name: string;
 
+  contacted: number;
+
+  uncontacted: number;
+
+  total: number;
 }

@@ -10,17 +10,17 @@
 </template>
 
 <script lang="ts">
-import BaseMixin from "../../../../mixins/BaseMixin"
-import OptionCollection from "Models/OptionCollection"
-import gradeOptions from "Models/program/GradeOptions"
+import OptionCollection from 'Models/OptionCollection';
+import gradeOptions from 'Models/program/GradeOptions';
+import BaseMixin from '../../../../mixins/BaseMixin';
 
 export default {
   mixins: [BaseMixin],
   props: ['program'],
   data() {
     return {
-      options: gradeOptions()
-    }
-  }
-}
+      options: gradeOptions(),
+    };
+  },
+};
 </script>

@@ -1,18 +1,17 @@
-import OptionCollection from "Models/OptionCollection"
+import OptionCollection from 'Models/OptionCollection';
 
 export default class ProgramOptions {
-
   standing = new OptionCollection()
     .add('app-allowed')
     .add('app-pending')
     .add('app-suspended')
-    .options
+    .options;
 
   delivery = new OptionCollection()
     .add('communityBased', 'app-program-delivery-community-based')
     .add('siteBased', 'app-program-delivery-site-based')
     .add('eMentoring', 'app-program-delivery-e-mentoring')
-    .options
+    .options;
 
   focusArea = new OptionCollection()
     .add('app-us-program-focus-academics')
@@ -21,7 +20,7 @@ export default class ProgramOptions {
     .add('app-us-program-focus-job-sports')
     .add('app-us-program-focus-job-stem')
     .add('other', 'app-other')
-    .options
+    .options;
 
   meetingLocation = new OptionCollection()
     .add('app-us-program-meeting-agency')
@@ -34,7 +33,7 @@ export default class ProgramOptions {
     .add('app-us-program-meeting-after-school')
     .add('app-us-program-meeting-online')
     .add('other', 'app-other')
-    .options
+    .options;
 
   typesOfMentoring = new OptionCollection()
     .add('app-type-of-mentoring-1-to-1')
@@ -44,7 +43,7 @@ export default class ProgramOptions {
     .add('app-type-of-mentoring-peer')
     .add('app-type-of-mentoring-school')
     .add('other', 'app-other')
-    .options
+    .options;
 
   operatedThrough = new OptionCollection()
     .add('app-us-program-operated-business')
@@ -55,13 +54,13 @@ export default class ProgramOptions {
     .add('app-us-program-operated-resident')
     .add('app-us-program-operated-school')
     .add('other', 'app-other')
-    .options
+    .options;
 
   scheduled = new OptionCollection()
     .add('app-set-by-participants')
     .add('app-set-by-admin')
     .add('other', 'app-other')
-    .options
+    .options;
 
   genders = new OptionCollection()
     .add('app-us-male')
@@ -70,7 +69,7 @@ export default class ProgramOptions {
     .add('app-us-non-binary')
     .add('app-us-two-spirit')
     .add('other', 'app-additional')
-    .options
+    .options;
 
   ages = new OptionCollection()
     .add('app-us-7-and-under')
@@ -79,7 +78,7 @@ export default class ProgramOptions {
     .add('app-us-15-18')
     .add('app-us-19-24')
     .add('other', 'app-other')
-    .options
+    .options;
 
   familyStructure = new OptionCollection()
     .add('app-us-foster-care')
@@ -89,7 +88,7 @@ export default class ProgramOptions {
     .add('app-us-single-parent-family')
     .add('app-us-two-parent-family')
     .add('other', 'app-other')
-    .options
+    .options;
 
   youth = new OptionCollection()
     .add('app-us-academically-at-risk')
@@ -116,7 +115,7 @@ export default class ProgramOptions {
     .add('app-us-school-drop-out')
     .add('app-us-special-education')
     .add('other', 'app-other')
-    .options
+    .options;
 
   mentorGenders = new OptionCollection()
     .add('app-us-male')
@@ -125,7 +124,7 @@ export default class ProgramOptions {
     .add('app-us-non-binary')
     .add('app-us-two-spirit')
     .add('other', 'app-additional')
-    .options
+    .options;
 
   mentorAges = new OptionCollection()
     .add('app-us-age-under-18')
@@ -135,35 +134,35 @@ export default class ProgramOptions {
     .add('app-us-age-50-65')
     .add('app-us-age-over-65')
     .add('other', 'app-other')
-    .options
+    .options;
 
   yesOrNo = new OptionCollection()
     .add('app-yes')
     .add('app-no')
-    .options
+    .options;
 
   backgroundCheckType = new OptionCollection()
     .add('app-background-check-type-fingerprint')
     .add('app-background-check-type-name')
     .add('app-background-check-type-other')
     .add('app-background-check-type-peer')
-    .options
+    .options;
 
   backgroundCheckFingerprintType = new OptionCollection()
     .add('app-background-check-fingerprint-fbi')
     .add('app-background-check-fingerprint-state')
-    .options
+    .options;
 
   backgroundCheckNameType = new OptionCollection()
     .add('app-background-check-name-multi-state')
     .add('app-background-check-name-state')
     .add('app-background-check-name-local')
-    .options
+    .options;
 
   backgroundCheckOtherType = new OptionCollection()
     .add('app-background-check-other-abuse')
     .add('app-background-check-other-offender')
-    .options
+    .options;
 
   month = new OptionCollection()
     .add('app-less-than-one-month')
@@ -180,14 +179,14 @@ export default class ProgramOptions {
     .add('app-11-months')
     .add('app-12-months-or-longer')
     .add('app-no-minimum-match-commitment')
-    .options
+    .options;
 
   frequency = new OptionCollection()
     .add('app-frequency-weekly')
     .add('app-frequency-bi-weekly')
     .add('app-frequency-monthly')
     .add('other', 'app-other')
-    .options
+    .options;
 
   duration = new OptionCollection()
     .add('app-less-than-1-hour')
@@ -195,15 +194,14 @@ export default class ProgramOptions {
     .add('app-2-3-hours')
     .add('app-3-4-hours')
     .add('app-5-or-more-hours')
-    .options
+    .options;
 
   constructor() {
-    if(window.app.bootstrap.country == 'ca') {
+    if (window.app.bootstrap.country == 'ca') {
       this.backgroundCheckType = new OptionCollection()
         .add('app-background-check-type-ca-child-and-family')
         .add('app-background-check-type-ca-vulnerable-sector-check')
-        .options
+        .options;
     }
   }
-
 }
