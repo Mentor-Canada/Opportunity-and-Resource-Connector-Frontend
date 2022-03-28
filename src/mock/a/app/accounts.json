@@ -1,0 +1,38 @@
+{
+  "links": {
+    "self": {
+      "href": "http:\/\/connector-server.ubriety.dev\/en\/a\/app\/accounts"
+    }
+  },
+  "total": 1,
+  "data": [
+    {
+      "id": "931cdded-4e4e-40da-badf-a61817f0454f",
+      "attributes": {
+        "id": "931cdded-4e4e-40da-badf-a61817f0454f",
+        "mail": "admin@example.com",
+        "firstName": "Connector",
+        "lastName": "Admin",
+        "globalAdministrator": "1",
+        "affiliates": [],
+        "organizations": [],
+        "programs": [],
+        "created": 1586951981000
+      }
+    },
+    {
+      "id": "4a7a592e-dbcc-454e-8a1e-9070826201aa",
+      "attributes": {
+        "id": "4a7a592e-dbcc-454e-8a1e-9070826201aa",
+        "mail": "srogers@example.com",
+        "firstName": "Steve",
+        "lastName": "Rogers",
+        "globalAdministrator": "1",
+        "affiliates": [],
+        "organizations": [],
+        "programs": [],
+        "created": 1586951981000
+      }
+    }
+  ]
+}

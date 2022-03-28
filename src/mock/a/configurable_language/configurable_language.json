@@ -1,0 +1,95 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http:\/\/jsonapi.org\/format\/1.0\/"
+        }
+      }
+    }
+  },
+  "data": [
+    {
+      "type": "configurable_language--configurable_language",
+      "id": "a093df8a-74a9-4f44-9d5b-651508baaf58",
+      "links": {
+        "self": {
+          "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/configurable_language\/configurable_language\/a093df8a-74a9-4f44-9d5b-651508baaf58"
+        }
+      },
+      "attributes": {
+        "langcode": "fr",
+        "status": true,
+        "dependencies": [],
+        "drupal_internal__id": "en",
+        "label": "English",
+        "direction": "ltr",
+        "weight": 0,
+        "locked": false
+      }
+    },
+    {
+      "type": "configurable_language--configurable_language",
+      "id": "39f640c0-3f4b-4749-abb5-b5678a46d19b",
+      "links": {
+        "self": {
+          "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/configurable_language\/configurable_language\/39f640c0-3f4b-4749-abb5-b5678a46d19b"
+        }
+      },
+      "attributes": {
+        "langcode": "en",
+        "status": true,
+        "dependencies": [],
+        "drupal_internal__id": "fr",
+        "label": "French",
+        "direction": "ltr",
+        "weight": 0,
+        "locked": false
+      }
+    },
+    {
+      "type": "configurable_language--configurable_language",
+      "id": "efefa34f-93cf-49c5-8178-5b4d353310fa",
+      "links": {
+        "self": {
+          "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/configurable_language\/configurable_language\/efefa34f-93cf-49c5-8178-5b4d353310fa"
+        }
+      },
+      "attributes": {
+        "langcode": "fr",
+        "status": true,
+        "dependencies": [],
+        "drupal_internal__id": "und",
+        "label": "Not specified",
+        "direction": "ltr",
+        "weight": 4,
+        "locked": true
+      }
+    },
+    {
+      "type": "configurable_language--configurable_language",
+      "id": "5b2c11b1-e32b-4b3a-9d52-efc3f6bb3c9e",
+      "links": {
+        "self": {
+          "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/configurable_language\/configurable_language\/5b2c11b1-e32b-4b3a-9d52-efc3f6bb3c9e"
+        }
+      },
+      "attributes": {
+        "langcode": "fr",
+        "status": true,
+        "dependencies": [],
+        "drupal_internal__id": "zxx",
+        "label": "Not applicable",
+        "direction": "ltr",
+        "weight": 5,
+        "locked": true
+      }
+    }
+  ],
+  "links": {
+    "self": {
+      "href": "https:\/\/connector-server.ubriety.dev\/a\/configurable_language\/configurable_language"
+    }
+  }
+}

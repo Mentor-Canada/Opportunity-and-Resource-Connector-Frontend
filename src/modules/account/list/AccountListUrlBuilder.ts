@@ -22,4 +22,18 @@ export default class AccountListUrlBuilder extends CollectionRequestUrlBuilder {
     }
     return this;
   }
+
+  firstName(value: string): AccountListUrlBuilder {
+    if (value) {
+      this.params['filter[firstName]'] = value;
+    }
+    return this;
+  }
+
+  lastName(value: string): AccountListUrlBuilder {
+    if (value) {
+      this.params['filter[lastName]'] = value;
+    }
+    return this;
+  }
 }

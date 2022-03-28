@@ -19,6 +19,10 @@ export default class AccountListDelegate extends ListDelegateBase implements Lis
 
   canAdd: boolean = true;
 
+  firstName: string = '';
+
+  lastName: string = '';
+
   constructor() {
     super();
     this.sort = [{
@@ -26,6 +30,8 @@ export default class AccountListDelegate extends ListDelegateBase implements Lis
     }];
     this.fields = [
       { title: this.t('app-email'), name: 'attributes.mail', sortField: 'attributes.mail' },
+      { title: this.t('app-first-name'), name: 'attributes.firstName', sortField: 'attributes.firstName' },
+      { title: this.t('app-last-name'), name: 'attributes.lastName', sortField: 'attributes.lastName' },
       { title: this.t('app-created'), name: 'attributes.created', sortField: 'attributes.created' },
     ];
     if (globals.app.user.admin) {
@@ -46,7 +52,9 @@ export default class AccountListDelegate extends ListDelegateBase implements Lis
     return new AccountListUrlBuilder()
       .search(this.search)
       .accountType(this.accountType)
-      .mentorCity(this.mentorCity);
+      .mentorCity(this.mentorCity)
+      .firstName(this.firstName)
+      .lastName(this.lastName);
   }
 
   clearFilter() {
@@ -54,5 +62,7 @@ export default class AccountListDelegate extends ListDelegateBase implements Lis
     this.search = null;
     this.accountType = null;
     this.mentorCity = null;
+    this.firstName = null;
+    this.lastName = null;
   }
 }

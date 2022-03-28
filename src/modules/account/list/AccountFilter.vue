@@ -1,10 +1,5 @@
 <template>
   <app-filter ref="filter-component">
-    <app-input type="text"
-               v-model="properties.delegate.search"
-               :label="t('app-email')"
-               @input="refresh"
-    />
     <app-select :label='t("app-account-type")'
                 :options="accountTypeOptions"
                 v-model="properties.delegate.accountType"
@@ -14,6 +9,21 @@
                 :options="yesNoOptions"
                 v-model="properties.delegate.mentorCity"
                 @input="refresh"
+    />
+    <app-input type="text"
+               v-model="properties.delegate.search"
+               :label="t('app-email')"
+               @input="refresh"
+    />
+    <app-input type="text"
+               :label="t('app-first-name')"
+               v-model="properties.delegate.firstName"
+               @input="refresh"
+    />
+    <app-input type="text"
+               :label="t('app-last-name')"
+               v-model="properties.delegate.lastName"
+               @input="refresh"
     />
   </app-filter>
 </template>

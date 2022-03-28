@@ -1,0 +1,58 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http:\/\/jsonapi.org\/format\/1.0\/"
+        }
+      }
+    }
+  },
+  "data": [],
+  "meta": {
+    "links": {
+      "me": {
+        "meta": {
+          "id": "4939e9ae-8341-424d-941e-4bd79bc2f596"
+        },
+        "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/users\/4939e9ae-8341-424d-941e-4bd79bc2f596"
+      }
+    }
+  },
+  "links": {
+    "configurable_language--configurable_language": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/configurable_language\/configurable_language"
+    },
+    "file--file": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/file\/file"
+    },
+    "node--approval": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/approval"
+    },
+    "node--feedback": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/feedback"
+    },
+    "node--notify": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/notify"
+    },
+    "node--organization": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/organization"
+    },
+    "node--partner": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/partner"
+    },
+    "node--programs": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/node\/programs"
+    },
+    "node--region": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/regions"
+    },
+    "self": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a"
+    },
+    "user--user": {
+      "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/users"
+    }
+  }
+}

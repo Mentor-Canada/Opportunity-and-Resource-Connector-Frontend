@@ -9,11 +9,18 @@ const gitRevisionPlugin = new GitRevisionPlugin()
 const webpack = require('webpack')
 
 module.exports = (env = {}) => {
+  let entry = [
+    './src/index.ts',
+    './src/style.scss'
+  ];
+  if(env.mock) {
+    entry.unshift('./src/mock/mock.ts');
+  }
 
   const api_url = env.api_url ?? 'http://localhost:8081'
 
   return {
-    entry: ['./src/index.ts', './src/style.scss'],
+    entry: entry,
     mode: "development",
     resolve: {
       extensions: ['.ts', '.js', '.vue', '.scss'],

@@ -1,0 +1,60 @@
+{
+  "jsonapi": {
+    "version": "1.0",
+    "meta": {
+      "links": {
+        "self": {
+          "href": "http:\/\/jsonapi.org\/format\/1.0\/"
+        }
+      }
+    }
+  },
+  "data": {
+    "type": "user--user",
+    "id": "4939e9ae-8341-424d-941e-4bd79bc2f596",
+    "links": {
+      "self": {
+        "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/users\/4939e9ae-8341-424d-941e-4bd79bc2f596"
+      }
+    },
+    "attributes": {
+      "display_name": "admin@example.com",
+      "drupal_internal__uid": 1,
+      "langcode": "en",
+      "preferred_langcode": "en",
+      "preferred_admin_langcode": null,
+      "name": "admin@example.com",
+      "mail": "admin@example.com",
+      "timezone": "America\/New_York",
+      "status": true,
+      "created": "2020-04-15T11:59:41+00:00",
+      "changed": "2021-09-20T14:17:21+00:00",
+      "access": "2022-03-28T14:02:12+00:00",
+      "login": "2022-03-25T18:51:49+00:00",
+      "init": "admin@example.com",
+      "default_langcode": true,
+      "rh_action": null,
+      "rh_redirect": null,
+      "rh_redirect_response": null,
+      "rh_redirect_fallback_action": null,
+      "field_first_name": "Connector",
+      "field_global_administrator": true,
+      "field_last_name": "Admin"
+    },
+    "relationships": {
+      "roles": {
+        "data": [],
+        "links": {
+          "self": {
+            "href": "https:\/\/connector-server.ubriety.dev\/en\/a\/users\/4939e9ae-8341-424d-941e-4bd79bc2f596\/relationships\/roles"
+          }
+        }
+      }
+    }
+  },
+  "links": {
+    "self": {
+      "href": "https:\/\/connector-server.ubriety.dev\/a\/users\/4939e9ae-8341-424d-941e-4bd79bc2f596"
+    }
+  }
+}
