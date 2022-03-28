@@ -1,0 +1,30 @@
+{
+  "links": {
+    "self": {
+      "href": "http:\/\/connector-server.ubriety.dev\/a\/app\/program"
+    }
+  },
+  "total": 1,
+  "data": [
+    {
+      "id": "00d7c633-8459-4eb4-8c8e-cb2b96882736",
+      "attributes": {
+        "nid": "156974",
+        "created": "2022-03-28T16:05:33-04:00",
+        "id": "00d7c633-8459-4eb4-8c8e-cb2b96882736",
+        "organization_uuid": null,
+        "first_name": "John",
+        "last_name": "Smith",
+        "email": "program@example.com",
+        "position": "CEO",
+        "phone": "1234567",
+        "altPhone": "9999999",
+        "responsivenessTier": "1",
+        "source": "Mentor Connector",
+        "field_standing": null,
+        "title": "Nom en Francais",
+        "organization_title": null
+      }
+    }
+  ]
+}

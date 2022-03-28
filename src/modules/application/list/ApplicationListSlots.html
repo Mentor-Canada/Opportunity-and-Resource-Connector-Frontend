@@ -1,0 +1,3 @@
+<div slot="attributes.title" slot-scope="props">
+    <a @click.prevent.stop="$emit('redirect-to-program', props.rowData.attributes.program_uuid)">{{ props.rowData.attributes.title }}</a>
+</div>
