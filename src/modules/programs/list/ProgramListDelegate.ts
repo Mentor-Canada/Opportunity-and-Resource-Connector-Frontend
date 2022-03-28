@@ -20,7 +20,7 @@ export default class ProgramListDelegate extends ListDelegateBase implements Lis
     }];
     this.fields = [
       { title: this.t('app-name'), name: `attributes.${ProgramFields.displayTitle}`, sortField: `attributes.${ProgramFields.displayTitle}` },
-      { title: this.t('app-organization'), name: 'attributes.organization_title' },
+      { title: this.t('app-organization'), name: 'attributes.organization_title', sortField: 'attributes.organization_title' },
       { title: this.t('app-contact'), name: 'email-slot' },
       { title: this.t('app-status'), name: 'attributes.field_standing', sortField: 'attributes.field_standing' },
       { title: this.t('app-responsiveness-tier'), name: 'attributes.responsivenessTier', sortField: 'attributes.responsivenessTier' },
