@@ -6,6 +6,9 @@ import WindowInterface from 'Interfaces/WindowInterface';
 import axios from 'axios';
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
 import Vue from '../node_modules/vue/dist/vue';
+import VueI18n from 'vue-i18n';
+import messagesEn from './locale/en.yml';
+import messagesFr from './locale/fr.yml';
 
 import VueRouter from '../node_modules/vue-router/dist/vue-router';
 import {
@@ -174,6 +177,20 @@ Vue.component('app-modal', AppModal);
 Vue.component('breadcrumbs', Breadcrumbs);
 Vue.component('app-checkbox', Checkbox);
 
+const messages = {
+  en: messagesEn,
+  fr: messagesFr,
+};
+
+const components = window.location.pathname.split('/');
+const locale = components[1] === 'fr' ? 'fr' : 'en';
+
+Vue.use(VueI18n);
+const i18n = new VueI18n({
+  locale: locale,
+  messages,
+});
+
 window.api = new AxiosDecorator();
 window.app = new App();
 window.app.setColorContrast();
@@ -228,6 +245,7 @@ window.app.load()
     });
 
     window.app.view = new Vue({
+      i18n,
       mixins: [BaseMixin],
       router: window.router,
       template: appTemplate,

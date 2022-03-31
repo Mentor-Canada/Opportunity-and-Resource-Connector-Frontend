@@ -94,6 +94,11 @@ module.exports = (env = {}) => {
           test: /\.html$/i,
           use: 'raw-loader',
         },
+        {
+          test: /\.ya?ml$/,
+          use: 'yaml-loader',
+          type: 'json',
+        }
       ]
     },
     output: {

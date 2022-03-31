@@ -4,6 +4,6 @@
 node_modules
 programs.json
 .DS_Store
-cypress/videos
-cypress/screenshots
+/cypress/videos
+/cypress/screenshots
 .env
