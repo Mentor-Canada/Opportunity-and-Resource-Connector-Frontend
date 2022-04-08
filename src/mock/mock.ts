@@ -9,6 +9,7 @@ import accounts from './a/app/accounts.json';
 import inquiries from './a/app/inquiries.json';
 import programs from './a/app/program/program.json';
 import programDetail from './a/app/program/00d7c633-8459-4eb4-8c8e-cb2b96882736.json';
+import searches from './a/app/search/searches.json';
 
 // @ts-ignore
 const apiUrl = API_URL;
@@ -33,3 +34,5 @@ mock.onGet(`${apiUrl}/session/token`).reply(200, {});
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/program/00d7c633-8459-4eb4-8c8e-cb2b96882736.*`)).reply(200, programDetail);
 mock.onGet(new RegExp(`${apiUrl}/en/a/app/accounts.*`)).reply(200, accounts);
 mock.onGet(new RegExp(`${apiUrl}/en/a/app/program\?.*`)).reply(200, programs);
+mock.onGet(`${apiUrl}/a/node/partner`).reply(200, { status: 'success', data: [] });
+mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/search\?.*`)).reply(200, searches);

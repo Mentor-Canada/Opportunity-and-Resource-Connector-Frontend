@@ -1,0 +1,20 @@
+{
+  "links": {
+    "self": {
+      "href": "http://connector-server.ubriety.dev/en/a/app/search"
+    }
+  },
+  "total": 6,
+  "data": [
+    {
+      "id": null,
+      "attributes": {
+        "zip": "app-national",
+        "email": "example@example.com",
+        "role": "mentor",
+        "created": "2022-04-08T13:34:28-04:00",
+        "partnerTitle": "1"
+      }
+    }
+  ]
+}

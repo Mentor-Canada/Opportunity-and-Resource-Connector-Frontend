@@ -1,15 +1,15 @@
-search-headline: How to become a
-search-sub-headline: mentor
-deactivate-dialog-title: Deactivate '{0}'
-inactive: Inactive
-active: Active
-deactivate: deactivate
 activation-date: Activation Date
+active: Active
+app-national: Nationwide e-mentoring
+deactivate-dialog-title: Deactivate '{0}'
+deactivate: deactivate
 deactivation-date: Deactivation Date
-deactivation-reason: Reason
 deactivation-reason-filter: Deactivation Reason
+deactivation-reason: Reason
+inactive: Inactive
 last-modified: Last Modified
-
-unresponsive: Unresponsive
 offboarding-requested: Offboarding requested
 other: Other
+search-headline: How to become a
+search-sub-headline: mentor
+unresponsive: Unresponsive

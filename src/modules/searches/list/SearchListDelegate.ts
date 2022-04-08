@@ -1,6 +1,7 @@
 import SearchListUrlBuilder from './SearchListUrlBuilder';
 import ListDelegateBase from '../../../pages/ListDelegateBase';
 import ListDelegateInterface from '../../../pages/ListDelegateInterface';
+import globals from '../../../globals';
 
 export default class SearchListDelegate extends ListDelegateBase implements ListDelegateInterface {
   csvUrl: string = 'app/search/csv';
@@ -38,6 +39,9 @@ export default class SearchListDelegate extends ListDelegateBase implements List
   transform(response) {
     for (const row of response.data) {
       row.attributes.role = this.t(row.attributes.role);
+      if (row.attributes.zip === 'app-national') {
+        row.attributes.zip = globals.app.view.$t(row.attributes.zip);
+      }
     }
   }
 }
