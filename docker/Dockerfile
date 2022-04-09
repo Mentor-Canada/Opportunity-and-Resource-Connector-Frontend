@@ -20,6 +20,11 @@ ENV APACHE_LOG_DIR /var/log/apache2
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_PID_FILE /var/run/apache2.pid
 
+RUN apt-get install npm -y
+RUN apt-get install curl -y
+RUN npm install -g n
+RUN n stable
+
 EXPOSE 80
 
 # By default, simply start apache.

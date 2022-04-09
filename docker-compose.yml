@@ -4,6 +4,7 @@ services:
   web:
     build: ./docker
     volumes:
-      - ./dist:/var/www/html
+      - .:/var/www/html
       - ./docker/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
+    working_dir: /var/www/html
     restart: always
