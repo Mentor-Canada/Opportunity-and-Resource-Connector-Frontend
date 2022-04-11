@@ -192,7 +192,9 @@ const i18n = new VueI18n({
 });
 
 window.api = new AxiosDecorator();
+const version = window.app.version
 window.app = new App();
+window.app.version = version;
 window.app.setColorContrast();
 window.app.load()
   .then(() => {

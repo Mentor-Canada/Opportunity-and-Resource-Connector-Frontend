@@ -17,7 +17,7 @@ module.exports = (env = {}) => {
     entry.unshift('./src/mock/mock.ts');
   }
 
-  const api_url = env.api_url ?? 'http://localhost:8081'
+  const api_url = env.api_url ?? 'http://localhost:8081';
 
   return {
     entry: entry,
@@ -114,9 +114,9 @@ module.exports = (env = {}) => {
         GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
         GOOGLE_TAG_MANAGER_ID: process.env.GOOGLE_TAG_MANAGER_ID,
         FACEBOOK_PIXEL_ID: process.env.FACEBOOK_PIXEL_ID,
-        title: process.env.COUNTRY == 'us' ? 'Mentoring Connector' : 'Mentor Connector',
+        title: env.title ?? 'Opportunity and Resource Connector',
         hash: true,
-        version: gitRevisionPlugin.version()
+        version: env.version
       }),
       new webpack.DefinePlugin({
         API_URL: JSON.stringify(api_url)
