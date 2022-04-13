@@ -22,13 +22,15 @@
         "uuid": "0a699c56-3b25-4a9d-9a41-e83b940005a6",
         "created": "2022-03-29T09:25:40-04:00",
         "entity_id": "999999",
+        "organization_uuid": "d96cb4ee-2166-4121-9f1c-d140d1a3f1b7",
         "program_uuid": "00d7c633-8459-4eb4-8c8e-cb2b96882736",
         "zip": "app-national",
         "city": null,
         "state": null,
         "partnerTitle": "1",
         "partnerId": "1",
-        "title": "Unit Test Program"
+        "title": "Unit Test Program",
+        "organization_title": "Test Organization"
       }
     }
   ]

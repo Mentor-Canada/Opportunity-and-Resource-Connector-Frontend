@@ -17,6 +17,8 @@ export default class InquiryFields {
 
   static readonly programFilter = 'programFilter';
 
+  static readonly organization = 'inquiries.organization_id';
+
   static readonly role = 'inquiries.role';
 
   // static readonly search = "field_search"

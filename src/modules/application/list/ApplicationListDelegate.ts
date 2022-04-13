@@ -38,6 +38,7 @@ export default class ApplicationListDelegate extends ListDelegateBase implements
     }];
     this.fields = [
       { title: this.t('app-program'), name: 'attributes.title', sortField: 'attributes.title' },
+      { title: this.t('app-organization'), name: 'attributes.organization_title', sortField: 'attributes.organization_title' },
       { title: this.t('app-first-name'), name: 'attributes.firstName', sortField: 'attributes.firstName' },
       { title: this.t('app-last-name'), name: 'attributes.lastName', sortField: 'attributes.lastName' },
       { title: this.t('app-role'), name: 'attributes.role', sortField: 'attributes.role' },

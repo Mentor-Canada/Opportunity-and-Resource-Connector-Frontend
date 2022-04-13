@@ -10,6 +10,12 @@
                   @input="refresh"
                   multi="true"
       />
+      <app-select :label='t("app-organization")'
+                  :options="organizationOptions"
+                  v-model="properties.delegate.filter[Fields.organization]"
+                  @input="refresh"
+                  multi="true"
+      />
       <app-select :label='t("app-program-filter")'
                   :options="programFilterOptions"
                   v-model="properties.delegate.filter[Fields.programFilter]"
@@ -95,6 +101,7 @@ export default {
       searchOptions: new SearchOptions(),
       programOptions: [{ value: '', name: '' }],
       programFilterOptions: [{ value: '', name: '' }],
+      organizationOptions: [{ value: "", name: "" }],
     };
   },
 
@@ -102,6 +109,10 @@ export default {
     const programs = await globals.api.get('a/app/program?sort=title');
     for (const program of programs.data.data) {
       this.programOptions.push({ value: program.attributes.nid, name: program.attributes.title });
+    }
+    const organizations = await globals.api.get('a/app/organization?sort=title')
+    for(const organization of organizations.data.data) {
+      this.organizationOptions.push({ value: organization.attributes.id, name: organization.attributes.title })
     }
     const programFilters = await globals.api.get('a/app/filter?type=program');
     for (const filter of programFilters.data) {

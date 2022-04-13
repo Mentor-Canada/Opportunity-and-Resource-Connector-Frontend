@@ -32,6 +32,10 @@ export default {
     redirectToProgram(programUuid) {
       this.router.push(`/${window.app.languages.list[0].langcode}/admin/programs/detail/${programUuid}`);
     },
+
+    redirectToOrganization(organizationUuid) {
+      this.router.push(`/${window.app.languages.list[0].langcode}/admin/organizations/detail/${organizationUuid}`);
+    },
   },
 
 };

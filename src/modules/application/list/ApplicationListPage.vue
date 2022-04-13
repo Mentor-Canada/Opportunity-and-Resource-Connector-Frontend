@@ -19,6 +19,7 @@
         :has-filter="true"
         export="true"
         @redirect-to-program="redirectToProgram"
+        @redirect-to-organization="redirectToOrganization"
         @row-clicked="rowClicked"
         @ready="isReady = true"
         @show-filter="$refs['filter-dialog'].show = true"
