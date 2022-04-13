@@ -1,7 +1,23 @@
-<div slot="email-slot" slot-scope="props">
+<div slot="attributes.status" slot-scope="props">
+    <div class="mentorcity-status" :class="props.rowData.attributes.status">
+        {{ $t(props.rowData.attributes.status) }}
+    </div>
+    <a class="mentorcity-deactivate-button" v-if="props.rowData.attributes.status === 'active'" @click.prevent.stop="$emit('deactivate-clicked', props.rowData.attributes)">
+        {{ $t('deactivate') }}
+    </a>
+</div>
+
+<div slot="attributes.field_mentor_city_email" slot-scope="props">
   <a @click.prevent.stop="$emit('email-clicked', props.rowData.attributes)">{{ props.rowData.attributes.field_mentor_city_first_name }} {{ props.rowData.attributes.field_mentor_city_last_name }}</a>
 </div>
 
-<div slot="name-slot" slot-scope="props">
+<div slot="attributes.title" slot-scope="props">
   <a @click.prevent.stop="$emit('redirect-to-program', props.rowData)">{{ props.rowData.attributes.title }}</a>
+</div>
+
+<div slot="attributes.deactivation_reason" slot-scope="props">
+    {{ $t(props.rowData.attributes.deactivation_reason) }}
+    <div class="mentorcity-deactivation-other">
+        {{ props.rowData.attributes.deactivation_reason_other }}
+    </div>
 </div>

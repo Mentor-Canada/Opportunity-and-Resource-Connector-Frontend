@@ -1,2 +1,15 @@
 search-headline: How to become a
 search-sub-headline: mentor
+deactivate-dialog-title: Deactivate '{0}'
+inactive: Inactive
+active: Active
+deactivate: deactivate
+activation-date: Activation Date
+deactivation-date: Deactivation Date
+deactivation-reason: Reason
+deactivation-reason-filter: Deactivation Reason
+last-modified: Last Modified
+
+unresponsive: Unresponsive
+offboarding-requested: Offboarding requested
+other: Other

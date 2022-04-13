@@ -1,2 +1,12 @@
 search-headline: Comment devenir
 search-sub-headline: Mentor
+inactive: Inactif
+active: Actif
+deactivate: désactiver
+activation-date: Date d'activation
+deactivation-date: Date de désactivation
+deactivation-reason: Raison
+deactivation-reason-filter: Raison de désactivation
+last-modified: Dernière modification
+
+other: Autre

@@ -94,13 +94,16 @@
         </md-dialog-actions>
       </form>
     </md-dialog>
-    <div class="ui-form-row edit-organization-buttons" v-if="!inviteSent">
+    <div class="ui-form-row edit-organization-buttons" v-if="!inviteSent || status === 'inactive'">
       <button class="compact" type="button" @click="show = true">
         {{ t("app-request-access-to-e-mentoring-platform") }}
       </button>
     </div>
     <div v-else class="ui-form-row typography-reduced e-mentoring-details"
          v-html="eMentoringInviteMessage" />
+    <div v-if="status === 'inactive'" class="ui-form-row typography-reduced e-mentoring-details">
+      Your program has been offboarded from the e-mentoring platform. Please contact <a href="mailto:support@mentoringcanada.ca">support@mentoringcanada.ca</a> for assistance.
+    </div>
   </div>
 </template>
 
@@ -128,6 +131,7 @@ export default {
       termsOfService: false,
       inviteSent: false,
       logoError: false,
+      status: ''
     };
   },
 
@@ -143,6 +147,7 @@ export default {
   methods: {
     setInviteMessage(data) {
       if (data?.program_id) {
+        this.status = data.status
         data.dateString = new DateStringBuilder()
           .unixtimestamp(data?.date)
           .format("EEEE, LLLL do, yyyy 'at' h:mm a", 'en')
