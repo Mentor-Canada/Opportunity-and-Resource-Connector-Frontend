@@ -316,7 +316,7 @@ export default class ProgramAttributes {
       }),
       field_ns_training: this.field_ns_training,
       field_program_grades_served: CheckboxFieldAdapter.serialize(this.field_program_grades_served),
-      field_mentor_city: this.field_mentor_city,
+      // field_mentor_city: this.field_mentor_city,
     };
     return result;
   }
