@@ -23,7 +23,7 @@
     <button type="button" v-if="active !== 'approval' && $route.params.id && app.user.admin" @click="onApprovalClick">
       {{ t("app-review-program-approval") }}
     </button>
-    <button type="button" v-if="active !== 'administrators' && $route.params.id && program.director" @click="onAdminsClick">
+    <button type="button" v-if="active !== 'administrators' && $route.params.id" @click="onAdminsClick">
       {{ t("app-review-program-administrators") }}
     </button>
     <button type="submit" v-if="$route.params.id">
