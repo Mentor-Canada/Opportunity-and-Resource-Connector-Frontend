@@ -11,6 +11,7 @@ import ResultUtils from '../../results/ResultUtils';
 import Result from '../../results/Result';
 
 declare const window: WindowInterface;
+declare const FLAG_NEW_RESULTS: boolean;
 
 export default {
 
@@ -145,7 +146,11 @@ export default {
       this.program = new Program();
       this.app.showLoading();
       this.program.document.id = this.$route.params.programId;
-      if (this.$route.params.searchId) this.isSearchUrl = true;
+
+      if (!FLAG_NEW_RESULTS) {
+        if (this.$route.params.searchId) this.isSearchUrl = true;
+      }
+
       await Promise.all([this.program.load()]);
       if (this.program.attributes.standing != 'app-allowed') {
         this.app.hideLoading();

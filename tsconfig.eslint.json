@@ -6,6 +6,9 @@
     "**/*.vue",
     "**/*.json"
   ],
+   "rules": {
+     "no-trailing-spaces": "off"
+   },
   "compilerOptions": {
     "allowJs": true,
     "checkJs": true

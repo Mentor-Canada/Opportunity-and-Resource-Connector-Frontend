@@ -123,7 +123,8 @@ module.exports = (env = {}) => {
       }),
       new webpack.DefinePlugin({
         API_URL: JSON.stringify(api_url),
-        FLAG_SPLIT_SEARCH: JSON.stringify(env.split_search ?? false)
+        FLAG_SPLIT_SEARCH: JSON.stringify(env.split_search ?? false),
+        FLAG_NEW_RESULTS: JSON.stringify(env.new_results ?? false)
       })
     ],
   }

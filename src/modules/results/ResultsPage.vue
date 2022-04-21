@@ -22,19 +22,22 @@
 import BaseMixin from 'BaseMixin';
 import Search from 'Models/Search';
 import PageMixin from '../../mixins/PageMixin';
-import Map from './map/Map.vue';
 import List from './list/List.vue';
 import ResultCollectionBuilder from './ResultCollectionBuilder';
 import RequestQueue from '../../pages/RequestQueue';
 import Footer from './footer/Footer.vue';
 import paginationResultsPerPage from './paginationResultsPerPage';
+import LocationResultsCollectionBuilder from "./LocationResultsCollectionBuilder";
+import SearchUrlAdapter from "../search/SearchUrlAdapter";
+import SearchQueryParams from "./SearchQueryParams";
+
+declare const FLAG_NEW_RESULTS: boolean;
 
 export default {
 
   mixins: [BaseMixin, PageMixin],
 
   components: {
-    // 'map-component': Map,
     'list-component': List,
     'footer-component': Footer,
   },
@@ -52,15 +55,36 @@ export default {
 
   async mounted() {
     this.app.showLoading();
-    this.id = this.$route.params.id;
-    await this.search.load(this.id);
 
     this.request = new RequestQueue();
 
-    this.builder = new ResultCollectionBuilder(this.id)
-      .offset(0)
-      .limit(paginationResultsPerPage[0]);
-    this.response = await this.builder.build();
+    if (!FLAG_NEW_RESULTS) {
+      this.id = this.$route.params.id;
+      await this.search.load(this.id);
+
+      this.builder = new ResultCollectionBuilder(this.id)
+        .offset(0)
+        .limit(paginationResultsPerPage[0]);
+      this.response = await this.builder.build();
+    } else {
+      const searchUrlAdapter = new SearchUrlAdapter();
+      this.search = new Search();
+      this.search.attributes.age = searchUrlAdapter.age;
+      this.search.attributes.delivery = searchUrlAdapter.delivery;
+      this.search.attributes.distance = searchUrlAdapter.distance;
+      this.search.attributes.focus = searchUrlAdapter.focus;
+      this.search.attributes.grade = searchUrlAdapter.grade;
+      this.search.attributes.partnerId = searchUrlAdapter.partnerId;
+      this.search.attributes.role = searchUrlAdapter.role;
+      this.search.attributes.typeOfMentoring = searchUrlAdapter.typeOfMentoring;
+      this.search.attributes.youth = searchUrlAdapter.youth;
+
+      this.builder = new LocationResultsCollectionBuilder(this.$route.params.location)
+        .offset(0)
+        .limit(paginationResultsPerPage[0]);
+      this.updateQueryStringParams();
+      this.response = await this.builder.build();
+    }
 
     this.ready();
   },
@@ -115,21 +139,29 @@ export default {
     async updateSearch() {
       this.loading = true;
       this.app.showLoading();
-      await this.search.update();
+      if (!FLAG_NEW_RESULTS) {
+        await this.search.update();
+      }
 
       // update list
       this.request.begin(async () => {
+        if (FLAG_NEW_RESULTS) {
+          this.updateQueryStringParams();
+        }
+
         this.response = await this.builder
           .build();
         this.$refs.list.refresh(this.response);
         this.request.end();
         this.app.hideLoading();
       });
-
-      // update map
-      // this.$refs.map.resultMap.clear()
-      // this.$refs.map.request.begin()
     },
+
+    updateQueryStringParams() {
+      const searchQueryParams = SearchQueryParams.createFromAttributes(this.search.attributes);
+      this.builder.queryStringParams = { ...this.builder.queryStringParams, ...searchQueryParams };
+    }
+
   },
 
 };
