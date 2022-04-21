@@ -1,0 +1,41 @@
+{
+  "links": {
+    "self": {
+      "href": "http:\/\/connector-server.ubriety.dev\/a\/app\/accounts"
+    },
+    "next": {
+      "href": "http:\/\/connector-server.ubriety.dev\/a\/app\/accounts?filter%5Bmail%5D%5Bvalue%5D=wi\u0026filter%5Bmail%5D%5Boperator%5D=CONTAINS\u0026page%5Boffset%5D=0"
+    }
+  },
+  "total": 2,
+  "data": [
+    {
+      "id": "f5b7ee3c-01ae-414b-b7c1-551bfd8fb108",
+      "attributes": {
+        "id": "f5b7ee3c-01ae-414b-b7c1-551bfd8fb108",
+        "mail": "withName@example.com",
+        "firstName": "John",
+        "lastName": "Smith",
+        "globalAdministrator": "0",
+        "affiliates": [],
+        "organizations": [],
+        "programs": [],
+        "created": 1649870886000
+      }
+    },
+    {
+      "id": "2a5294b9-1f02-4846-b392-582e1d479155",
+      "attributes": {
+        "id": "2a5294b9-1f02-4846-b392-582e1d479155",
+        "mail": "withoutName@example.com",
+        "firstName": null,
+        "lastName": null,
+        "globalAdministrator": "0",
+        "affiliates": [],
+        "organizations": [],
+        "programs": [],
+        "created": 1649870911000
+      }
+    }
+  ]
+}

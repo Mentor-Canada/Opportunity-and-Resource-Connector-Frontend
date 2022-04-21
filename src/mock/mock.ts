@@ -12,6 +12,7 @@ import programDetail from './a/app/program/00d7c633-8459-4eb4-8c8e-cb2b96882736.
 import searches from './a/app/search/searches.json';
 import organizationDetail from './a/app/organization/d96cb4ee-2166-4121-9f1c-d140d1a3f1b7.json';
 import nonDirectorProgram from './a/app/program/23eedcba-0c52-41a3-9f3a-acf42989c380.json';
+import filteredAccounts from './a/app/accounts/filteredAccounts.json';
 
 // @ts-ignore
 const apiUrl = API_URL;
@@ -36,6 +37,7 @@ mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/utils/strings`)).reply(200, { status:
 mock.onGet(`${apiUrl}/session/token`).reply(200, {});
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/program/00d7c633-8459-4eb4-8c8e-cb2b96882736.*`)).reply(200, programDetail);
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/program/23eedcba-0c52-41a3-9f3a-acf42989c380.*`)).reply(200, nonDirectorProgram);
+mock.onGet(new RegExp(`${apiUrl}/a/app/accounts\?(.*)=CONTAINS`)).reply(200, filteredAccounts);
 mock.onGet(new RegExp(`${apiUrl}/en/a/app/accounts.*`)).reply(200, accounts);
 mock.onGet(new RegExp(`${apiUrl}/en/a/app/program\?.*`)).reply(200, programs);
 mock.onGet(`${apiUrl}/a/node/partner`).reply(200, { status: 'success', data: [] });

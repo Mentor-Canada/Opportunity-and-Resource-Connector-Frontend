@@ -21,10 +21,10 @@
       </div>
       <ul class="user-list">
           <li v-for="account in accounts.list" :key="account.id">
-            <a @click="save(account.mail, account)">
+            <a @click="save(account.data.attributes.mail, account)">
               <div class="user-name" v-if="account.firstName">{{ account.firstName }} {{ account.lastName }}</div>
-              <div class="user-name" v-else>{{ t("app-add-user-invitation-pending") }}</div>
-              <div class="user-email">{{ account.mail }}</div>
+              <div class="user-name" v-else>{{ account.data.attributes.mail }}</div>
+              <div class="user-email" v-if="account.firstName">{{ account.data.attributes.mail }}</div>
             </a>
           </li>
           <li v-show="newUser">
