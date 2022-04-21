@@ -16,6 +16,9 @@ module.exports = (env = {}) => {
   if(env.mock) {
     entry.unshift('./src/mock/mock.ts');
   }
+  if(env.split_search) {
+    entry.push('./src/modules/home/HomeModule.ts');
+  }
 
   const api_url = env.api_url ?? 'http://localhost:8081';
 
@@ -119,7 +122,8 @@ module.exports = (env = {}) => {
         version: env.version
       }),
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(api_url)
+        API_URL: JSON.stringify(api_url),
+        FLAG_SPLIT_SEARCH: JSON.stringify(env.split_search ?? false)
       })
     ],
   }

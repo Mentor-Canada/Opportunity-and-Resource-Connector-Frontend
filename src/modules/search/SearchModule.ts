@@ -4,9 +4,11 @@ import SearchPage from './SearchPage';
 
 window.addEventListener('register-module', (e) => {
   let routes = [];
+  const title = !FLAG_SPLIT_SEARCH ? '' : 'Search';
+  const path = !FLAG_SPLIT_SEARCH ? '/' : 'search';
   routes = routes.concat(new RouteBuilder()
-    .title('')
-    .path('/')
+    .title(title)
+    .path(path)
     .component(SearchPage)
     .langCodes(globals.app.langCodes)
     .build());

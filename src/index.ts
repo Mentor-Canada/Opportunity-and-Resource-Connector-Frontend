@@ -99,6 +99,7 @@ import Feedback from './components/Feedback.vue';
 import Checkbox from './components/Checkbox.vue';
 
 import AxiosDecorator from './AxiosDecorator';
+import PathAdapter from "./utils/PathAdapter";
 
 Vue.config.errorHandler = (err, vm, info) => {
   if (err == 'Not Implemented') {
@@ -214,6 +215,7 @@ window.app.load()
 
     window.router.beforeEach((to, from, next) => {
       document.querySelector('body').classList.remove('page-search');
+      document.querySelector('body').setAttribute('data-path', PathAdapter.kebabCase(to.fullPath));
       if (window.app.view) window.app.view.adminMenuOpen = false;
       const nearestWithTitle = to.matched.slice().reverse().find((r) => r.meta && r.meta.title);
       if (nearestWithTitle) {
