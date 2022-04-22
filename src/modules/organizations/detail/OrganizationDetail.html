@@ -224,7 +224,7 @@
       <button type="button" v-if="$route?.params.id && app.user.admin" @click="onApprovalClick">
         {{ t("app-review-organization-approval") }}
       </button>
-      <button type="button" v-if="$route?.params.id && organization.director" @click="onAdministratorsClick">
+      <button type="button" class="cypress-org-admin-button" v-if="$route?.params.id" @click="onAdministratorsClick">
         {{ t("app-review-organization-administrators") }}
       </button>
       <button type="submit" v-if="$route?.params.id">
