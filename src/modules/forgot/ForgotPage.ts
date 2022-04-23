@@ -13,7 +13,7 @@ export default {
   beforeRouteEnter(to, from, next) {
     document.querySelector('body').classList.add('loading');
     if (window.app.user.id) {
-      window.router.replace('/searches');
+      next('');
     } else {
       next();
     }

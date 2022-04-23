@@ -1,5 +1,7 @@
 import globals from '../globals';
 
+declare const API_URL: string;
+
 export default {
 
   computed: {
@@ -13,16 +15,13 @@ export default {
       return globals.api;
     },
     router() {
-      return globals.router;
+      return this.$router;
     },
     lang() {
       return this.app.language;
     },
     countryCode() {
       return globals.app.bootstrap.country;
-    },
-    config() {
-      return config;
     },
   },
 
@@ -62,7 +61,7 @@ export default {
     },
 
     languageToggle(language: string): string {
-      const components = globals.router.currentRoute.fullPath.split('/');
+      const components = this.$router.currentRoute.fullPath.split('/');
       components[1] = language;
       return components.join('/');
     },

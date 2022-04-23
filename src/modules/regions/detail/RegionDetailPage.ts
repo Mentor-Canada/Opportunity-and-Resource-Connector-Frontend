@@ -47,13 +47,13 @@ export default {
     },
 
     onServiceAreasClick() {
-      window.router.push(this.link(`admin/regions/${this.$route.params.id}/service-areas`));
+      this.$router.push(this.link(`admin/regions/${this.$route.params.id}/service-areas`));
     },
 
     async save() {
       window.app.showLoading();
       await this.region.save();
-      window.router.push(this.link('admin/regions'));
+      await this.$router.push(this.link('admin/regions'));
     },
 
     async remove() {

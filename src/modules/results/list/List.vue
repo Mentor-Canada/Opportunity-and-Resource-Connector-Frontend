@@ -140,6 +140,7 @@ import searchOptionsDistance from '../../search/searchOptionsDistance';
 import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
+import FeatureFlags from "../../../FeatureFlags";
 
 export default {
   mixins: [BaseMixin],
@@ -192,7 +193,11 @@ export default {
     },
 
     handleClick(routeParamsId, programId) {
-      this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`));
+      if (FeatureFlags.NEW_RESULTS) {
+        this.router.push(this.link(`program/${programId}`));
+      } else {
+        this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`));
+      }
     },
 
     async refresh(response) {

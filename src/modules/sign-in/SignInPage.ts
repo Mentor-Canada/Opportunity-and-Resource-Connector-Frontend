@@ -16,7 +16,7 @@ export default {
     if (window.app.user.id) {
       let dest = to.query.dest || window.app.link('admin/profile');
       dest = dest.replace(window.location.origin, '');
-      window.router.replace(dest);
+      next(dest);
     } else {
       next();
     }

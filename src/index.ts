@@ -10,7 +10,7 @@ import VueI18n from 'vue-i18n';
 import messagesEn from './locale/en.yml';
 import messagesFr from './locale/fr.yml';
 
-import VueRouter from '../node_modules/vue-router/dist/vue-router';
+import VueRouter from 'vue-router';
 import {
   MdField,
   MdTabs,
@@ -49,7 +49,6 @@ import LogoUploader from './components/LogoUploader.vue';
 import appTemplate from './app.html';
 
 import App from './App';
-import routes from './Routes';
 import './modules/Modules';
 
 import BaseMixin from './mixins/BaseMixin';
@@ -100,6 +99,7 @@ import Checkbox from './components/Checkbox.vue';
 
 import AxiosDecorator from './AxiosDecorator';
 import PathAdapter from "./utils/PathAdapter";
+import RouterFactory from './core/RouterFactory';
 
 Vue.config.errorHandler = (err, vm, info) => {
   if (err == 'Not Implemented') {
@@ -199,21 +199,10 @@ window.app.version = version;
 window.app.setColorContrast();
 window.app.load()
   .then(() => {
-    window.app.routes = routes();
-    window.dispatchEvent(new CustomEvent('register-module'));
 
-    window.router = new VueRouter({
-      mode: 'history',
-      routes: window.app.routes,
-      scrollBehavior(to, from, savedPosition) {
-        if (savedPosition) {
-          return savedPosition;
-        }
-        return { x: 0, y: 0 };
-      },
-    });
+    const router = RouterFactory.create();
 
-    window.router.beforeEach((to, from, next) => {
+    router.beforeEach((to, from, next) => {
       document.querySelector('body').classList.remove('page-search');
       document.querySelector('body').setAttribute('data-path', PathAdapter.kebabCase(to.fullPath));
       if (window.app.view) window.app.view.adminMenuOpen = false;
@@ -251,7 +240,7 @@ window.app.load()
     window.app.view = new Vue({
       i18n,
       mixins: [BaseMixin],
-      router: window.router,
+      router: router,
       template: appTemplate,
 
       components: {

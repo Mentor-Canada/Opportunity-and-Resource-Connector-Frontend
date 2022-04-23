@@ -19,6 +19,12 @@ module.exports = (env = {}) => {
   if(env.split_search) {
     entry.push('./src/modules/home/HomeModule.ts');
   }
+  if(env.flag_new_results) {
+    entry.push('./src/modules/become-a-mentor/BecomeAMentorModule.ts');
+  }
+  if(env.flag_new_results) {
+    entry.push('./src/modules/get-a-mentor/GetAMentorModule.ts');
+  }
 
   const api_url = env.api_url ?? 'http://localhost:8081';
 
@@ -124,7 +130,7 @@ module.exports = (env = {}) => {
       new webpack.DefinePlugin({
         API_URL: JSON.stringify(api_url),
         FLAG_SPLIT_SEARCH: JSON.stringify(env.split_search ?? false),
-        FLAG_NEW_RESULTS: JSON.stringify(env.new_results ?? false)
+        FLAG_NEW_RESULTS: JSON.stringify(env.flag_new_results ?? false)
       })
     ],
   }

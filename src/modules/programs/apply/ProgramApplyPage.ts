@@ -9,9 +9,10 @@ import '../../../../node_modules/slick-carousel';
 import ResultCollectionBuilder from '../../results/ResultCollectionBuilder';
 import ResultUtils from '../../results/ResultUtils';
 import Result from '../../results/Result';
+import FeatureFlags from "../../../FeatureFlags";
+import Manager from "../../../core/Manager";
 
 declare const window: WindowInterface;
-declare const FLAG_NEW_RESULTS: boolean;
 
 export default {
 
@@ -41,6 +42,7 @@ export default {
       physicalTip: '',
       googleMapUrl: null,
       isSearchUrl: false,
+      showMoreResults: false
     };
   },
 
@@ -147,8 +149,10 @@ export default {
       this.app.showLoading();
       this.program.document.id = this.$route.params.programId;
 
-      if (!FLAG_NEW_RESULTS) {
+      if (!FeatureFlags.NEW_RESULTS) {
         if (this.$route.params.searchId) this.isSearchUrl = true;
+      } else {
+        this.isSearchUrl = true;
       }
 
       await Promise.all([this.program.load()]);
@@ -158,7 +162,7 @@ export default {
       }
       document.title = `${this.program.localizedAttributes[this.lang.langcode].field_display_title} | ${this.t('app-sitename')}`;
 
-      if (this.isSearchUrl) {
+      if (this.isSearchUrl && !FeatureFlags.NEW_RESULTS) {
         await Promise.all([this.search.load(this.$route.params.searchId)]);
         this.application.attributes.search = this.$route.params.searchId;
         this.application.attributes.role = this.search.attributes.role;
@@ -172,18 +176,24 @@ export default {
       this.application.attributes.howDidYouHearAboutUsOther = this.search.attributes.howDidYouHearAboutUsOther;
 
       if (this.isSearchUrl) {
-        const params = {
-          search: this.$route.params.searchId,
-        };
-        const encodeDataToURL = (data) => Object
-          .keys(data)
-          .map((value) => `${value}=${encodeURIComponent(data[value])}`)
-          .join('&');
-        const queryString = encodeDataToURL(params);
+        let rows: any[] = [];
+        if (FeatureFlags.NEW_RESULTS) {
+          rows = Manager.getInstance().results;
+        } else {
+          const params = {
+            search: this.$route.params.searchId,
+          };
+          const encodeDataToURL = (data) => Object
+            .keys(data)
+            .map((value) => `${value}=${encodeURIComponent(data[value])}`)
+            .join('&');
+          const queryString = encodeDataToURL(params);
 
-        const builder = new ResultCollectionBuilder(this.$route.params.searchId);
-        const response = await builder.build();
-        const rows: any[] = response.data.data as [];
+          const builder = new ResultCollectionBuilder(this.$route.params.searchId);
+          const response = await builder.build();
+          rows = response.data.data as [];
+        }
+
         const { id } = this.program.document;
 
         let index = 0;
@@ -216,6 +226,10 @@ export default {
         this.physicalTip = ResultUtils.getPhysicalTip(distance);
       }
 
+      if (this.moreResults.length) {
+        this.showMoreResults = true;
+      }
+
       const accepting = this.program.attributes.programAccepting.map((row) => row.value);
       this.acceptingMentors = accepting.indexOf('app-program-accepting-mentors') != -1;
       this.acceptingMentees = accepting.indexOf('app-program-accepting-mentees') != -1;
@@ -224,7 +238,7 @@ export default {
       this.ready();
 
       await this.$nextTick();
-      if (this.isSearchUrl) {
+      if (this.showMoreResults) {
         this.initSlick();
         this.pageType = 'program-apply-search';
       }
@@ -283,7 +297,11 @@ export default {
       return icon;
     },
     handleClick(programId) {
-      this.router.push(`${this.link(`search/${this.$route.params.searchId}/apply/${programId}`)}`);
+      if(FeatureFlags.NEW_RESULTS) {
+        this.router.push(`${this.link(`program/${programId}`)}`);
+      } else {
+        this.router.push(`${this.link(`search/${this.$route.params.searchId}/apply/${programId}`)}`);
+      }
     },
     searchAgain() {
       this.router.push(this.link(''));

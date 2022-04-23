@@ -267,7 +267,7 @@
       </div>
     </div>
 
-    <div id="more-results" v-if="this.isSearchUrl">
+    <div id="more-results" v-if="this.showMoreResults">
       <div class="more-results-carousel">
 
         <div class="carousel-header">

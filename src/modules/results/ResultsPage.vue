@@ -30,6 +30,7 @@ import paginationResultsPerPage from './paginationResultsPerPage';
 import LocationResultsCollectionBuilder from "./LocationResultsCollectionBuilder";
 import SearchUrlAdapter from "../search/SearchUrlAdapter";
 import SearchQueryParams from "./SearchQueryParams";
+import Manager from "../../core/Manager";
 
 declare const FLAG_NEW_RESULTS: boolean;
 
@@ -84,6 +85,7 @@ export default {
         .limit(paginationResultsPerPage[0]);
       this.updateQueryStringParams();
       this.response = await this.builder.build();
+      Manager.getInstance().results = this.response.data.data;
     }
 
     this.ready();

@@ -1,5 +1,5 @@
 import WindowInterface from 'Interfaces/WindowInterface';
-import Handler from './pages/Handler';
+import Handler from '../pages/Handler';
 
 declare const window: WindowInterface;
 
