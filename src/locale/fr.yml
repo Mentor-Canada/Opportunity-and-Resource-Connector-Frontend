@@ -2,20 +2,26 @@ activation-date: Date d'activation
 active: Actif
 app-national: E-mentorat nationale
 become-a-mentor-button: Devenir un mentor
-become-a-mentor-heading: Je veux devenir un mentor
+become-a-mentor-eyebrow: Pour les bénévoles
+become-a-mentor-heading: Devenir un mentor.
 become-a-mentor-paragraph: Le mentorat ne requiert aucune compétence particulière. Tout ce dont vous avez besoin, c'est d'un esprit ouvert et d'un intérêt à faire une différence dans la vie d'un jeune âgé de 6 à 25 ans et plus.
 deactivate: désactiver
 deactivation-date: Date de désactivation
 deactivation-reason-filter: Raison de désactivation
 deactivation-reason: Raison
-get-a-mentor-button: Trouver un mentor
-get-a-mentor-heading: Je veux trouver un mentor
-get-a-mentor-paragraph: Si vous cherchez à obtenir le soutien dont vous avez besoin à l'école, pour une carrière future ou simplement pour faire de meilleurs choix dans votre vie, avoir un mentor, virtuellement ou en personne, peut vous aider à ouvrir la porte à de nouvelles possibilités.
+find-a-mentor-button: Trouver un mentor
+find-a-mentor-eyebrow: Pour les jeunes
+find-a-mentor-heading: Trouver un mentor.
+find-a-mentor-paragraph: Si vous cherchez à obtenir le soutien dont vous avez besoin à l'école, pour une carrière future ou simplement pour faire de meilleurs choix dans votre vie, avoir un mentor, virtuellement ou en personne, peut vous aider à ouvrir la porte à de nouvelles possibilités.
 inactive: Inactif
 last-modified: Dernière modification
-list-program-button:  Répertorier mon organisation et mes programmes de mentorat
-list-program-heading: Je veux répertorier mon organisation et mes programmes de mentorat
-list-program-paragraph: Rehaussez le profil de vos programmes et initiatives de mentorat! Affichez vos opportunités de bénévolat pour rejoindre plus de personnes dans votre communauté et à travers le Canada.
+list-program-button:  Rejoindre Connecteur Mentor
+list-program-eyebrow: Pour les organisations
+list-program-heading: Augmentez la portée de votre organisation.
+list-program-paragraph: Rehaussez le profil de vos programmes et initiatives de mentorat Affichez vos opportunités de bénévolat pour rejoindre plus de personnes dans votre communauté et à travers le Canada.
+mc-headline-fragment-word-first: Connecteur
+mc-headline-fragment-word-last: Mentor
+mc-headline-paragraph: Connecteur Mentor permet aux bénévoles et aux jeunes de se connecter aux bonnes opportunités de mentorat, à la fois virtuellement et au sein de leurs communautés.
 other: Autre
 search-headline: Comment devenir
 search-sub-headline: Mentor

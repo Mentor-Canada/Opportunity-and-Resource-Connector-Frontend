@@ -60,6 +60,7 @@ export default class App {
     this.langCodes = this.languages.list.map((row) => row.langcode);
     document.body.setAttribute('data-language-count', String(this.languages.list.length));
     this.language = this.languages.find(this.getCurrentLanguage());
+    document.querySelector('html').setAttribute('lang', this.language.langcode);
     await this.language.load();
     this.adminMenu = new AdminMenu();
   }

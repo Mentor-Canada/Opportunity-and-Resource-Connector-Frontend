@@ -1,6 +1,7 @@
 .idea
 /dist/*
 !/dist/.htaccess
+!/dist/assets
 node_modules
 programs.json
 .DS_Store
