@@ -31,6 +31,7 @@ import LocationResultsCollectionBuilder from "./LocationResultsCollectionBuilder
 import SearchUrlAdapter from "../search/SearchUrlAdapter";
 import SearchQueryParams from "./SearchQueryParams";
 import Manager from "../../core/Manager";
+import FeatureFlags from '../../FeatureFlags';
 
 declare const FLAG_NEW_RESULTS: boolean;
 
@@ -83,9 +84,10 @@ export default {
       this.builder = new LocationResultsCollectionBuilder(this.$route.params.location)
         .offset(0)
         .limit(paginationResultsPerPage[0]);
-      this.updateQueryStringParams();
+      this.onSearch();
       this.response = await this.builder.build();
       Manager.getInstance().results = this.response.data.data;
+      Manager.getInstance().searchRole = this.search.attributes.role;
     }
 
     this.ready();
@@ -148,14 +150,28 @@ export default {
       // update list
       this.request.begin(async () => {
         if (FLAG_NEW_RESULTS) {
-          this.updateQueryStringParams();
+          this.onSearch();
         }
 
         this.response = await this.builder
           .build();
+        if (FeatureFlags.NEW_RESULTS) {
+          Manager.getInstance().results = this.response.data.data;
+        }
         this.$refs.list.refresh(this.response);
         this.request.end();
         this.app.hideLoading();
+      });
+    },
+
+    onSearch() {
+      this.updateQueryStringParams();
+      const url = `${this.$router.currentRoute.path}?${this.search.attributes.getQueryString()}`;
+      Manager.getInstance().searchUrl = url;
+      this.$router.replace(url).catch((e) => {
+        if (e.name != 'NavigationDuplicated') {
+          throw e;
+        }
       });
     },
 

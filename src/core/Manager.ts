@@ -8,6 +8,10 @@ export default class Manager {
 
   public results: any;
 
+  public searchUrl: string;
+
+  public searchRole: string;
+
   public app: App;
 
   private constructor() {

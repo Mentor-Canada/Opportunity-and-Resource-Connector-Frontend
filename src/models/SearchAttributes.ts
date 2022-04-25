@@ -97,6 +97,37 @@ export default class SearchAttributes {
     }
   }
 
+  getQueryString(): string {
+    const params: any = {};
+    if (this.distance != '30') {
+      params.distance = this.distance;
+    }
+    if (this.delivery.length != 3) {
+      if (this.delivery.indexOf(SearchAttributes.COMMUNITY_BASED_DELIVERY) !== -1) {
+        params.communityBased = 1;
+      }
+      if (this.delivery.indexOf(SearchAttributes.SITE_BASED_DELIVERY) !== -1) {
+        params.siteBasedDelivery = 1;
+      }
+      if (this.delivery.indexOf(SearchAttributes.E_MENTORING_DELIVERY) !== -1) {
+        params.eMentoring = 1;
+      }
+    }
+    if (this.focus !== 'all') {
+      params.focus = this.focus.replace('app-ca-program-focus-', '');
+    }
+    if (this.age !== 'all') {
+      params.age = this.focus.replace('app-ca-', '');
+    }
+    if (this.youth !== 'all') {
+      params.youth = this.youth.replace('app-ca', '');
+    }
+    if (this.typeOfMentoring !== 'all') {
+      params.typeOfMentoring = this.typeOfMentoring.replace('app-type-of-mentoring-', '');
+    }
+    return new URLSearchParams(params).toString();
+  }
+
   serialize() {
     if (this.national) {
       this.delivery = [SearchAttributes.E_MENTORING_DELIVERY];

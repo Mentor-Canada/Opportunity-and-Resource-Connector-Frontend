@@ -27,11 +27,37 @@ export default class SearchUrlAdapter {
 
   constructor() {
     this.url = new URL(window.location.href);
+    this.role = this.getRole();
+    this.delivery = this.getDelivery();
     this.focus = this.getFocus();
     this.age = this.getAge();
     this.youth = this.getYouth();
     this.typeOfMentoring = this.getTypeOfMentoring();
     this.distance = this.getDistance();
+  }
+
+  getRole(): string {
+    if (this.url.pathname.search('become-a-mentor') === -1) {
+      return 'mentee';
+    }
+    return this.role;
+  }
+
+  getDelivery(): any[] {
+    const delivery = [];
+    if (this.url.searchParams.get('community') === "1") {
+      delivery.push('community');
+    }
+    if (this.url.searchParams.get('siteBased') === "1") {
+      delivery.push('siteBased');
+    }
+    if (this.url.searchParams.get('eMentoring') === "1") {
+      delivery.push('eMentoring');
+    }
+    if (delivery.length) {
+      return delivery;
+    }
+    return this.delivery;
   }
 
   getFocus(): string {

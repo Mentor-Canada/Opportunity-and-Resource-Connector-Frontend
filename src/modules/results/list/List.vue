@@ -141,6 +141,7 @@ import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
 import FeatureFlags from "../../../FeatureFlags";
+import Manager from '../../../core/Manager';
 
 export default {
   mixins: [BaseMixin],
@@ -189,7 +190,12 @@ export default {
 
   methods: {
     searchAgain() {
-      this.router.push(this.link(''));
+      if (FeatureFlags.NEW_RESULTS) {
+        const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
+        this.router.push(this.link(path));
+      } else {
+        this.router.push(this.link(''));
+      }
     },
 
     handleClick(routeParamsId, programId) {

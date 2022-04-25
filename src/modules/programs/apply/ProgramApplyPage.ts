@@ -42,7 +42,9 @@ export default {
       physicalTip: '',
       googleMapUrl: null,
       isSearchUrl: false,
-      showMoreResults: false
+      showMoreResults: false,
+      featureFlags: FeatureFlags,
+      manager: Manager.getInstance()
     };
   },
 
@@ -297,17 +299,28 @@ export default {
       return icon;
     },
     handleClick(programId) {
-      if(FeatureFlags.NEW_RESULTS) {
+      if (FeatureFlags.NEW_RESULTS) {
         this.router.push(`${this.link(`program/${programId}`)}`);
       } else {
         this.router.push(`${this.link(`search/${this.$route.params.searchId}/apply/${programId}`)}`);
       }
     },
     searchAgain() {
-      this.router.push(this.link(''));
+      if (FeatureFlags.NEW_RESULTS) {
+        const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
+        this.router.push(this.link(path));
+      } else {
+        this.router.push(this.link(''));
+      }
     },
     backToResults() {
-      this.router.push(this.link(`search/${this.$route.params.searchId}`));
+      if (FeatureFlags.NEW_RESULTS) {
+        if (Manager.getInstance().searchUrl) {
+          this.router.push(Manager.getInstance().searchUrl);
+        }
+      } else {
+        this.router.push(this.link(`search/${this.$route.params.searchId}`));
+      }
     },
     setAccepting() {
       if (this.application.attributes.role == 'mentor' && this.acceptingMentors) {
