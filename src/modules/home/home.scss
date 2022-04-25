@@ -12,7 +12,7 @@
   letter-spacing: $tracking * 1em;
 }
 
-body[data-path='home'] {
+html.feature-flag-split-search body[data-path='home'] {
   --mc-home-header-height: 100px;
   --mc-home-header-color: #222;
   --mc-home-link-color: #0095ff;
