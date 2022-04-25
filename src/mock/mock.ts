@@ -48,7 +48,6 @@ mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/utils/strings`)).reply(200, { status:
 mock.onGet(new RegExp(`${apiUrl}/a/app/accounts\?(.*)=CONTAINS`)).reply(200, filteredAccounts);
 mock.onGet(new RegExp(`${apiUrl}/en/a/app/accounts.*`)).reply(200, accounts);
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/program\?.*`)).reply(200, programs);
-mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/program\?.*`)).reply(200, programs);
 mock.onGet(`${apiUrl}/a/node/partner`).reply(200, { status: 'success', data: [] });
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/search\?.*`)).reply(200, searches);
 mock.onGet(new RegExp(`${apiUrl}/(en|fr)/a/app/organization/d96cb4ee-2166-4121-9f1c-d140d1a3f1b7.*`)).reply(200, organizationDetail);

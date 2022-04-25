@@ -29,6 +29,20 @@ export default {
 
   destroyed() {
     document.body.removeAttribute('data-page');
+    document.removeEventListener('keydown', this.focusOrganizationSearchBar);
+  },
+
+  async mounted() {
+    document.addEventListener('keydown', this.focusOrganizationSearchBar);
+  },
+
+  methods: {
+    focusOrganizationSearchBar(event) {
+      if (event.key.toLowerCase() === 'q' && event.altKey) {
+        document.getElementById('organization-search-bar')
+          .focus();
+      }
+    },
   },
 
 };

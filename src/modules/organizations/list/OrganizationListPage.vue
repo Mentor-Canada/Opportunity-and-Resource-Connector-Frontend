@@ -24,7 +24,16 @@
       @ready="isReady = true"
       @show-filter="$refs['filter-dialog'].show = true"
       :has-filter="true"
-    />
+    >
+      <div class="ui-form-row">
+        <app-input name="organization-search-bar"
+                   v-model="delegate.filter['title']"
+                   type="search"
+                   :label="$t('search')"
+                   @input="refresh"
+        />
+      </div>
+    </table-component>
     <organization-filter
       ref="filter-panel"
       :properties="filterProperties"
