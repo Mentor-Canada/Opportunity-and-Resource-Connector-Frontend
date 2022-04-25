@@ -13,7 +13,7 @@
     <div class="typography">
       <div class="visually-h3">or</div>
 
-      <router-link :to="link('get-a-mentor/programs/e-mentoring')">
+      <router-link :to="link('find-a-mentor/programs/e-mentoring')">
         {{ $t('search-e-mentoring') }}
       </router-link>
     </div>
@@ -38,7 +38,7 @@ export default {
 
   methods: {
     search() {
-      this.$router.push(this.link(`get-a-mentor/programs/${this.location}`))
+      this.$router.push(this.link(`find-a-mentor/programs/${this.location}`))
     }
   }
 }

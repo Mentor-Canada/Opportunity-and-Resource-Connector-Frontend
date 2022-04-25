@@ -2,17 +2,17 @@ import RouteInterface from '../../RouteInterface';
 import RouteBuilder from '../../pages/RouteBuilder';
 import globals from '../../globals';
 import BaseModule from '../BaseModule';
-import GetAMentor from './GetAMentor.vue';
+import FindAMentor from './FindAMentor.vue';
 
-class GetAMentorModule extends BaseModule {
+class FindAMentorModule extends BaseModule {
   getRoutes(): RouteInterface[] {
     return (new RouteBuilder())
-      .title('get-a-mentor')
-      .path('get-a-mentor')
-      .component(GetAMentor)
+      .title('find-a-mentor')
+      .path('find-a-mentor')
+      .component(FindAMentor)
       .langCodes(globals.app.langCodes)
       .build();
   }
 }
 
-const getAMentorModule = new GetAMentorModule();
+const findAMentorModule = new FindAMentorModule();

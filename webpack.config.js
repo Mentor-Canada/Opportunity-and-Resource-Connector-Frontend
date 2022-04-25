@@ -23,7 +23,7 @@ module.exports = (env = {}) => {
     entry.push('./src/modules/become-a-mentor/BecomeAMentorModule.ts');
   }
   if(env.flag_new_results) {
-    entry.push('./src/modules/get-a-mentor/GetAMentorModule.ts');
+    entry.push('./src/modules/find-a-mentor/FindAMentorModule.ts');
   }
 
   const api_url = env.api_url ?? 'http://localhost:8081';
