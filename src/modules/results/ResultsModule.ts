@@ -15,7 +15,7 @@ window.addEventListener('register-module', () => {
       .build());
     routes = routes.concat(new RouteBuilder()
       .title('app-search-results')
-      .path('get-a-mentor/programs/:location')
+      .path('find-a-mentor/programs/:location')
       .component(ResultsPage)
       .langCodes(globals.app.langCodes)
       .build());

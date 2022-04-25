@@ -23,9 +23,7 @@
             <p class="feature-heading-copy large" v-html="$t('find-a-mentor-paragraph')"></p>
           </div>
           <div class="feature-cta">
-            <router-link :to="link('search')">
-              <button>{{ $t('find-a-mentor-button') }}</button>
-            </router-link>
+            <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
           </div>
         </div>
         <div class="feature-image">
@@ -41,9 +39,7 @@
             <p class="feature-heading-copy large" v-html="$t('become-a-mentor-paragraph')"></p>
           </div>
           <div class="feature-cta">
-            <router-link :to="link('search')">
-              <button>{{ $t('become-a-mentor-button') }}</button>
-            </router-link>
+            <button @click="becomeAMentor">{{ $t('become-a-mentor-button') }}</button>
           </div>
         </div>
         <div class="feature-image">
@@ -78,6 +74,7 @@
 <script lang="ts">
 import BaseMixin from "BaseMixin";
 import Home from "./Home";
+import FeatureFlags from '../../FeatureFlags';
 
 export default {
   mixins: [BaseMixin],
@@ -86,6 +83,24 @@ export default {
     await document.fonts.ready;
     this.ready();
     new Home();
+  },
+
+  methods: {
+    becomeAMentor() {
+      if (FeatureFlags.NEW_RESULTS) {
+        this.$router.push(this.link('become-a-mentor'));
+      } else {
+        this.$router.push(this.link('search'));
+      }
+    },
+
+    findAMentor() {
+      if (FeatureFlags.NEW_RESULTS) {
+        this.$router.push(this.link('find-a-mentor'));
+      } else {
+        this.$router.push(this.link('search'));
+      }
+    }
   }
 }
 </script>
