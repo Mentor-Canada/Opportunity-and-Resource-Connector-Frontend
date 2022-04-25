@@ -25,7 +25,17 @@
       @ready="tableReady"
       export="true"
       @show-filter="$refs['filter-dialog'].show = true"
-    />
+    >
+      <div class="ui-form-row">
+        <app-input name="program-search-bar"
+                   v-model="delegate.filter['title']"
+                   type="search"
+                   :label="$t('search')"
+                   @input="refresh"
+        />
+      </div>
+    </table-component>
+
     <program-filter
       ref="filter-panel"
       :properties="filterProperties"

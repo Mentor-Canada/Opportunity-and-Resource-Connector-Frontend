@@ -46,6 +46,7 @@ export default {
 
   destroyed() {
     document.body.removeAttribute('data-page');
+    document.removeEventListener('keydown', this.focusProgramSearchBar);
   },
 
   async mounted() {
@@ -53,6 +54,7 @@ export default {
     if (this.tableIsReady) {
       this.ready();
     }
+    document.addEventListener('keydown', this.focusProgramSearchBar);
   },
 
   methods: {
@@ -68,6 +70,13 @@ export default {
     tableReady() {
       this.tableIsReady = true;
       this.ready();
+    },
+
+    focusProgramSearchBar(event) {
+      if (event.key.toLowerCase() === 'q' && event.altKey) {
+        document.getElementById('program-search-bar')
+          .focus();
+      }
     },
   },
 
