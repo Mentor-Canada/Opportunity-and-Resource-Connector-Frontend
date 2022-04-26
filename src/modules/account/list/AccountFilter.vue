@@ -19,6 +19,7 @@
                :label="t('app-first-name')"
                v-model="properties.delegate.firstName"
                @input="refresh"
+               :class="'cypress-account-contact-first-name-filter'"
     />
     <app-input type="text"
                :label="t('app-last-name')"

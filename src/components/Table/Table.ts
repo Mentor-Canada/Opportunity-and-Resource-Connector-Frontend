@@ -56,7 +56,7 @@ export default {
     refresh() {
       if (this.delegate.offset != 0) {
         const dest = globals.app.link(`${this.$props.delegate.baseUrl}/offset/0`);
-        globals.router.replace(dest);
+        globals.app.view.router.replace(dest);
       }
       this.request.begin();
     },

@@ -54,6 +54,7 @@
                  :label="t('app-first-name')"
                  v-model="properties.delegate.filter[Fields.first_name]"
                  @input="refresh"
+                 :class="'cypress-inquiry-contact-first-name-filter'"
       />
       <app-input type="text"
                  :label="t('app-last-name')"

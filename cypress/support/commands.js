@@ -53,3 +53,18 @@ Cypress.Commands.add('screenshots', (path, name) => {
   cy.screenshotSingleLanguage('en', path, name);
   cy.screenshotSingleLanguage('fr', path, name);
 })
+
+Cypress.Commands.add('testFilterOnOffset', (path, classSelector) => {
+  cy.visit(path, {
+    onBeforeLoad(win) {
+      cy.stub(win.console, 'error')
+        .as('consoleError')
+    }
+  })
+  cy.waitUntilLoaded()
+  cy.get(`div.admin-filter div.${classSelector} div.ui-outline-field-wrapper input`)
+    .type('filter', {force: true})
+  cy.waitUntilLoaded()
+  cy.get('@consoleError')
+    .should('not.be.called')
+})

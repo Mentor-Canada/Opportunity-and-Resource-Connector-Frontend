@@ -45,6 +45,7 @@
                  v-model="properties.delegate.filter[Fields.displayTitle]"
                  :label="t('app-program-name')"
                  @input="refresh"
+                 :class="'cypress-program-name-filter'"
       />
       <app-input type="text"
                  v-model="properties.delegate.filter[Fields.description]"
