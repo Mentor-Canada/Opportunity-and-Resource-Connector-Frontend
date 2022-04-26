@@ -62,22 +62,10 @@
   table {
     table-layout: fixed;
   }
-  th {
-    white-space: nowrap;
-  }
   td:last-child {
     text-align: right;
   }
 
-  th {
-    background-color: #0d2133 !important;
-    color: #ffffff;
-    &.sortable:hover {
-      color: darken(#ffffff, 20%) !important;
-    }
-  }
-
-  th:nth-child(2n + 1),
   td:nth-child(2n + 1) {
     background-color: #eef4f9;
   }

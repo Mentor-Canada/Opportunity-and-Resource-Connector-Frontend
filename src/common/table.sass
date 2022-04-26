@@ -1,3 +1,10 @@
+table.ui-table:not(.no-hover)
+  tbody
+    tr
+      &:hover
+        td
+          background: rgba(#000, 0.02)
+
 table.ui-table
   position: relative
   width: 100%
@@ -45,11 +52,6 @@ table.ui-table
     body.enforce-a11y-color-contrast &
       &.vuetable-empty-result
         color: rgba($typography-color, 1)
-  tbody
-    tr
-      &:hover
-        td
-          background: rgba(#000, 0.02)
   .sort-icon
     position: absolute !important
     float: none !important

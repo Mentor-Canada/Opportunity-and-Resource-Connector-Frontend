@@ -16,6 +16,7 @@ export default class MentorCityListDelegate extends ListDelegateBase implements 
 
   constructor() {
     super();
+    this.tableClasses.push('no-hover');
     this.sort = [{
       name: 'attributes.created', direction: 'desc', field: 'attributes.modified_date', sortField: 'attributes.modified_date',
     }];
