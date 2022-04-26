@@ -55,7 +55,7 @@ export default {
     const show = this.$route.query.organization || '';
     const url = new RequestBuilder()
       .langcode('en')
-      .resource(`a/app/organization?show=${show}`)
+      .resource(`a/app/organization?show=${show}&sort=title`)
       .build();
     const response = await globals.api.get(url);
     for (const row of response.data.data) {
