@@ -101,6 +101,8 @@
     color: #ff002a;
   }
 }
+
+.mentorcity-allow-reactivate,
 .mentorcity-deactivation-other {
   color: rgba(0, 0, 0, 0.57);
   font-style: italic;

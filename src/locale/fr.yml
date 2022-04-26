@@ -22,6 +22,9 @@ list-program-paragraph: Rehaussez le profil de vos programmes et initiatives de 
 mc-headline-fragment-word-first: Connecteur
 mc-headline-fragment-word-last: Mentor
 mc-headline-paragraph: Connecteur Mentor permet aux bénévoles et aux jeunes de se connecter aux bonnes opportunités de mentorat, à la fois virtuellement et au sein de leurs communautés.
+mentorcity-allow-reactivation: Réactivation de MentorCity permise
+mentorcity-offboarded-notice: Votre programme a été retiré de la plateforme de mentorat électronique. Veuillez contacter <a href="mailto:support@mentoringcanada.ca">support@mentoringcanada.ca</a> pour obtenir de l'aide.
+mentorcity-reactivation-allowed: Réactivation permise
 other: Autre
 search-headline: Comment devenir
 search-sub-headline: Mentor

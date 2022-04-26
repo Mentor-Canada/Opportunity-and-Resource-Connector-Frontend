@@ -162,4 +162,6 @@ export default class ProgramFields {
   static readonly website = 'field_website';
 
   static readonly programSource = 'source';
+
+  static readonly allowMentorCityReactivation = 'allowMentorCityReactivation';
 }

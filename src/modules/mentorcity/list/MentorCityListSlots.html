@@ -2,6 +2,9 @@
     <div class="mentorcity-status" :class="props.rowData.attributes.status">
         {{ $t(props.rowData.attributes.status) }}
     </div>
+    <div class="mentorcity-allow-reactivate" v-if="props.rowData.attributes.status === 'inactive' && props.rowData.attributes.allowMentorCityReactivation === '1'">
+        {{ $t('mentorcity-reactivation-allowed') }}
+    </div>
     <a class="mentorcity-deactivate-button" v-if="props.rowData.attributes.status === 'active'" @click.prevent.stop="$emit('deactivate-clicked', props.rowData.attributes)">
         {{ $t('deactivate') }}
     </a>

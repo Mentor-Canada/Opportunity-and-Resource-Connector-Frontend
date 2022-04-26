@@ -160,9 +160,9 @@ export default class ProgramAttributes {
 
   public delivery: ProgramDelivery = new ProgramDelivery();
 
-  public mentorCityId = null;
-
   public field_mentor_city: any = {};
+
+  public allowMentorCityReactivation: boolean = false;
 
   public programSource: string = 'Mentor Connector';
 
@@ -175,6 +175,7 @@ export default class ProgramAttributes {
     result[ProgramFields.altPhone] = this.contactAlternatePhone;
     result[ProgramFields.email] = this.contactEmail;
     result[ProgramFields.programSource] = this.programSource;
+    result[ProgramFields.allowMentorCityReactivation] = this.allowMentorCityReactivation;
     result.delivery = this.delivery.serialize();
     return result;
   }
@@ -531,5 +532,6 @@ export default class ProgramAttributes {
     this.field_mentor_city = data.attributes.field_mentor_city;
 
     this.delivery.deserialize(data.attributes);
+    this.allowMentorCityReactivation = data.attributes.allowMentorCityReactivation === 1;
   }
 }

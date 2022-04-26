@@ -95,14 +95,17 @@
       </form>
     </md-dialog>
     <div class="ui-form-row edit-organization-buttons" v-if="!inviteSent || status === 'inactive'">
-      <button class="compact" type="button" @click="show = true">
+      <button class="compact" type="button" @click="show = true" v-if="showAddButton">
         {{ t("app-request-access-to-e-mentoring-platform") }}
       </button>
     </div>
     <div v-else class="ui-form-row typography-reduced e-mentoring-details"
          v-html="eMentoringInviteMessage" />
+    <div v-if="status === 'inactive'" class="ui-form-row typography-reduced e-mentoring-details" v-html="$t('mentorcity-offboarded-notice')" />
     <div v-if="status === 'inactive'" class="ui-form-row typography-reduced e-mentoring-details">
-      Your program has been offboarded from the e-mentoring platform. Please contact <a href="mailto:support@mentoringcanada.ca">support@mentoringcanada.ca</a> for assistance.
+      <div v-if="app.user.admin">
+        <app-checkbox :label="$t('mentorcity-allow-reactivation')" :value="program.attributes.allowMentorCityReactivation" @input="program.attributes.allowMentorCityReactivation = $event" />
+      </div>
     </div>
   </div>
 </template>
@@ -122,6 +125,7 @@ export default {
     return {
       show: false,
       showEmailError: false,
+      showAddButton: false,
       title: '',
       phone: '',
       email: '',
@@ -156,6 +160,7 @@ export default {
         this.eMentoringInviteMessage = this.t('app-mentor-city-invitation-sent', data);
         this.inviteSent = true;
       }
+      this.showAddButton = !this.inviteSent || (this.status === 'inactive' && this.program.attributes.allowMentorCityReactivation)
     },
 
     async request() {
