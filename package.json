@@ -28,7 +28,6 @@
     "dotenv": "^8.2.0",
     "es6-dynamic-template": "^2.0.0",
     "fuzzysearch": "^1.0.3",
-    "git-revision-webpack-plugin": "^3.0.6",
     "html-webpack-plugin": "^5.5.0",
     "is-firefox": "^1.0.3",
     "is-promise": "^2.1.0",

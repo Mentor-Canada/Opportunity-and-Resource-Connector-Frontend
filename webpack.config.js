@@ -4,8 +4,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 require('dotenv').config()
 const babelConfig = require("./babel.config.json")
-const GitRevisionPlugin = require('git-revision-webpack-plugin')
-const gitRevisionPlugin = new GitRevisionPlugin()
 const webpack = require('webpack')
 
 module.exports = (env = {}) => {
