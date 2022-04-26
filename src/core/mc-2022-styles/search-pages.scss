@@ -1,0 +1,180 @@
+html.feature-flag-split-search body[data-path='find-a-mentor'],
+html.feature-flag-split-search body[data-path='become-a-mentor'] {
+
+  #mc-2022-search {
+    position: relative;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: calc(10vh + var(--mc-2022-header-height))  5vw;
+    #mc-splash-canvas {
+      position: absolute;
+      z-index: 0;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  #mc-2022-search-content {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 800px;
+    text-align: center;
+
+    .page-headline {
+      margin: 0 auto 40px auto;
+      span {
+        display: block;
+        @include font-metrics;
+      }
+      .page-headline-search-action {
+        --font-size: 27;
+        color: var(--mc-2022-typography-copy-color);
+      }
+      .page-headline-search-cta {
+        --font-size: 72;
+        margin-top: 0.25em;
+      }
+    }
+
+    #search-location {
+      .input-wrapper {
+        --mc-2022-search-input-height: 60px;
+        --mc-2022-search-input-max-width: 600px;
+        --mc-2022-search-input-inset: 4px;
+        --mc-2022-search-input-icon-offset: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: var(--mc-2022-search-input-height);
+        width: 100%;
+        max-width: var(--mc-2022-search-input-max-width);
+        margin: 0 auto;
+      }
+      #mc-2022-search-content-input {
+        position: relative;
+        z-index: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        @include font-metrics;
+        --font-size: 18;
+        font-family: var(--mc-2022-typography-copy-font);
+        font-weight: var(--mc-2022-typography-copy-font-weight);
+        color: var(--mc-2022-typography-copy-color);
+        background: transparent;
+        border: none;
+        outline: none;
+        appearance: none;
+        flex: 1 0 auto;
+        height: 100%;
+        padding: 0 5px 0 calc(var(--mc-2022-search-input-icon-offset) + 26px + 12px);
+        &:hover {
+          & ~ .input-wrapper-visual {
+            box-shadow: 0 0 0 5px rgba(0,149,255,0.075);
+          }
+        }
+        &:focus {
+          & ~ .input-wrapper-visual {
+            box-shadow: 0 0 0 5px rgba(0,149,255,0.15);
+          }
+        }
+      }
+      #mc-2022-search-content-button {
+        all: unset;
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: normal;
+        width: calc(var(--mc-2022-search-input-height) - var(--mc-2022-search-input-inset) * 2);
+        height: calc(var(--mc-2022-search-input-height) - var(--mc-2022-search-input-inset) * 2);
+        margin-right: var(--mc-2022-search-input-inset);
+        color: #fff;
+        border: none;
+        border-radius: 50%;
+        background: var(--mc-2022-link-color);
+        line-height: normal;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        transition: color 200ms, background-color 200ms;
+        &:hover {
+          background: var(--mc-2022-link-hover-color);
+        }
+      }
+      .input-wrapper-visual {
+        position: absolute;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        border: 1px solid rgb(143,171,191);
+        border-radius: calc(var(--mc-2022-search-input-height) / 2);
+        transition: box-shadow 300ms;
+      }
+      .search-input-map-pin {
+        position: absolute;
+        top: 50%;
+        left: var(--mc-2022-search-input-icon-offset);
+        transform: translateY(-50%);
+        pointer-events: none;
+      }
+      .search-tip {
+        @include font-metrics;
+        --font-size: 14;
+        font-weight: 500;
+        line-height: 1.2;
+        margin-top: 20px;
+      }
+    }
+
+    #search-choice-div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 320px;
+      margin: 30px auto;
+      color: var(--mc-2022-typography-copy-color);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      &:before,
+      &:after {
+        content: "";
+        flex: 1 0 auto;
+        border-bottom: 1px solid;
+        margin: 0 20px;
+        opacity: 0.25;
+      }
+    }
+
+    #search-e-mentoring {
+      button {
+        margin-top: 20px;
+        height: 44px;
+      }
+    }
+
+    #learn-more-about-mentor-connector {
+      margin-top: 40px;
+      @include font-metrics;
+      --font-size: 12;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+  }
+
+}

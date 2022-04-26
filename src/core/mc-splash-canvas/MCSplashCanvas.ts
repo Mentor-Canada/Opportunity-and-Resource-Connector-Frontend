@@ -3,7 +3,7 @@ import Line from "./Line";
 import ColorGroup from "./ColorGroup";
 import ColorRGB from "./ColorRGB";
 
-export default class HomeHero {
+export default class MCSplashCanvas {
 
   private canvas: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
@@ -20,13 +20,13 @@ export default class HomeHero {
   private linkThreshold: number;
 
   private animateInProgress: number = 0;
-  private globalScale: number = 1;
-  private globalOpacity: number = 1;
 
-  private initialGlobalScale: number = 0.8;
-  private initialGlobalOpacity: number = 0;
-  private targetGlobalScale: number = 1;
-  private targetGlobalOpacity: number = 1;
+  public globalScale: number = 1;
+  public globalOpacity: number = 1;
+  public initialGlobalScale: number = 0.8;
+  public initialGlobalOpacity: number = 0;
+  public targetGlobalScale: number = 1;
+  public targetGlobalOpacity: number = 1;
 
   private pointColorsCount: number = 4;
   private pointColors: ColorGroup[] = [];
@@ -48,7 +48,7 @@ export default class HomeHero {
   private sy: number;
 
   constructor() {
-    this.canvas = document.getElementById('hero-canvas') as HTMLCanvasElement;
+    this.canvas = document.getElementById('mc-splash-canvas') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d');
 
     this.globalScale = this.initialGlobalScale;
@@ -58,29 +58,25 @@ export default class HomeHero {
 
     window.addEventListener('resize', () => this.resize());
     window.addEventListener('scroll', () => this.scroll());
-
-    setTimeout(() => {
-      this.startRender();
-    }, 1200);
   }
 
-  startRender() {
+  public startRender() {
     this.ts = performance.now();
     this.render();
   }
 
-  stopRender() {
+  public stopRender() {
     if(this.raf !== null) {
       this.raf = null;
       cancelAnimationFrame(this.raf);
     }
   }
 
-  getColors() {
+  private getColors() {
     const cs = getComputedStyle(this.canvas) as CSSStyleDeclaration;
     for(let i = 0; i < this.pointColorsCount; i++) {
-      const fill = cs.getPropertyValue(`--mc-home-point-${i + 1}-fill`);
-      const stroke = cs.getPropertyValue(`--mc-home-point-${i + 1}-stroke`);
+      const fill = cs.getPropertyValue(`--mc-splash-canvas-point-${i + 1}-fill`);
+      const stroke = cs.getPropertyValue(`--mc-splash-canvas-point-${i + 1}-stroke`);
       const colorFill = new ColorRGB(fill);
       const colorStroke = new ColorRGB(stroke);
       const colorGroup = new ColorGroup();
@@ -88,11 +84,11 @@ export default class HomeHero {
       colorGroup.stroke = colorStroke;
       this.pointColors.push(colorGroup);
     }
-    const stroke = cs.getPropertyValue(`--mc-home-line-stroke`);
+    const stroke = cs.getPropertyValue(`--mc-splash-canvas-line-stroke`);
     this.lineColor = new ColorRGB(stroke);
   }
 
-  scroll() {
+  private scroll() {
     const rect = this.canvas.getBoundingClientRect() as DOMRect;
     if(rect.bottom <= 0) {
       if(this.raf !== null) this.stopRender();
@@ -101,7 +97,7 @@ export default class HomeHero {
     }
   }
 
-  resize() {
+  private resize() {
     this.width = this.canvas.offsetWidth;
     this.height = this.canvas.offsetHeight;
     this.length = Math.max(this.width, this.height);
@@ -122,13 +118,13 @@ export default class HomeHero {
     }
   }
 
-  setDensity() {
+  private setDensity() {
     this.radialDensity = this.radialDensityN / this.length;
     this.orbitalDensity = this.radialDensity * this.orbitalDensityN;
     this.linkThreshold = this.radialDensity * this.linkThresholdN;
   }
 
-  setPoints() {
+  private setPoints() {
     this.ringCount = Math.ceil(1 / this.radialDensity);
     for(let i = 1; i <= this.ringCount; i++) {
       const r = this.radialDensity * i;
@@ -174,7 +170,7 @@ export default class HomeHero {
     }
   }
 
-  setLines() {
+  private setLines() {
     const totalPoints = this.points.length;
     for(let i = 0; i < totalPoints; i++) {
       for(let j = i + 1; j < totalPoints; j++) {
@@ -189,11 +185,11 @@ export default class HomeHero {
     }
   }
 
-  setRenderable() {
+  private setRenderable() {
     this.renderable = [].concat(this.lines, this.points);
   }
 
-  render() {
+  private render() {
     this.raf = requestAnimationFrame(this.render.bind(this));
     const ts = performance.now();
     const dt = ts - this.ts;
@@ -215,7 +211,7 @@ export default class HomeHero {
     });
   }
 
-  animateIn(normalizedTime: number) {
+  private animateIn(normalizedTime: number) {
     const deltaAnimateInProgress = 1 - this.animateInProgress;
     const decayAnimateInProgress = deltaAnimateInProgress * 0.05 * normalizedTime;
     this.animateInProgress += decayAnimateInProgress;
@@ -231,10 +227,10 @@ export default class HomeHero {
     this.renderable.forEach((renderable: Point|Line) => {
       renderable.globalScale = this.globalScale;
     })
-    this.ctx.globalAlpha = this.globalOpacity;
+    this.canvas.style.opacity = `${this.globalOpacity}`;
   }
 
-  getCircumference(r): number {
+  private getCircumference(r): number {
     return 2 * Math.PI * r;
   }
 

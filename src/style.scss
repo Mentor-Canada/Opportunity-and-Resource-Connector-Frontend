@@ -20,8 +20,6 @@
 @import "modules/partner/partner.scss";
 @import "modules/regions/affiliates.scss";
 
-@import "modules/home/home.scss";
-
 @import "../node_modules/animate.css/animate.css";
 @import "../node_modules/slick-carousel/slick/slick.css";
 
@@ -33,6 +31,11 @@
 ));
 @import "./contrib/vue-material/dist/theme/all"; // Apply the theme
 @import "./bootstrap";
+
+@import "core/mc-2022-styles/mc-2022-style.scss";
+@import "core/mc-splash-canvas/mc-splash-canvas.scss";
+@import "modules/home/home.scss";
+@import "core/mc-2022-styles/search-pages.scss";
 
 :root {
   --animate-duration: 0.5s;

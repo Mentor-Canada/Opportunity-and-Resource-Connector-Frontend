@@ -1,228 +1,4 @@
-@use 'sass:math';
-// Scope mixin for home page with different values
-@mixin font-tracking($font-size) {
-  $z: strip-unit($font-size);
-  $a: -0.075;
-  $b: 0.1689;
-  $c: -0.0677;
-  $E: 2.71828;
-  $tracking: $a + ($b * math.pow($E, ($c * $z)));
-
-  font-size: $z * 1px;
-  letter-spacing: $tracking * 1em;
-}
-
 html.feature-flag-split-search body[data-path='home'] {
-  --mc-home-header-height: 100px;
-  --mc-home-header-color: #222;
-  --mc-home-link-color: #0095ff;
-  --mc-home-link-hover-color: #0086e6;
-  --mc-home-headline-color: #232a2f;
-  --mc-home-typography-color: #4c5c67;
-
-  // Overrides
-  header,
-  #home-wrapper {
-    .typography {
-      h1, .visually-h1,
-      h2, .visually-h2,
-      h3, .visually-h3,
-      h4, .visually-h4,
-      h5, .visually-h5,
-      h6, .visually-h6 {
-        font-weight: 500;
-        color: var(--mc-home-headline-color);
-      }
-      h2,
-      .visually-h2 {
-        line-height: 1;
-        @include font-tracking(48);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(40);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(32);
-        }
-        &.large {
-          @include font-tracking(48 * 1.25);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(40 * 1.25);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(32 * 1.25);
-          }
-        }
-      }
-      h3,
-      .visually-h3 {
-        line-height: 1.1;
-        @include font-tracking(32);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(27);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(22);
-        }
-        &.large {
-          @include font-tracking(32 * 1.25);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(27 * 1.25);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(22 * 1.25);
-          }
-        }
-      }
-      h4,
-      .visually-h4 {
-        line-height: 1.2;
-        @include font-tracking(22);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(21);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(20);
-        }
-        &.large {
-          @include font-tracking(22 * 1.25);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(21 * 1.25);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(20 * 1.25);
-          }
-        }
-      }
-      h5,
-      .visually-h5 {
-        line-height: 1.2;
-        @include font-tracking(21);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(20);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(19);
-        }
-        &.large {
-          @include font-tracking(21 * 1.25);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(20 * 1.25);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(19 * 1.25);
-          }
-        }
-      }
-      h6,
-      .visually-h6 {
-        line-height: 1.2;
-        @include font-tracking(20);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(19);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(18);
-        }
-        &.large {
-          @include font-tracking(20 * 1.25);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(19 * 1.25);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(18 * 1.25);
-          }
-        }
-      }
-      p,
-      p.large {
-        font-weight: 400;
-        color: var(--mc-home-typography-color);
-      }
-      p {
-        @include font-tracking(20);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(19);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(18);
-        }
-        &.large {
-          @include font-tracking(24);
-          @media (max-width: $typography-break-2) {
-            @include font-tracking(22);
-          }
-          @media (max-width: $typography-break-1) {
-            @include font-tracking(20);
-          }
-        }
-      }
-    }
-    button:not(.md-button) {
-      all: unset;
-      box-sizing: border-box;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: normal;
-      padding: 15px 20px;
-      min-height: 50px;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      background: var(--mc-home-link-color);
-      font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
-      font-weight: 500;
-      @include font-tracking(14);
-      line-height: normal;
-      text-align: center;
-      cursor: pointer;
-      outline: none;
-      appearance: none;
-      transition: color 200ms, background-color 200ms;
-      &:hover {
-        background: var(--mc-home-link-hover-color);
-      }
-      &.compact {
-        padding: 10px 20px;
-        min-height: 36px;
-        border-radius: 50px;
-        @include font-tracking(12);
-      }
-    }
-  }
-
-  header {
-    position: absolute;
-    height: var(--mc-home-header-height);
-    background-color: transparent;
-    padding: 0 5vw;
-    #header-logo {
-      .mentor-canada-logo-text {
-        fill: var(--mc-home-header-color);
-      }
-    }
-    #global-nav #nav-menu .username {
-      > a {
-        color: var(--mc-home-header-color);
-        font-weight: 500;
-        margin-right: 10px;
-      }
-      .username-dropdown li a {
-        font-weight: 500;
-      }
-    }
-  }
-
-  main {
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  #home-wrapper {
-    position: relative;
-    width: 100%;
-  }
 
   #hero {
     --mc-home-hero-headline-size: 90px;
@@ -245,16 +21,7 @@ html.feature-flag-split-search body[data-path='home'] {
     min-height: 100vh;
     padding: calc(50vh - var(--mc-home-hero-headline-size)) 5vw 0 5vw;
 
-    #hero-canvas {
-      --mc-home-point-1-fill: rgb(255,191,191);
-      --mc-home-point-1-stroke: rgb(217,28,28);
-      --mc-home-point-2-fill: rgb(255,231,191);
-      --mc-home-point-2-stroke: rgb(255,172,38);
-      --mc-home-point-3-fill: rgb(191,228,255);
-      --mc-home-point-3-stroke: rgb(0,150,255);
-      --mc-home-point-4-fill: rgb(191,255,249);
-      --mc-home-point-4-stroke: rgb(0, 194, 174);
-      --mc-home-line-stroke: rgb(143,171,191);
+    #mc-splash-canvas {
       position: absolute;
       z-index: 0;
       top: 0;
@@ -270,13 +37,14 @@ html.feature-flag-split-search body[data-path='home'] {
       text-align: center;
       margin: 0 auto;
       h1 {
-        @include font-tracking(90);
-        @media (max-width: $typography-break-2) {
-          @include font-tracking(75);
-        }
-        @media (max-width: $typography-break-1) {
-          @include font-tracking(60);
-        }
+        --font-size: 100;
+        //@include font-tracking(90);
+        //@media (max-width: $typography-break-2) {
+        //  @include font-tracking(75);
+        //}
+        //@media (max-width: $typography-break-1) {
+        //  @include font-tracking(60);
+        //}
       }
       p {
         opacity: 0;

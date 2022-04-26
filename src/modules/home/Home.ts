@@ -1,5 +1,5 @@
 import FocusManager from "./FocusManager";
-import HomeHero from "./hero/HomeHero";
+import MCSplashCanvas from "../../core/mc-splash-canvas/MCSplashCanvas";
 
 export default class Home {
 
@@ -7,7 +7,10 @@ export default class Home {
 
   constructor() {
     new FocusManager();
-    new HomeHero();
+    const splash = new MCSplashCanvas();
+    setTimeout(() => {
+      splash.startRender();
+    }, 1200);
 
     this.hero = document.getElementById('hero');
 

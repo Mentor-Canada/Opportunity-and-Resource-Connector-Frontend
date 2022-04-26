@@ -1,8 +1,8 @@
 <template>
-  <div id="home-wrapper">
+  <div id="main-content-wrapper">
 
     <section id="hero" data-focus-start="t-0vh">
-      <canvas id="hero-canvas"></canvas>
+      <canvas id="mc-splash-canvas"></canvas>
       <div class="typography">
         <h1>
           <span class="span-word span-word-first">{{ $t('mc-headline-fragment-word-first') }}</span>
