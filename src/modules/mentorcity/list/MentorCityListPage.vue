@@ -44,7 +44,16 @@
         @ready="tableReady"
         export="true"
         @show-filter="$refs['filter-dialog'].show = true"
-    />
+    >
+      <div class="ui-form-row">
+        <app-input name="mentor-city-search-bar"
+                   v-model="delegate.filter['title']"
+                   type="search"
+                   :label="$t('search')"
+                   @input="refresh"
+        />
+      </div>
+    </table-component>
     <mentor-city-filter
         ref="filter-panel"
         :properties="filterProperties"
@@ -146,6 +155,7 @@ export default {
 
   destroyed() {
     document.body.removeAttribute('data-page');
+    document.removeEventListener('keydown', this.focusMentorCitySearchBar);
   },
 
   async mounted() {
@@ -153,6 +163,7 @@ export default {
     if (this.tableIsReady) {
       this.ready();
     }
+    document.addEventListener('keydown', this.focusMentorCitySearchBar);
   },
 
   methods: {
@@ -191,6 +202,13 @@ export default {
     tableReady() {
       this.tableIsReady = true;
       this.ready();
+    },
+
+    focusMentorCitySearchBar(event) {
+      if (event.key.toLowerCase() === 'q' && event.altKey) {
+        document.getElementById('mentor-city-search-bar')
+          .focus();
+      }
     },
   },
 };
