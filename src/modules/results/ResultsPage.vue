@@ -80,8 +80,13 @@ export default {
       this.search.attributes.role = searchUrlAdapter.role;
       this.search.attributes.typeOfMentoring = searchUrlAdapter.typeOfMentoring;
       this.search.attributes.youth = searchUrlAdapter.youth;
+      let location = this.$route.params.location;
+      if (location === 'e-mentoring') {
+        location = 'app-national';
+        this.search.attributes.national = true;
+      }
 
-      this.builder = new LocationResultsCollectionBuilder(this.$route.params.location)
+      this.builder = new LocationResultsCollectionBuilder(location)
         .offset(0)
         .limit(paginationResultsPerPage[0]);
       this.onSearch();

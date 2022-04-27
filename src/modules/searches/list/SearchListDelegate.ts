@@ -20,7 +20,6 @@ export default class SearchListDelegate extends ListDelegateBase implements List
       { title: this.t('app-partner'), name: 'attributes.partnerTitle' },
       { title: this.t('app-role'), name: 'attributes.role', sortField: 'attributes.role' },
       { title: this.t('app-postal-zip-code'), name: 'attributes.zip', sortField: 'attributes.zip' },
-      { title: this.t('app-email'), name: 'attributes.email', sortField: 'attributes.email' },
       { title: this.t('app-created'), name: 'attributes.created', sortField: 'attributes.created' },
     ];
     this.sort = [

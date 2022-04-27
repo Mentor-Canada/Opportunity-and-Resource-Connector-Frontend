@@ -3,7 +3,7 @@
 
     <div class="results-list-header">
 
-      <h1 class="results-list-header-results-summary">{{ subheadline }}</h1>
+      <h1 class="results-list-header-results-summary" v-if="!search.attributes.national">{{ subheadline }}</h1>
       <h2 class="results-list-header-headline">{{ t("app-search-results") }}</h2>
 
       <div class="results-list-header-re-search">

@@ -13,23 +13,24 @@
     <div class="typography">
       <div class="visually-h3">or</div>
 
-      <router-link :to="link('become-a-mentor/programs/e-mentoring')">
+      <a @click.prevent="eMentoring">
         {{ $t('search-e-mentoring') }}
-      </router-link>
+      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import BaseMixin from 'BaseMixin';
+import Search from 'Models/Search';
 
 export default {
   mixins: [BaseMixin],
 
   data() {
     return {
-      location: ''
-    }
+      location: '',
+    };
   },
 
   mounted() {
@@ -38,10 +39,26 @@ export default {
 
   methods: {
     search() {
-      this.$router.push(this.link(`become-a-mentor/programs/${this.location}`))
+      this.search = new Search();
+      this.search.attributes.role = 'mentor';
+      this.search.attributes.zip = this.location;
+      this.search.save();
+      this.$router.push(this.link(`become-a-mentor/programs/${this.location}`));
+    },
+
+    eMentoring() {
+      this.updateSearchMetrics('app-national');
+      this.$router.push(this.link(`become-a-mentor/programs/e-mentoring`));
+    },
+
+    updateSearchMetrics(location) {
+      this.search = new Search();
+      this.search.attributes.role = 'mentee';
+      this.search.attributes.zip = location;
+      this.search.save();
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="scss">

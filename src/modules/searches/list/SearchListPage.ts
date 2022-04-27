@@ -1,6 +1,5 @@
 import SearchStats from 'Models/SearchStats';
 import template from './SearchList.html';
-import RouteBuilder from '../../../pages/RouteBuilder';
 import SearchListDelegate from './SearchListDelegate';
 import TableMixin from '../../../components/Table/TableMixin';
 
