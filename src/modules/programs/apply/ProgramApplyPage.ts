@@ -57,6 +57,9 @@ export default {
 
   async mounted() {
     await this.render();
+    if (this.$route.query.type === 'find-a-mentor') {
+      this.application.attributes.role = 'mentee';
+    }
   },
 
   computed: {

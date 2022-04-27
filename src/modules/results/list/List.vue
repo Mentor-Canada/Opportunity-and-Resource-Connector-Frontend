@@ -140,7 +140,7 @@ import searchOptionsDistance from '../../search/searchOptionsDistance';
 import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
-import FeatureFlags from "../../../FeatureFlags";
+import FeatureFlags from '../../../FeatureFlags';
 import Manager from '../../../core/Manager';
 
 export default {
@@ -200,7 +200,8 @@ export default {
 
     handleClick(routeParamsId, programId) {
       if (FeatureFlags.NEW_RESULTS) {
-        this.router.push(this.link(`program/${programId}`));
+        const roleParam = `?type=${Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor'}`;
+        this.router.push(this.link(`program/${programId}${roleParam}`));
       } else {
         this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`));
       }
