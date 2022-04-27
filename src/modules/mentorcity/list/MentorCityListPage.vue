@@ -196,7 +196,7 @@ export default {
     },
 
     redirectToProgram(rowData) {
-      this.router.push(`/${globals.app.language.langcode}/admin/programs/detail/${rowData.id}`);
+      this.router.push(`/${globals.app.language.langcode}/admin/programs/detail/${rowData.id}?dest=${this.delegate.baseUrl}`);
     },
 
     tableReady() {

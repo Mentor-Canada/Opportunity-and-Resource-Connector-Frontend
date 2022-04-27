@@ -448,7 +448,11 @@ export default {
       this.program.localizedAttributes.en.field_display_title = this.getRequiredTitle();
       await this.program.save();
       if (this.app.view.isAdminPage) {
-        this.router.push(this.parentUrl);
+        if (this.$route.query.dest) {
+          this.router.push(`/${this.lang.langcode}/${this.$route.query.dest}`);
+        } else {
+          this.router.push(this.parentUrl);
+        }
       } else {
         const title = this.program.localizedAttributes.en.field_display_title;
         const email = this.program.attributes.contactEmail;
