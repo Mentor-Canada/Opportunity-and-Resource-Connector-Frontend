@@ -68,9 +68,7 @@
             <h2>Find a mentor today.</h2>
             <p class="large">Get started with the Mentor Connector to get the support you need and open the door to new possibilities.</p>
           </div>
-          <div class="feature-heading-cta">
-            <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
-          </div>
+          <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
         </div>
 
       </section>
@@ -81,7 +79,9 @@
           <h2 class="feature-heading-eyebrow visually-h5">For volunteers</h2>
           <h3 class="feature-heading-headline visually-h1">Become a mentor.</h3>
           <p class="feature-heading-copy large">Mentoring doesn't take any special skills. All you need is an open mind and an interest in making a difference in the life of a young person between the ages of 6 to 25 and up.</p>
-          <button class="compact" @click="becomeAMentor">{{ $t('become-a-mentor-button') }}</button>
+          <div class="feature-heading-cta">
+            <button class="compact" @click="becomeAMentor">{{ $t('become-a-mentor-button') }}</button>
+          </div>
         </div>
 
         <div id="fv-make-a-difference" class="feature-item feature-item-grid feature-item-grid-copy-right">
@@ -184,7 +184,7 @@
         <div class="feature-cta">
           <div class="typography">
             <h2>Increase your organization's reach today.</h2>
-            <p class="large">Get started with the Mentor Connector to raise the profile of your mentoring programs and initiatives..</p>
+            <p class="large">Get started with the Mentor Connector to raise the profile of your mentoring programs and initiatives.</p>
           </div>
           <router-link :to="link('organizations/add')">
             <button>{{ $t('list-program-button') }}</button>
