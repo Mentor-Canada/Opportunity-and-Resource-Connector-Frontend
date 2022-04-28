@@ -83,8 +83,12 @@ export default {
 
   async mounted() {
     await document.fonts.ready;
-    new BecomeAMentor();
+    this.becomeAMentor = new BecomeAMentor();
     this.ready();
+  },
+
+  destroyed() {
+    this.becomeAMentor.splash.destroy();
   },
 
   methods: {

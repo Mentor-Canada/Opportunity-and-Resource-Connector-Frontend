@@ -2,11 +2,13 @@ import MCSplashCanvas from "../../core/mc-splash-canvas/MCSplashCanvas";
 
 export default class FindAMentor {
 
+  public splash: MCSplashCanvas;
+
   constructor() {
-    const splash = new MCSplashCanvas();
+    this.splash = new MCSplashCanvas();
     setTimeout(() => {
-      splash.targetGlobalOpacity = 0.5;
-      splash.startRender();
+      this.splash.targetGlobalOpacity = 0.5;
+      this.splash.startRender();
     }, 250);
   }
 

@@ -224,8 +224,13 @@ export default {
 
   async mounted() {
     await document.fonts.ready;
-    new Home();
+    this.home = new Home();
     this.ready();
+  },
+
+  destroyed() {
+    this.home.splash.destroy();
+    window.removeEventListener('resize', this.home.resizeEventListener);
   },
 
   methods: {

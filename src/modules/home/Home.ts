@@ -3,17 +3,20 @@ import MCSplashCanvas from "../../core/mc-splash-canvas/MCSplashCanvas";
 
 export default class Home {
 
+  public splash: MCSplashCanvas;
   private hero: HTMLElement;
-  private links: NodeListOf<HTMLElement>
+  private links: NodeListOf<HTMLElement>;
+  private resizeEventListener;
 
   constructor() {
     new FocusManager();
-    const splash = new MCSplashCanvas();
+    this.splash = new MCSplashCanvas();
+    this.splash.parent = 'home!';
 
     this.hero = document.getElementById('hero');
     this.hero.classList.add('focused');
     setTimeout(() => {
-      splash.startRender();
+      this.splash.startRender();
     }, 1200);
 
     this.links = document.querySelectorAll('#section-nav li');
@@ -22,7 +25,10 @@ export default class Home {
     });
 
     this.resize();
-    window.addEventListener('resize', () => this.resize());
+    this.resizeEventListener = () => {
+      this.resize();
+    }
+    window.addEventListener('resize', this.resizeEventListener);
   }
 
   resize() {
@@ -43,7 +49,6 @@ export default class Home {
     const section = document.getElementById(id);
     const rect = section.getBoundingClientRect() as DOMRect;
     const top = Math.ceil(rect.top + document.documentElement.scrollTop);
-    console.log(top);
     window.scroll({
       top: top,
       behavior: 'smooth'

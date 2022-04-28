@@ -47,6 +47,9 @@ export default class MCSplashCanvas {
   private sx: number;
   private sy: number;
 
+  private resizeEventListener;
+  private scrollEventListener;
+
   constructor() {
     this.canvas = document.getElementById('mc-splash-canvas') as HTMLCanvasElement;
     this.ctx = this.canvas.getContext('2d');
@@ -56,8 +59,16 @@ export default class MCSplashCanvas {
     this.getColors();
     this.resize();
 
-    window.addEventListener('resize', () => this.resize());
-    window.addEventListener('scroll', () => this.scroll());
+    this.resizeEventListener = () => {
+      this.resize();
+    };
+
+    this.scrollEventListener = () => {
+      this.scroll();
+    };
+
+    window.addEventListener('resize', this.resizeEventListener);
+    window.addEventListener('scroll', this.scrollEventListener);
   }
 
   public startRender() {
@@ -70,6 +81,11 @@ export default class MCSplashCanvas {
       this.raf = null;
       cancelAnimationFrame(this.raf);
     }
+  }
+
+  public destroy() {
+    window.removeEventListener('resize', this.resizeEventListener);
+    window.removeEventListener('scroll', this.scrollEventListener);
   }
 
   private getColors() {
