@@ -77,8 +77,12 @@
       --font-style: italic;
     }
     a {
+      @include font-metrics;
+      --font-size: 20;
+      --font-weight: 500;
       color: var(--link-color);
       transition: color 200ms;
+      display: inline-block;
       &:hover {
         color: var(--link-color-hover);
       }

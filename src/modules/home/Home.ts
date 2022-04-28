@@ -1,5 +1,6 @@
 import FocusManager from "./FocusManager";
 import MCSplashCanvas from "../../core/mc-splash-canvas/MCSplashCanvas";
+import SplitText from "./SplitText";
 
 export default class Home {
 
@@ -23,6 +24,15 @@ export default class Home {
     this.links.forEach((link) => {
       link.addEventListener('click', (e) => this.onClick(e));
     });
+
+    const statPercentages = document.querySelectorAll('.stat');
+    statPercentages.forEach((el) => {
+      new SplitText({
+        el: el,
+        delay: 100,
+        delimiter: ''
+      })
+    })
 
     this.resize();
     this.resizeEventListener = () => {
