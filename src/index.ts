@@ -206,6 +206,13 @@ window.app.load()
     router.beforeEach((to, from, next) => {
       document.querySelector('body').classList.remove('page-search');
       document.querySelector('body').setAttribute('data-path', PathAdapter.kebabCase(to.fullPath));
+      if(to.meta.newTypography) {
+        document.querySelector('html').classList.add('a');
+        document.querySelector('html').classList.remove('b');
+      } else {
+        document.querySelector('html').classList.add('b');
+        document.querySelector('html').classList.remove('a');
+      }
       if(FeatureFlags.SPLIT_SEARCH) {
         document.querySelector('html').classList.add('feature-flag-split-search');
       }

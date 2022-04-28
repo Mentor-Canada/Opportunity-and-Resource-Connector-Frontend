@@ -9,6 +9,7 @@ export default {
       }
       const secondaryLangcode = this.app.languages.getSecondaryLangcode();
       let inputCurrentLang: HTMLInputElement = this.$el.querySelector('#title-input-en input');
+      if(!inputCurrentLang) return;
       let inputOtherLang: HTMLInputElement = this.$el.querySelector(`#title-input-${secondaryLangcode} input`);
       if (this.currentLanguage == secondaryLangcode) {
         inputCurrentLang = this.$el.querySelector(`#title-input-${secondaryLangcode} input`);

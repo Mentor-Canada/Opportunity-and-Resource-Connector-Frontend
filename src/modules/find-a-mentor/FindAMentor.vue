@@ -83,8 +83,8 @@ export default {
 
   async mounted() {
     await document.fonts.ready;
-    this.ready();
     new FindAMentor();
+    this.ready();
   },
 
   methods: {

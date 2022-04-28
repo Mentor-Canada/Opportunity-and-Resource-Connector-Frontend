@@ -1,9 +1,6 @@
-//@use 'sass:math';
-@import "typography";
-
-html.feature-flag-split-search {
-  @include typography;
-
+body[data-path='home'],
+body[data-path='find-a-mentor'],
+body[data-path='become-a-mentor'] {
   --mc-2022-header-height: 100px;
   --mc-2022-header-color: #222;
   --mc-2022-link-color: #0095ff;
@@ -80,6 +77,7 @@ html.feature-flag-split-search {
   main {
     min-height: 100vh;
     padding: 0;
+    transition: opacity 500ms;
   }
 
   #main-content-wrapper {

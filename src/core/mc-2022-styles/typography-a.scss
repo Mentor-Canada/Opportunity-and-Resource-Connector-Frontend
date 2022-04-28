@@ -1,0 +1,86 @@
+.typography {
+  --heading-font-family: var(--mc-2022-typography-heading-font);
+  --heading-weight: var(--mc-2022-typography-heading-font-weight);
+  --heading-color: var(--mc-2022-typography-heading-color);
+  --copy-font-family: var(--mc-2022-typography-copy-font);
+  --copy-font-weight: var(--mc-2022-typography-copy-font-weight);
+  --copy-color: var(--mc-2022-typography-copy-color);
+  --link-color: var(--mc-2022-link-color);
+  --link-color-hover: var(--mc-2022-link-hover-color);
+  --spacing: 1em;
+
+    > * {
+      margin-top: var(--spacing);
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6, p,
+    .visually-h1, .visually-h2, .visually-h3, .visually-h4, .visually-h5, .visually-h6 {
+      @include font-metrics;
+      > * {
+        @include font-metrics;
+      }
+    }
+
+    h1, h2, h3, h4, h5, h6,
+    .visually-h1, .visually-h2, .visually-h3, .visually-h4, .visually-h5, .visually-h6 {
+      --font-family: var(--heading-font-family);
+      --font-weight: var(--heading-weight);
+      --color: var(--heading-color);
+    }
+    h1,
+    .visually-h1 {
+      --font-size: 72;
+      --line-height: 1;
+    }
+    h2,
+    .visually-h2 {
+      --font-size: 48;
+      --line-height: 1;
+    }
+    h3,
+    .visually-h3 {
+      --font-size: 32;
+      --line-height: 1.1;
+    }
+    h4,
+    .visually-h4 {
+      --font-size: 22;
+      --line-height: 1.2;
+    }
+    h5,
+    .visually-h5 {
+      --font-size: 21;
+      --line-height: 1.2;
+    }
+    h6,
+    .visually-h6 {
+      --font-size: 20;
+      --line-height: 1.2;
+    }
+    p {
+      --font-family: var(--copy-font-family);
+      --font-weight: var(--copy-font-weight);
+      --color: var(--copy-color);
+      --font-size: 20;
+      --line-height: 1.4;
+      &.large {
+        --font-size: 24;
+      }
+    }
+    strong {
+      --font-weight: 500;
+    }
+    em {
+      --font-style: italic;
+    }
+    a {
+      color: var(--link-color);
+      transition: color 200ms;
+      &:hover {
+        color: var(--link-color-hover);
+      }
+    }
+}

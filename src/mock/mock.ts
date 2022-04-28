@@ -20,7 +20,7 @@ import nonDirectorOrganization from './a/app/organization/7747fbca-9461-4906-895
 // @ts-ignore
 const apiUrl = API_URL;
 
-const mock = new MockAdapter(axios, { delayResponse: 500 });
+const mock = new MockAdapter(axios, { delayResponse: 0 });
 
 mock.onGet(`${apiUrl}/a/`).reply(200, a);
 mock.onGet(`${apiUrl}/a/app/bootstrap`).reply(200, bootstrap);

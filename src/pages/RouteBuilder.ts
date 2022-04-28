@@ -14,6 +14,7 @@ export default class RouteBuilder {
     if (prefix) {
       this.prefix = `/${prefix}`;
     }
+    this._route.meta = {};
   }
 
   path(value): RouteBuilder {
@@ -33,9 +34,13 @@ export default class RouteBuilder {
         value += ` | ${globals.app.t('app-mentor-connector')}`;
       }
       this._route.title = value;
-      this._route.meta = {};
       this._route.meta.title = value;
     }
+    return this;
+  }
+
+  meta(key, value): RouteBuilder {
+    this._route.meta[key] = value
     return this;
   }
 

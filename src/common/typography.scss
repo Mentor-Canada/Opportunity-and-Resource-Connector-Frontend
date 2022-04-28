@@ -1,0 +1,26 @@
+@mixin font-metrics() {
+  --scale: 1;
+  --scaled-font-size: calc(var(--font-size) * var(--scale));
+  --ls-step-1: calc(var(--scaled-font-size) - 150);
+  --ls-step-2: calc(var(--ls-step-1) * var(--ls-step-1));
+  --ls-step-3: calc(var(--ls-step-2) / 392);
+  --ls-step-4: calc(var(--ls-step-3) * var(--ls-step-3) * var(--ls-step-3) * var(--ls-step-3));
+  --ls-step-5: calc(var(--ls-step-4) * 0.00000125);
+  --ls-step-6: calc(var(--ls-step-5) - 7.5);
+  --letter-spacing: calc(var(--ls-step-6) / 100);
+
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+  font-size: calc(var(--scaled-font-size) * 1px);
+  font-style: var(--font-style);
+  letter-spacing: calc(var(--letter-spacing) * 1em);
+  line-height: var(--line-height);
+  color: var(--color);
+}
+
+.a {
+  @import "../core/mc-2022-styles/typography-a";
+}
+.b {
+  @import "typography-b.sass";
+}

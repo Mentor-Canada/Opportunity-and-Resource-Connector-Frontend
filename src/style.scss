@@ -1,8 +1,14 @@
+$body-font: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
+$headline-font: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
+$typography-break-1: 500px;
+$typography-break-2: 800px;
+$typography-color: #333;
+
 @import "./variables";
 
 @import "./common/reset.css";
 @import "./common/fonts.sass";
-@import "./common/typography.sass";
+@import "./common/typography.scss";
 @import "./common/header.sass";
 @import "./common/footer.sass";
 @import "./common/page.sass";
@@ -30,7 +36,7 @@
         accent: $mentor-blue-shade // The accent or secondary color
 ));
 @import "./contrib/vue-material/dist/theme/all"; // Apply the theme
-@import "./bootstrap";
+
 
 @import "core/mc-2022-styles/mc-2022-style.scss";
 @import "core/mc-splash-canvas/mc-splash-canvas.scss";

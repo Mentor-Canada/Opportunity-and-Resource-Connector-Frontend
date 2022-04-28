@@ -7,6 +7,7 @@ if(FLAG_SPLIT_SEARCH) {
     let routes = [];
     routes = routes.concat(new RouteBuilder()
       .title('')
+      .meta('newTypography', true)
       .path('/')
       .component(HomePage)
       .langCodes(globals.app.langCodes)

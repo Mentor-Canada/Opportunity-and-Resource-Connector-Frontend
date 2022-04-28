@@ -8,6 +8,7 @@ class BecomeAMentorModule extends BaseModule {
   getRoutes(): RouteInterface[] {
     return (new RouteBuilder())
       .title('become-a-mentor')
+      .meta('newTypography', true)
       .path('become-a-mentor')
       .component(BecomeAMentor)
       .langCodes(globals.app.langCodes)
