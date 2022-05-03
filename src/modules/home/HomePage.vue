@@ -332,8 +332,7 @@ export default {
   },
 
   destroyed() {
-    this.home.splash.destroy();
-    window.removeEventListener('resize', this.home.resizeEventListener);
+    this.home.destroy();
   },
 
   methods: {

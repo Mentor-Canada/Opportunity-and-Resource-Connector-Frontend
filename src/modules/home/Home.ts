@@ -4,25 +4,33 @@ import SplitText from "./SplitText";
 
 export default class Home {
 
-  public splash: MCSplashCanvas;
+  private focusManager: FocusManager;
+  private splash: MCSplashCanvas;
   private hero: HTMLElement;
+  private features: HTMLElement;
   private links: NodeListOf<HTMLElement>;
-  private resizeEventListener;
+
+  private splashVisible: boolean = false;
+  private splashAnimationPending: boolean = true;
+  private splashAnimationTimeout: null|number = null;
+
+  private resizeEventListener: EventListener;
+  private scrollEventListener: EventListener;
+  private linkEventListener: EventListener;
 
   constructor() {
-    new FocusManager();
+    this.focusManager = new FocusManager();
     this.splash = new MCSplashCanvas();
-    this.splash.parent = 'home!';
 
     this.hero = document.getElementById('hero');
-    this.hero.classList.add('focused');
-    setTimeout(() => {
-      this.splash.startRender();
-    }, 1200);
+    this.features = document.getElementById('features');
 
+    this.linkEventListener = (e: MouseEvent) => {
+      this.onClick(e);
+    };
     this.links = document.querySelectorAll('#section-nav li');
     this.links.forEach((link) => {
-      link.addEventListener('click', (e) => this.onClick(e));
+      link.addEventListener('click', this.linkEventListener);
     });
 
     const statPercentages = document.querySelectorAll('.stat');
@@ -37,8 +45,43 @@ export default class Home {
     this.resize();
     this.resizeEventListener = () => {
       this.resize();
-    }
+    };
+    this.scrollEventListener = () => {
+      this.scroll();
+    };
     window.addEventListener('resize', this.resizeEventListener);
+    window.addEventListener('scroll', this.scrollEventListener);
+
+    this.hero.classList.add('animate-in');
+    if(!this.splashVisible) this.hero.classList.add('animate-in-immediate');
+    this.splashAnimationTimeout = window.setTimeout(() => {
+      this.splashAnimationPending = false;
+      this.updateRender();
+    }, 1200);
+  }
+
+  scroll() {
+    const rect = this.features.getBoundingClientRect() as DOMRect;
+    this.splashVisible = rect.top > 0;
+    this.updateRender();
+  }
+
+  updateRender() {
+    if(this.splashAnimationPending) {
+      if(!this.splashVisible) {
+        clearTimeout(this.splashAnimationTimeout);
+        this.splashAnimationPending = false;
+        this.splash.initialGlobalOpacity = 1;
+        this.splash.initialGlobalScale = 1;
+      }
+      return;
+    }
+
+    if(this.splashVisible) {
+      this.splash.startRender();
+    } else {
+      this.splash.stopRender();
+    }
   }
 
   resize() {
@@ -50,6 +93,7 @@ export default class Home {
     } else {
       this.hero.style.setProperty('--mc-home-hero-sticky-top', '');
     }
+    this.scroll();
   }
 
   onClick(e) {
@@ -62,6 +106,17 @@ export default class Home {
     window.scroll({
       top: top,
       behavior: 'smooth'
+    });
+  }
+
+  public destroy() {
+    this.focusManager.destroy();
+    this.splash.destroy();
+    window.removeEventListener('resize', this.resizeEventListener);
+    window.removeEventListener('scroll', this.scrollEventListener);
+    clearTimeout(this.splashAnimationTimeout);
+    this.links.forEach((link) => {
+      link.removeEventListener('click', this.linkEventListener);
     });
   }
 

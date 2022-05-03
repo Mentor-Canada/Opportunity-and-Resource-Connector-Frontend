@@ -58,8 +58,10 @@ body[data-path='home'] {
     .span-word-last {
       transform-origin: 50% 0;
     }
-    &.focused {
+    &.animate-in {
       --bounce-distance: 20px;
+      --bounce-animation-duration: 1000ms;
+      --bounce-animation-delay: 500ms;
       @keyframes bounce {
         0% {
           transform: translateY(calc(0.9 * var(--bounce-distance) * var(--bounce-direction))) scaleY(1);
@@ -79,7 +81,7 @@ body[data-path='home'] {
       }
       .span-word {
         opacity: 1;
-        animation: bounce 1000ms 500ms forwards;
+        animation: bounce var(--bounce-animation-duration) var(--bounce-animation-delay) forwards;
       }
       .span-word-first {
         --bounce-direction: -1;
@@ -91,6 +93,10 @@ body[data-path='home'] {
         opacity: 1;
         transform: translateY(0);
       }
+    }
+    &.animate-in-immediate {
+      --bounce-animation-duration: 0ms;
+      --bounce-animation-delay: 0ms;
     }
   }
 
@@ -128,6 +134,7 @@ body[data-path='home'] {
     min-height: 100vh;
     background: linear-gradient(transparent, #eef2f6);
     border-bottom: 1px solid #cfd7e2;
+    overflow: hidden;
   }
 
   .feature-heading {

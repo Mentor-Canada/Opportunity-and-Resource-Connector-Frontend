@@ -47,8 +47,12 @@ export default class MCSplashCanvas {
   private sx: number;
   private sy: number;
 
-  private resizeEventListener;
-  private scrollEventListener;
+  private resizeEventListener: EventListener;
+  private scrollEventListener: EventListener;
+  private visibilityEventListener: EventListener;
+  private visibilityFlag: any;
+  private visibilityEvent: any;
+  private visible: boolean = false;
 
   constructor() {
     this.canvas = document.getElementById('mc-splash-canvas') as HTMLCanvasElement;
@@ -57,6 +61,7 @@ export default class MCSplashCanvas {
     this.globalScale = this.initialGlobalScale;
     this.globalOpacity = this.initialGlobalOpacity;
     this.getColors();
+    this.registerVisibility();
     this.resize();
 
     this.resizeEventListener = () => {
@@ -67,25 +72,34 @@ export default class MCSplashCanvas {
       this.scroll();
     };
 
+    this.visibilityEventListener = () => {
+      this.visibility();
+    };
+
     window.addEventListener('resize', this.resizeEventListener);
     window.addEventListener('scroll', this.scrollEventListener);
+    document.addEventListener(this.visibilityEvent, this.visibilityEventListener);
   }
 
   public startRender() {
-    this.ts = performance.now();
-    this.render();
+    if(this.raf === null) {
+      this.ts = performance.now();
+      this.render();
+    }
   }
 
   public stopRender() {
     if(this.raf !== null) {
-      this.raf = null;
       cancelAnimationFrame(this.raf);
+      this.raf = null;
     }
   }
 
   public destroy() {
+    cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.resizeEventListener);
     window.removeEventListener('scroll', this.scrollEventListener);
+    document.removeEventListener(this.visibilityEvent, this.visibilityEventListener);
   }
 
   private getColors() {
@@ -104,13 +118,36 @@ export default class MCSplashCanvas {
     this.lineColor = new ColorRGB(stroke);
   }
 
-  private scroll() {
-    const rect = this.canvas.getBoundingClientRect() as DOMRect;
-    if(rect.bottom <= 0) {
-      if(this.raf !== null) this.stopRender();
-    } else {
-      if(this.raf === null) this.startRender();
+  private registerVisibility() {
+    if (typeof document.hidden !== "undefined") {
+      this.visibilityFlag = "hidden";
+      this.visibilityEvent = "visibilitychange";
     }
+    else if (typeof document.msHidden !== "undefined") {
+      this.visibilityFlag = "msHidden";
+      this.visibilityEvent = "msvisibilitychange";
+    }
+    else if (typeof document.webkitHidden !== "undefined") {
+      this.visibilityFlag = "webkitHidden";
+      this.visibilityEvent = "webkitvisibilitychange";
+    }
+  }
+
+  private updateVisibility() {
+    const windowVisibility = !document[this.visibilityFlag];
+    const rect = this.canvas.getBoundingClientRect() as DOMRect;
+    const scrollVisibility = rect.bottom > 0;
+    const visible = windowVisibility && scrollVisibility;
+    if(visible && visible !== this.visible) this.ts = performance.now();
+    this.visible = visible;
+  }
+
+  private visibility() {
+    this.updateVisibility();
+  }
+
+  private scroll() {
+    this.updateVisibility();
   }
 
   private resize() {
@@ -132,6 +169,7 @@ export default class MCSplashCanvas {
       this.setLines();
       this.setRenderable();
     }
+    this.updateVisibility();
   }
 
   private setDensity() {
@@ -211,6 +249,7 @@ export default class MCSplashCanvas {
     const dt = ts - this.ts;
     this.ts = ts;
     if(dt == 0) return;
+    if(!this.visible) return;
 
     const framerate = 1000 / 60
     const normalizedTime = dt / framerate;

@@ -74,6 +74,8 @@ body[data-path='become-a-mentor'] {
     }
   }
 
+  nav#admin-nav + main[data-padding-standard=horizontal-vertical],
+  nav#admin-nav + main,
   main {
     min-height: 100vh;
     padding: 0;
