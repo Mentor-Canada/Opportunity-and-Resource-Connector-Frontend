@@ -180,7 +180,7 @@ export default class MCSplashCanvas {
 
   private setPoints() {
     this.ringCount = Math.ceil(1 / this.radialDensity);
-    for(let i = 1; i <= this.ringCount; i++) {
+    for(let i = 1; i <= this.ringCount + 1; i++) {
       const r = this.radialDensity * i;
       const c = this.getCircumference(r);
       const points = Math.ceil(c / this.orbitalDensity);
@@ -198,7 +198,7 @@ export default class MCSplashCanvas {
         // point.v = j % 2 == 0 ? -0.001 : v;
         // point.v = (i/2) * -0.001;
 
-        point.v = (i / this.ringCount) * -0.001 - 0.001;
+        // point.v = (i / this.ringCount) * -0.001 - 0.001;
         point.v = v;
 
         const randomAngleRange = (1 / points) * 0.5;
