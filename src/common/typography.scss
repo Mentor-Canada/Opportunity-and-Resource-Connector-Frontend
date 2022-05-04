@@ -1,6 +1,6 @@
 @mixin font-metrics() {
-  --scale: 1;
-  --scaled-font-size: calc(var(--font-size) * var(--scale));
+  --local-scale: var(--scale, 1);
+  --scaled-font-size: calc(var(--font-size) * var(--local-scale));
   --ls-step-1: calc(var(--scaled-font-size) - 150);
   --ls-step-2: calc(var(--ls-step-1) * var(--ls-step-1));
   --ls-step-3: calc(var(--ls-step-2) / 392);

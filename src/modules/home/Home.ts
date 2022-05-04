@@ -85,7 +85,10 @@ export default class Home {
   }
 
   resize() {
+    const vw = window.innerWidth;
     const vh = window.innerHeight;
+    document.documentElement.style.setProperty('--vw', `${vw}`);
+    document.documentElement.style.setProperty('--vh', `${vh}`);
     const rect = this.hero.getBoundingClientRect() as DOMRect;
     if(rect.height > vh) {
       const top = vh - rect.height;

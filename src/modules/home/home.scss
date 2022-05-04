@@ -9,7 +9,7 @@ body[data-path='home'] {
   }
 
   #hero {
-    --mc-home-hero-headline-size: 100;
+    --mc-home-hero-headline-size: min(calc((50 / 320) * var(--vw)), 100);
     --mc-home-hero-sticky-top: 0;
     position: -webkit-sticky;
     position: sticky;
@@ -45,6 +45,15 @@ body[data-path='home'] {
         transform: translateY(10px);
         transition: opacity 500ms, transform 650ms cubic-bezier(0.24, 1.42, 0.45, 1);
         transition-delay: 1600ms;
+        @media (max-width: 699px) {
+          --scale: 0.8;
+        }
+        @media (min-width: 700px) and (max-width:  999px) {
+          --scale: 0.9;
+        }
+        @media (min-width: 1000px) {
+          --scale: 1;
+        }
       }
     }
     .span-word {
@@ -135,6 +144,15 @@ body[data-path='home'] {
     background: linear-gradient(transparent, #eef2f6);
     border-bottom: 1px solid #cfd7e2;
     overflow: hidden;
+    @media (max-width: 699px) {
+      --scale: 0.8;
+    }
+    @media (min-width: 700px) and (max-width:  999px) {
+      --scale: 0.9;
+    }
+    @media (min-width: 1000px) {
+      --scale: 1;
+    }
   }
 
   .feature-heading {
@@ -167,6 +185,7 @@ body[data-path='home'] {
     display: grid;
     --i-radius: 20px;
     --i-inset: 2px;
+    --copy-width: 500px;
 
     @media (max-width: 699px) {
       --i-overlap-x: 30px;
@@ -224,7 +243,7 @@ body[data-path='home'] {
         }
       }
       @media (min-width: 700px) {
-        grid-template-columns: minmax(45%, 500px) var(--gutter) var(--i-overlap-x) 1fr 1fr;
+        grid-template-columns: minmax(45%, var(--copy-width)) var(--gutter) var(--i-overlap-x) 1fr 1fr;
         .img-1 {
           grid-column: 3/5;
           justify-self: end;
@@ -260,7 +279,7 @@ body[data-path='home'] {
         }
       }
       @media (min-width: 700px) {
-        grid-template-columns: 1fr 1fr var(--i-overlap-x) var(--gutter) minmax(45%, 500px);
+        grid-template-columns: 1fr 1fr var(--i-overlap-x) var(--gutter) minmax(45%, var(--copy-width));
         justify-content: end;
         .img-1 {
           grid-column: 4/1;
@@ -292,7 +311,7 @@ body[data-path='home'] {
     }
 
     .feature-copy {
-      max-width: 500px;
+      max-width: var(--copy-width);
       .feature-copy-eyebrow {
         --font-size: 24;
         --color: var(--eyebrow-color);
@@ -428,7 +447,7 @@ body[data-path='home'] {
         .split-text-el {
           white-space: pre-wrap;
           &:last-child {
-            --scale: 0.777;
+            --local-scale: calc(0.777 * var(--scale, 1));
             --font-weight: 500;
           }
         }
