@@ -1,90 +1,91 @@
-body[data-path='home'],
-body[data-path='find-a-mentor'],
-body[data-path='become-a-mentor'] {
-  --mc-2022-header-height: 100px;
-  --mc-2022-header-color: #222;
-  --mc-2022-link-color: #0095ff;
-  --mc-2022-link-hover-color: #0086e6;
+html.feature-flag-split-search {
+  body[data-path='home'],
+  body[data-path='find-a-mentor'],
+  body[data-path='become-a-mentor'] {
+    --mc-2022-header-height: 100px;
+    --mc-2022-header-color: #222;
+    --mc-2022-link-color: #0095ff;
+    --mc-2022-link-hover-color: #0086e6;
 
-  --mc-2022-typography-base-font: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
-  --mc-2022-typography-copy-font: var(--mc-2022-typography-base-font);
-  --mc-2022-typography-heading-font: var(--mc-2022-typography-base-font);
-  --mc-2022-typography-copy-font-weight: 400;
-  --mc-2022-typography-heading-font-weight: 500;
-  --mc-2022-typography-copy-color: #4c5c67;
-  --mc-2022-typography-heading-color: #232a2f;
+    --mc-2022-typography-base-font: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
+    --mc-2022-typography-copy-font: var(--mc-2022-typography-base-font);
+    --mc-2022-typography-heading-font: var(--mc-2022-typography-base-font);
+    --mc-2022-typography-copy-font-weight: 400;
+    --mc-2022-typography-heading-font-weight: 500;
+    --mc-2022-typography-copy-color: #4c5c67;
+    --mc-2022-typography-heading-color: #232a2f;
 
-  // Overrides
-  header,
-  #main-content-wrapper {
-    button:not(.md-button) {
-      all: unset;
-      box-sizing: border-box;
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      white-space: normal;
-      padding: 15px 20px;
-      min-height: 50px;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      background: var(--mc-2022-link-color);
-      font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
-      font-weight: 500;
-      @include font-tracking(14);
-      line-height: normal;
-      text-align: center;
-      cursor: pointer;
-      outline: none;
-      appearance: none;
-      transition: color 200ms, background-color 200ms;
-      &:hover {
-        background: var(--mc-2022-link-hover-color);
-      }
-      &.compact {
-        padding: 10px 20px;
-        min-height: 36px;
+    // Overrides
+    header,
+    #main-content-wrapper {
+      button:not(.md-button) {
+        all: unset;
+        box-sizing: border-box;
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: normal;
+        padding: 15px 20px;
+        min-height: 50px;
+        color: #fff;
+        border: none;
         border-radius: 50px;
-        @include font-tracking(12);
-      }
-    }
-  }
-
-  header {
-    position: absolute;
-    height: var(--mc-2022-header-height);
-    background-color: transparent;
-    padding: 0 5vw;
-    #header-logo {
-      .mentor-canada-logo-text {
-        fill: var(--mc-2022-header-color);
-      }
-    }
-    #global-nav #nav-menu .username {
-      > a {
-        color: var(--mc-2022-header-color);
+        background: var(--mc-2022-link-color);
+        font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
         font-weight: 500;
-        margin-right: 10px;
-      }
-      .username-dropdown li a {
-        font-weight: 500;
+        @include font-tracking(14);
+        line-height: normal;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        appearance: none;
+        transition: color 200ms, background-color 200ms;
+        &:hover {
+          background: var(--mc-2022-link-hover-color);
+        }
+        &.compact {
+          padding: 10px 20px;
+          min-height: 36px;
+          border-radius: 50px;
+          @include font-tracking(12);
+        }
       }
     }
-  }
 
-  nav#admin-nav + main[data-padding-standard=horizontal-vertical],
-  nav#admin-nav + main,
-  main {
-    min-height: 100vh;
-    padding: 0;
-    transition: opacity 500ms;
-  }
+    header {
+      position: absolute;
+      height: var(--mc-2022-header-height);
+      background-color: transparent;
+      padding: 0 5vw;
+      #header-logo {
+        .mentor-canada-logo-text {
+          fill: var(--mc-2022-header-color);
+        }
+      }
+      #global-nav #nav-menu .username {
+        > a {
+          color: var(--mc-2022-header-color);
+          font-weight: 500;
+          margin-right: 10px;
+        }
+        .username-dropdown li a {
+          font-weight: 500;
+        }
+      }
+    }
 
-  #main-content-wrapper {
-    position: relative;
-    width: 100%;
-  }
+    nav#admin-nav + main[data-padding-standard=horizontal-vertical],
+    nav#admin-nav + main,
+    main {
+      min-height: 100vh;
+      padding: 0;
+      transition: opacity 500ms;
+    }
 
+    #main-content-wrapper {
+      position: relative;
+      width: 100%;
+    }
+  }
 }
