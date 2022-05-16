@@ -218,7 +218,7 @@
     </fieldset>
 
     <div class="actions">
-      <button class="danger" type="button" v-if="$route?.params.id" @click="showRemoveConfirmation = true">
+      <button class="danger" type="button" v-if="$route?.params.id && app.user.admin" @click="showRemoveConfirmation = true">
         {{ t("app-delete") }}
       </button>
       <button type="button" v-if="$route?.params.id && app.user.admin" @click="onApprovalClick">
