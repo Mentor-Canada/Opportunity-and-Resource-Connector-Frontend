@@ -10,7 +10,7 @@
       </md-dialog-actions>
     </md-dialog>
 
-    <button type="button" class="danger" v-if="$route.params.id" @click="showRemoveConfirmation = true">
+    <button type="button" class="danger" v-if="$route.params.id && app.user.admin" @click="showRemoveConfirmation = true">
       {{ t("app-delete") }}
     </button>
     <button type="button" v-if="active !== 'details' && $route.params.id" @click="onDetailsClick">
