@@ -72,19 +72,33 @@ export default class SearchAttributes {
   load(row: any) {
     const { attributes } = row.data;
     this.id = attributes.id;
-    // this.zip = attributes.field_zip
-    this.distance = attributes.distance;
-    this.typeOfMentoring = JSON.parse(attributes.typeOfMentoring)[0];
-    this.age = JSON.parse(attributes.age)[0];
-    this.youth = JSON.parse(attributes.youth)[0];
-    // this.role = attributes.field_role
-    this.focus = JSON.parse(attributes.focus)[0];
-    // this.howDidYouHearAboutUs = attributes.field_how_did_you_hear_about_us
-    // this.howDidYouHearAboutUsOther = attributes.field_how_did_you_hear_other
-    // this.lat = attributes.field_physical_location?.lat
-    // this.lng = attributes.field_physical_location?.lng
-    this.grade = JSON.parse(attributes.grade)[0];
+
+    if(attributes.distance) {
+      this.distance = attributes.distance;
+    }
+
+    if(attributes.typeOfMentoring) {
+      this.typeOfMentoring = JSON.parse(attributes.typeOfMentoring)[0];
+    }
+
+    if(attributes.age) {
+      this.age = JSON.parse(attributes.age)[0];
+    }
+
+    if(attributes.youth) {
+      this.youth = JSON.parse(attributes.youth)[0];
+    }
+
+    if(attributes.focus) {
+      this.focus = JSON.parse(attributes.focus)[0];
+    }
+
+    if(attributes.grade) {
+      this.grade = JSON.parse(attributes.grade)[0];
+    }
+
     this.national = attributes.nationWideEMentoring == '1';
+
     this.delivery = [];
     if (attributes.communityBasedDelivery == '1') {
       this.delivery.push(SearchAttributes.COMMUNITY_BASED_DELIVERY);
