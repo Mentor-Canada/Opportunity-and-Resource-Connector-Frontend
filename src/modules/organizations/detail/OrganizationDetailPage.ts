@@ -114,7 +114,7 @@ export default {
         const { id } = this.organization.document;
         const url = `programs/add/step/1?organization=${id}&info=true`;
         this.organization = new Organization();
-        this.router.push(this.link(url));
+        this.app.view.router.push(this.link(url));
       }
     },
 
