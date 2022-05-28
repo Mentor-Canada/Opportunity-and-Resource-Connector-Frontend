@@ -1,6 +1,7 @@
 import FocusManager from "./FocusManager";
 import MCSplashCanvas from "../../core/mc-splash-canvas/MCSplashCanvas";
 import SplitText from "./SplitText";
+import Tabs from "./tabs/Tabs";
 
 export default class Home {
 
@@ -8,7 +9,6 @@ export default class Home {
   private splash: MCSplashCanvas;
   private hero: HTMLElement;
   private features: HTMLElement;
-  private links: NodeListOf<HTMLElement>;
 
   private splashVisible: boolean = false;
   private splashAnimationPending: boolean = true;
@@ -16,7 +16,8 @@ export default class Home {
 
   private resizeEventListener: EventListener;
   private scrollEventListener: EventListener;
-  private linkEventListener: EventListener;
+
+  private tabs: Tabs;
 
   constructor() {
     this.focusManager = new FocusManager();
@@ -24,14 +25,6 @@ export default class Home {
 
     this.hero = document.getElementById('hero');
     this.features = document.getElementById('features');
-
-    this.linkEventListener = (e: MouseEvent) => {
-      this.onClick(e);
-    };
-    this.links = document.querySelectorAll('#section-nav li');
-    this.links.forEach((link) => {
-      link.addEventListener('click', this.linkEventListener);
-    });
 
     const statPercentages = document.querySelectorAll('.stat');
     statPercentages.forEach((el) => {
@@ -41,6 +34,8 @@ export default class Home {
         delimiter: ''
       })
     })
+
+    this.tabs = new Tabs(document.querySelector('#section-nav'));
 
     this.resize();
     this.resizeEventListener = () => {
@@ -99,28 +94,13 @@ export default class Home {
     this.scroll();
   }
 
-  onClick(e) {
-    e.preventDefault();
-    const target = e.target as HTMLElement;
-    const id = target.getAttribute('data-section-id');
-    const section = document.getElementById(id);
-    const rect = section.getBoundingClientRect() as DOMRect;
-    const top = Math.ceil(rect.top + document.documentElement.scrollTop);
-    window.scroll({
-      top: top,
-      behavior: 'smooth'
-    });
-  }
-
   public destroy() {
     this.focusManager.destroy();
     this.splash.destroy();
+    this.tabs.destroy();
     window.removeEventListener('resize', this.resizeEventListener);
     window.removeEventListener('scroll', this.scrollEventListener);
     clearTimeout(this.splashAnimationTimeout);
-    this.links.forEach((link) => {
-      link.removeEventListener('click', this.linkEventListener);
-    });
   }
 
 }

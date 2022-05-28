@@ -489,70 +489,11 @@ body[data-path='home'] {
   }
 
   #section-nav {
-    --section-nav-height: 50px;
-    position: fixed;
-    z-index: 10;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--section-nav-height);
-    display: flex;
-    justify-content: center;
-    background: #fff;
-    border-bottom: 1px solid #cfd7e2;
     transform: translateY(-101%);
     transition: transform 600ms;
-    ul {
-      height: 100%;
-      display: flex;
-    }
-    li {
-      --link-padding: 20px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      height: 100%;
-      padding: 0 var(--link-padding);
-      cursor: pointer;
-      @include font-metrics;
-      --font-size: 13;
-      --font-weight: 500;
-      --color: var(--mc-2022-typography-copy-color);
-      transition: color 300ms;
-      &:hover {
-        --color: var(--mc-2022-typography-heading-color);
-      }
-      &:after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: var(--link-padding);
-        width: calc(100% - calc(var(--link-padding) * 2));
-        height: 2px;
-        background: var(--mc-2022-link-color);
-        transform-origin: 50% 100%;
-        transform: scaleY(0);
-        transition: transform 300ms;
-      }
-    }
   }
   section.focused ~ #section-nav {
     transform: translateY(0);
-  }
-  section#for-young-people.focused ~ #section-nav {
-    li:nth-child(1):after {
-      transform: scaleY(1);
-    }
-  }
-  section#for-volunteers.focused ~ #section-nav {
-    li:nth-child(2):after {
-      transform: scaleY(1);
-    }
-  }
-  section#for-organizations.focused ~ #section-nav {
-    li:nth-child(3):after {
-      transform: scaleY(1);
-    }
   }
 
 }
