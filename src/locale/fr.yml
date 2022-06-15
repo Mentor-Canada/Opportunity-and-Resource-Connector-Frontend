@@ -1,7 +1,7 @@
 activation-date: Date d'activation
 active: Actif
 app-national: E-mentorat nationale
-become-a-mentor-button: Devenir un mentor
+become-a-mentor-button: Devenir mentor
 become-a-mentor-eyebrow: Pour les bénévoles
 become-a-mentor-heading: Devenir un mentor.
 become-a-mentor-paragraph: Le mentorat ne requiert aucune compétence particulière. Tout ce dont vous avez besoin, c'est d'un esprit ouvert et d'un intérêt à faire une différence dans la vie d'un jeune âgé de 6 à 25 ans et plus.
@@ -16,13 +16,13 @@ find-a-mentor-paragraph: Si vous cherchez à obtenir le soutien dont vous avez b
 inactive: Inactif
 last-modified: Dernière modification
 learn-more-about-mentor-connector: En savoir plus sur le Connecteur Mentor
-list-program-button:  Rejoindre le Connecteur Mentor
+list-program-button:  Rejoindre Connecteur Mentor
 list-program-eyebrow: Pour les organisations
 list-program-heading: Augmentez la portée de votre organisation.
 list-program-paragraph: Rehaussez le profil de vos programmes et initiatives de mentorat Affichez vos opportunités de bénévolat pour rejoindre plus de personnes dans votre communauté et à travers le Canada.
 mc-headline-fragment-word-first: Connecteur
 mc-headline-fragment-word-last: Mentor
-mc-headline-paragraph: Le Connecteur Mentor permet aux bénévoles et aux jeunes de se connecter aux bonnes opportunités de mentorat, à la fois virtuellement et au sein de leurs communautés.
+mc-headline-paragraph: Connecteur Mentor permet aux bénévoles et aux jeunes de se connecter à des occasions de mentorat, à la fois virtuellement et au sein de leurs communautés.
 mentorcity-allow-reactivation: Réactivation de MentorCity permise
 mentorcity-offboarded-notice: Votre programme a été retiré de la plateforme de mentorat électronique. Veuillez contacter <a href="mailto:support@mentoringcanada.ca">support@mentoringcanada.ca</a> pour obtenir de l'aide.
 mentorcity-reactivation-allowed: Réactivation permise
@@ -30,7 +30,7 @@ other: Autre
 search-e-mentoring: Opportunités e-mentorat
 search-headline: Comment devenir
 search-page-headline-action: Recherche Connecteur Mentor
-search-page-headline-cta-become-a-mentor: Devenir un mentor
+search-page-headline-cta-become-a-mentor: Devenir mentor
 search-page-headline-cta-find-a-mentor-e-mentoring: Parcourez les opportunités en e-mentorat à travers le pays.
 search-page-headline-cta-find-a-mentor: Trouver un mentor
 search-page-or-e-mentoring: ou
