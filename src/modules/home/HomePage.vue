@@ -395,7 +395,7 @@
           <h2 class="feature-heading-eyebrow visually-h5">Pour les jeunes</h2>
           <h3 class="feature-heading-headline visually-h1">Trouver un mentor.</h3>
           <p class="feature-heading-copy large">Vous êtes un jeune à la recherche d'un mentor? Êtes-vous un parent, un tuteur, un enseignant ou un adulte bienveillant qui connaît un jeune qui aurait intérêt à avoir un mentor?</p>
-          <p class="feature-heading-copy large">Avoir un mentor – en ligne ou en personne – peut aider à ouvrir la porte à de nouvelles possibilités. Obtenez le soutien dont vous avez besoin pour atteindre vos objectifs académiques, professionnels ou personnels.</p>
+          <p class="feature-heading-copy large">Avoir un mentor — en ligne ou en personne — peut aider à ouvrir la porte à de nouvelles possibilités. Obtenez le soutien dont vous avez besoin pour atteindre vos objectifs académiques, professionnels ou personnels.</p>
           <div class="feature-heading-cta">
             <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
           </div>
@@ -514,7 +514,7 @@
           <div class="feature-copy typography">
             <h2 class="feature-copy-eyebrow visually-h5">Changer la trajectoire de vie de quelqu’un</h2>
             <h3 class="feature-copy-headline visually-h2">Soutenir le développement d’un jeune.</h3>
-            <p>Plus de 15 000 jeunes attendent d'avoir un mentor – quelqu'un juste comme vous.</p>
+            <p>Plus de 15 000 jeunes attendent d'avoir un mentor — quelqu'un juste comme vous.</p>
             <p>La pandémie de COVID-19 a laissé de nombreux jeunes se sentir seuls et déconnectés.</p>
             <a class="icon-link" @click="becomeAMentor">
               {{ $t('become-a-mentor-button') }}
@@ -560,7 +560,7 @@
           <div class="feature-cta-item">
             <div class="typography">
               <h2>Le mentorat change des vies.</h2>
-              <p class="large">Si vous avez déjà eu un mentor – au travail, à l'école ou dans votre vie – vous savez que le mentorat peut changer des vies. Beaucoup d'entre nous ont eu des mentors, des adultes attentionnés qui nous ont soutenus dans nos vies ou dans nos carrières.</p>
+              <p class="large">Si vous avez déjà eu un mentor — au travail, à l'école ou dans votre vie — vous savez que le mentorat peut changer des vies. Beaucoup d'entre nous ont eu des mentors, des adultes attentionnés qui nous ont soutenus dans nos vies ou dans nos carrières.</p>
             </div>
           </div>
           <div class="feature-cta-item">
