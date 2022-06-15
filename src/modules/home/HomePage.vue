@@ -216,8 +216,8 @@
 
         <div class="feature-heading typography">
           <h2 class="feature-heading-eyebrow visually-h5">For organizations</h2>
-          <h3 class="feature-heading-headline visually-h1">Increase your organization's reach.</h3>
-          <p class="feature-heading-copy large">Increase your program's reach. Mentor Connector is Canada's only national database for mentoring programs. It is a free engagement tool that helps you raise the profile of your mentoring programs to reach more volunteers and youth in your community and across Canada.</p>
+          <h3 class="feature-heading-headline visually-h1">Increase your recruitment and visibility.</h3>
+          <p class="feature-heading-copy large">Mentor Connector is Canada's only national database for mentoring programs. It is a free engagement tool that helps you raise the profile of your mentoring programs to reach more volunteers and youth in your community and across Canada.</p>
           <div class="feature-heading-cta">
             <router-link :to="link('organizations/add')">
               <button>{{ $t('list-program-button') }}</button>
@@ -249,7 +249,7 @@
           <div class="feature-copy typography">
             <h2 class="feature-copy-eyebrow visually-h5">Step 2</h2>
             <h3 class="feature-copy-headline visually-h2">Get your program listed.</h3>
-            <p>Once you have listed your organization, you will be invited to submit the various mentoring programs your organization offers for inclusion in Mentor Connector's publicly searchable database. If you offer a program that is not affiliated with a particular organization, not to worry, you will also have the opportunity to add your program to the Connector.</p>
+            <p>Once you have listed your organization, you will be invited to submit the various mentoring programs your organization offers for inclusion in Mentor Connector's publicly searchable database. If you offer a program that is not affiliated with a particular organization, not to worry, you will also have the opportunity to add your program to Mentor Connector.</p>
             <router-link :to="link('programs/add/step/1')" class="icon-link">
               Get your program listed
               <span class="material-icons">arrow_forward</span>
@@ -299,7 +299,62 @@
 
       <section id="extras">
         <div class="typography">
-          <h4>Social media, resources, extras go here</h4>
+          <h2>Spread the word!</h2>
+
+          <div class="share-block extras-block">
+            <h4>Help us spread the word by sharing this page on social media.</h4>
+            <div class="block-actions">
+              <a target="_blank" :href="`https://www.facebook.com/sharer/sharer.php?u=https://connect.mentoringcanada.ca/${app.getCurrentLanguage()}`">
+                <span class="visually-hidden">Share on Facebook</span>
+                <div class="button-shape fb"></div>
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" :href="`https://twitter.com/intent/tweet?text=https://connect.mentoringcanada.ca/${app.getCurrentLanguage()}`">
+                <span class="visually-hidden">Share on Twitter</span>
+                <div class="button-shape tw"></div>
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" :href="`https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%connect.mentoringcanada.ca%2F${app.getCurrentLanguage()}&amp;title=Mentor%20Connector&amp;source=Mentor%20Canada`">
+                <span class="visually-hidden">Share on LinkedIn</span>
+                <div class="button-shape li"></div>
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="follow-block extras-block">
+            <h4>Stay up to date by following Mentor Canada.</h4>
+            <div class="block-actions">
+              <a href="https://www.facebook.com/mentoringcanada/" target="_blank">
+                <span class="visually-hidden">Follow us on Facebook</span>
+                <div class="button-shape fb"></div>
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a href="https://twitter.com/Mentoringcanada" target="_blank">
+                <span class="visually-hidden">Follow us on Twitter</span>
+                <div class="button-shape tw"></div>
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/canadian-mentoring-partnership-partenariat-canadien-de-mentorat/?viewAsMember=true" target="_blank">
+                <span class="visually-hidden">Follow us on LinkedIn</span>
+                <div class="button-shape li"></div>
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.instagram.com/mentorcanada/" target="_blank">
+                <span class="visually-hidden">Follow us on Instagram</span>
+                <div class="button-shape ig"></div>
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.youtube.com/channel/UCYExa1ehADYg-kzG7lSmPoQ/" target="_blank">
+                <span class="visually-hidden">Follow us on YouTube</span>
+                <div class="button-shape yt"></div>
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+
+
         </div>
       </section>
 
