@@ -7,8 +7,8 @@ export default class FocusManager {
   private focusElements: FocusElement[] = [];
 
   private resizeEventListener: EventListener;
-  private scrollEventListener: EventListener;
   private raf: null|number = null;
+  private rafLastTimestamp: number;
 
   constructor(el?: HTMLElement) {
     if(el) {
@@ -21,22 +21,13 @@ export default class FocusManager {
       this.focusElements.push(new FocusElement(el));
     });
 
+    this.rafLastTimestamp = performance.now();
     this.raf = requestAnimationFrame(this.update.bind(this));
 
     this.resizeEventListener = () => {
       this.resize();
     };
-    this.scrollEventListener = () => {
-      this.scroll();
-    };
     window.addEventListener('resize', this.resizeEventListener);
-    window.addEventListener('scroll', this.scrollEventListener);
-  }
-
-  scroll() {
-    this.focusElements.forEach((focusElement) => {
-      focusElement.checkState();
-    });
   }
 
   resize() {
@@ -47,10 +38,22 @@ export default class FocusManager {
 
   update() {
     this.raf = requestAnimationFrame(this.update.bind(this));
+
+    const rafCurrentTimestamp = performance.now();
+    const rafDelta = rafCurrentTimestamp - this.rafLastTimestamp;
+    if(rafDelta == 0) return;
+    this.rafLastTimestamp = rafCurrentTimestamp;
+    const targetFrameRate = 1000/60;
+    const normalizedTime = targetFrameRate / rafDelta;
+
+
     this.focusElements.forEach((focusElement) => {
+      focusElement.checkState(normalizedTime);
       if(focusElement.needsVarsUpdate) {
         focusElement.$el.style.setProperty('--focus-percent', `${focusElement.percentInRange}`);
         focusElement.$el.style.setProperty('--focus-percent-excluding-height', `${focusElement.percentInRangeExcludingHeight}`);
+        focusElement.$el.style.setProperty('--focus-percent-with-decay', `${focusElement.percentInRangeWithDecay}`);
+        focusElement.$el.style.setProperty('--focus-percent-excluding-height-with-decay', `${focusElement.percentInRangeExcludingHeightWithDecay}`);
         focusElement.needsVarsUpdate = false;
       }
       if(focusElement.needsFocusUpdate) {
@@ -67,7 +70,6 @@ export default class FocusManager {
   public destroy() {
     cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.resizeEventListener);
-    window.removeEventListener('scroll', this.scrollEventListener);
   }
 
 }

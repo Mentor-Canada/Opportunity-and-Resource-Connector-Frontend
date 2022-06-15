@@ -206,7 +206,7 @@ body[data-path='home'] {
       --i-overlap-x: 100px;
       --i-overlap-y: 150px;
       --gutter: 8%;
-      --i-translate: 130px;
+      --i-translate: 65px;
 
       grid-template-rows: auto var(--i-overlap-y) auto;
       .img-1 {
@@ -225,10 +225,10 @@ body[data-path='home'] {
 
     &.feature-item-grid-copy-left {
       .img-1 {
-        transform: rotate(calc(var(--focus-percent) * -4deg - 2deg));
+        transform: rotate(calc(var(--focus-percent-with-decay, 0) * -4deg - 2deg)) translateY(calc(var(--focus-percent-with-decay, 0) * var(--i-translate) * -0.75));
       }
       .img-2 {
-        transform: rotate(calc(var(--focus-percent) * 5deg + 2deg)) translateY(calc(var(--focus-percent) * var(--i-translate)));
+        transform: rotate(calc(var(--focus-percent-with-decay, 0) * 5deg + 2deg)) translateY(calc(var(--focus-percent-with-decay, 0) * var(--i-translate)));
       }
       @media (max-width: 699px) {
         .img-1 {
@@ -261,10 +261,10 @@ body[data-path='home'] {
 
     &.feature-item-grid-copy-right {
       .img-1 {
-        transform: rotate(calc(var(--focus-percent) * 4deg + 2deg));
+        transform: rotate(calc(var(--focus-percent-with-decay, 0) * 4deg + 2deg)) translateY(calc(var(--focus-percent-with-decay, 0) * var(--i-translate) * -0.75));
       }
       .img-2 {
-        transform: rotate(calc(var(--focus-percent) * -5deg - 2deg)) translateY(calc(var(--focus-percent) * var(--i-translate)));
+        transform: rotate(calc(var(--focus-percent-with-decay, 0) * -5deg - 2deg)) translateY(calc(var(--focus-percent-with-decay, 0) * var(--i-translate)));
       }
       @media (max-width: 699px) {
         .img-1 {

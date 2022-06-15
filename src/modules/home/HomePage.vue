@@ -304,11 +304,13 @@
       </section>
 
       <nav id="section-nav" data-tabs>
-        <ul class="tab-list">
-          <li data-tab-id="for-young-people" data-tab-index="0">For young people</li>
-          <li data-tab-id="for-volunteers" data-tab-index="1">For volunteers</li>
-          <li data-tab-id="for-organizations" data-tab-index="2">For organizations</li>
-        </ul>
+        <div class="tab-list-scroll-container">
+          <ul class="tab-list">
+            <li data-tab-id="for-young-people" data-tab-index="0">For young people</li>
+            <li data-tab-id="for-volunteers" data-tab-index="1">For volunteers</li>
+            <li data-tab-id="for-organizations" data-tab-index="2">For organizations</li>
+          </ul>
+        </div>
       </nav>
 
     </section>
