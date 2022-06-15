@@ -1,5 +1,5 @@
 <template>
-  <div id="main-content-wrapper">
+  <div id="main-content-wrapper" v-if="lang.langcode == 'en'">
 
     <section id="hero">
       <canvas id="mc-splash-canvas"></canvas>
@@ -347,6 +347,381 @@
               </a>
               <a href="https://www.youtube.com/channel/UCYExa1ehADYg-kzG7lSmPoQ/" target="_blank">
                 <span class="visually-hidden">Follow us on YouTube</span>
+                <div class="button-shape yt"></div>
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+
+
+        </div>
+      </section>
+
+      <nav id="section-nav" data-tabs>
+        <div class="tab-list-scroll-container">
+          <ul class="tab-list">
+            <li data-tab-id="for-young-people" data-tab-index="0">For young people</li>
+            <li data-tab-id="for-volunteers" data-tab-index="1">For volunteers</li>
+            <li data-tab-id="for-organizations" data-tab-index="2">For organizations</li>
+          </ul>
+        </div>
+      </nav>
+
+    </section>
+
+
+
+  </div>
+
+  <div id="main-content-wrapper" v-else>
+
+    <section id="hero">
+      <canvas id="mc-splash-canvas"></canvas>
+      <div class="typography">
+        <h1>
+          <span class="span-word span-word-first">{{ $t('mc-headline-fragment-word-first') }}</span>
+          <span class="span-word span-word-last">{{ $t('mc-headline-fragment-word-last') }}</span>
+        </h1>
+        <p class="large">{{ $t('mc-headline-paragraph') }}</p>
+      </div>
+    </section>
+
+    <section id="features" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true">
+
+      <section id="for-young-people" class="feature-section" data-focus-start="t-0vh" data-focus-end="b-100vh" data-focus-toggle="false">
+
+        <div class="feature-heading typography">
+          <h2 class="feature-heading-eyebrow visually-h5">Pour les jeunes</h2>
+          <h3 class="feature-heading-headline visually-h1">Trouver un mentor.</h3>
+          <p class="feature-heading-copy large">Vous êtes un jeune à la recherche d'un mentor? Êtes-vous un parent, un tuteur, un enseignant ou un adulte bienveillant qui connaît un jeune qui aurait intérêt à avoir un mentor?</p>
+          <p class="feature-heading-copy large">Avoir un mentor – en ligne ou en personne – peut aider à ouvrir la porte à de nouvelles possibilités. Obtenez le soutien dont vous avez besoin pour atteindre vos objectifs académiques, professionnels ou personnels.</p>
+          <div class="feature-heading-cta">
+            <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
+          </div>
+        </div>
+
+        <div id="fyp-what-can-mentoring-do" class="feature-item feature-item-grid feature-item-grid-copy-left">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-what-can-mentoring-do-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-what-can-mentoring-do-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Qu’est-ce que le mentorat peut faire pour vous?</h2>
+            <h3 class="feature-copy-headline visually-h2">Atteindre votre plein potentiel.</h3>
+            <p>Vous aidez à fixer des objectifs académiques et vous fournir des conseils sur la façon de les atteindre.</p>
+            <p>Vous supportez à faire des choix de vie sains au quotidien, en concentrant sur le bien-être et la santé mentale, les sports et les activités, les compétences sociales et émotionnelles et bien plus encore.</p>
+            <p>Vous fournir des conseils sur la façon de trouver votre premier emploi ou d'approfondir vos possibilités d'études.</p>
+            <a class="icon-link" @click="findAMentor">
+              {{ $t('find-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="fyp-time-commitment" class="feature-item feature-item-grid feature-item-grid-copy-right">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-time-commitment-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-time-commitment-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Inquiet du temps requis?</h2>
+            <h3 class="feature-copy-headline visually-h2">Trouver des occasions de mentorat qui correspondent à votre horaire.</h3>
+            <p>Que vous souhaitiez rencontrer votre mentor une fois par semaine ou une fois par mois, il existe de nombreuses occasions de mentorat qui correspondent à votre style de vie et à votre horaire.</p>
+            <a class="icon-link" @click="findAMentor">
+              {{ $t('find-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="fyp-pandemic" class="feature-item feature-item-grid feature-item-grid-copy-left">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-pandemic-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fyp-pandemic-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">À la recherche d’occasions virtuelles?</h2>
+            <h3 class="feature-copy-headline visually-h2">Trouver des programmes virtuels qui répondent à vos besoins.</h3>
+            <p>Il existe des moyens de se connecter virtuellement avec des mentors à travers le pays par appel vidéo, chat en direct ou SMS.</p>
+            <a class="icon-link" @click="findAMentor">
+              {{ $t('find-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="feature-quotes">
+          <div class="typography">
+            <h2>De jeunes adultes comme vous bénéficient d'une relation de mentorat. Voici ce qu'ils disent!</h2>
+          </div>
+          <div class="quotes">
+            <blockquote class="typography">
+              <p>"Mes mentors m'ont guidé, ils m'ont aidé à créer cette expérience irremplaçable qui est maintenant la fondation de ma croissance en carrière. Ils ont également aidé à brosser un tableau de ma vie qui, pour moi, est inestimable. Bref, ils ont aidé à changer ma façon de me comporter."</p>
+              <cite>
+                <span class="cite-name">Ipellie Foo</span>
+                <span class="cite-title">Jeune leader autochtone</span>
+              </cite>
+            </blockquote>
+            <blockquote class="typography">
+              <p>"Mon mentor m'a toujours dit de ne jamais laisser une bonne question se perdre. Cette notion m'a vraiment touché. Mon mentor m'a également dit que si vous vous concentrez sur les problèmes, vous obtiendrez des problèmes, et si vous vous concentrez sur des solutions, vous obtiendrez des solutions. Ce fut une énorme prise de conscience pour moi et cela m'a conduit à être plus productif."</p>
+              <cite>
+                <span class="cite-name">Jeune participant 2021</span>
+                <span class="cite-title">Événement le Pouvoir du mentorat</span>
+              </cite>
+            </blockquote>
+          </div>
+        </div>
+
+        <div class="feature-cta">
+          <div class="feature-cta-item">
+            <div class="typography">
+              <h2>Trouver un mentor aujourd’hui.</h2>
+              <p class="large">Joignez-vous au Connecteur Mentor pour obtenir le soutien dont vous avez besoin et ouvrir la porte à de nouvelles possibilités.</p>
+            </div>
+            <button @click="findAMentor">{{ $t('find-a-mentor-button') }}</button>
+          </div>
+          <div class="feature-cta-item">
+            <div class="typography">
+              <h3>Pas encore prêt à entrer en contact avec un mentor? Rejoignez-nous lors d'un événement!</h3>
+              <p>Si vous êtes entre l'âge de 18 et 30 ans, rejoignez-nous à un événement sur le Pouvoir du mentorat! Ces événements de mentorat vous permettent de vous connecter avec des bénévoles et des employeurs potentiels. Vous pouvez poser toutes vos questions et apprendre davantage sur le réseautage, la définition d'objectifs et l'image de marque personnelle. Renseignez-vous sur comment rédiger un résumé parfait, obtenir votre premier emploi ou changer de carrière.</p>
+              <a class="icon-link" href="https://www.mentoringcanada.ca/en/mentor-connector/powerofmentoring.ca">
+                Rejoigner un événement le Pouvoir du mentorat
+                <span class="material-icons">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="for-volunteers" class="feature-section" data-focus-start="t-0vh" data-focus-end="b-100vh" data-focus-toggle="false">
+
+        <div class="feature-heading typography">
+          <h2 class="feature-heading-eyebrow visually-h5">Pour les bénévoles</h2>
+          <h3 class="feature-heading-headline visually-h1">Devenir mentor.</h3>
+          <p class="feature-heading-copy large">Vous n'avez pas besoin de compétences particulières pour devenir mentor. Tout ce dont vous avez besoin c'est d'une ouverture d'esprit et un intérêt à faire une différence dans la vie d'un jeune âgé entre 6 et 30 ans.</p>
+          <div class="feature-heading-cta">
+            <button @click="becomeAMentor">{{ $t('become-a-mentor-button') }}</button>
+          </div>
+        </div>
+
+        <div id="fv-make-a-difference" class="feature-item feature-item-grid feature-item-grid-copy-right">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-make-a-difference-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-make-a-difference-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Changer la trajectoire de vie de quelqu’un</h2>
+            <h3 class="feature-copy-headline visually-h2">Soutenir le développement d’un jeune.</h3>
+            <p>Plus de 15 000 jeunes attendent d'avoir un mentor – quelqu'un juste comme vous.</p>
+            <p>La pandémie de COVID-19 a laissé de nombreux jeunes se sentir seuls et déconnectés.</p>
+            <a class="icon-link" @click="becomeAMentor">
+              {{ $t('become-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="fv-time-commitment" class="feature-item feature-item-grid feature-item-grid-copy-left">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-time-commitment-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-time-commitment-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Inquiet du temps requis?</h2>
+            <h3 class="feature-copy-headline visually-h2">Trouver des occasions de mentorat qui correspondent à votre horaire.</h3>
+            <p>Que vous souhaitiez faire du bénévolat une fois par semaine ou une fois par mois, vous pouvez trouver des occasions de mentorat qui correspondent à votre horaire. </p>
+            <a class="icon-link" @click="becomeAMentor">
+              {{ $t('become-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div id="fv-pandemic" class="feature-item feature-item-grid feature-item-grid-copy-right">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-pandemic-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fv-pandemic-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Offrir du mentorat virtuellement par messagerie et appels video.</h2>
+            <h3 class="feature-copy-headline visually-h2">Mentorer un jeune virtuellement.</h3>
+            <p>Les programmes de mentorat partout au Canada relient les mentors et les jeunes grâce à des programmes virtuels. Les programmes en personne commencent également à rouvrir.</p>
+            <p>Connecteur Mentor vous permet d'explorer toutes les occasions de mentorat en ligne et dans votre communauté.</p>
+            <a class="icon-link" @click="becomeAMentor">
+              {{ $t('become-a-mentor-button') }}
+              <span class="material-icons">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="feature-cta">
+          <div class="feature-cta-item">
+            <div class="typography">
+              <h2>Le mentorat change des vies.</h2>
+              <p class="large">Si vous avez déjà eu un mentor – au travail, à l'école ou dans votre vie – vous savez que le mentorat peut changer des vies. Beaucoup d'entre nous ont eu des mentors, des adultes attentionnés qui nous ont soutenus dans nos vies ou dans nos carrières.</p>
+            </div>
+          </div>
+          <div class="feature-cta-item">
+            <div class="typography feature-stats">
+              <h4>Les jeunes mentorés sont:</h4>
+              <div class="stats-wrapper">
+                <div class="stat-block typography" data-focus-start="b-20vh">
+                  <p class="stat">53%</p>
+                  <p>plus susceptibles de déclarer une bonne ou une excellente santé mentale.</p>
+                </div>
+                <div class="stat-block typography" data-focus-start="b-20vh">
+                  <p class="stat">2x</p>
+                  <p>Plus de deux fois plus susceptibles d'avoir terminé leurs études secondaires.</p>
+                </div>
+                <div class="stat-block typography" data-focus-start="b-20vh">
+                  <p class="stat">95%</p>
+                  <p>plus susceptibles d'avoir poursuivi des études postsecondaires.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button @click="becomeAMentor">{{ $t('become-a-mentor-button') }}</button>
+        </div>
+
+      </section>
+
+      <section id="for-organizations" class="feature-section" data-focus-start="t-0vh" data-focus-end="b-100vh" data-focus-toggle="false">
+
+        <div class="feature-heading typography">
+          <h2 class="feature-heading-eyebrow visually-h5">Pour les organisations</h2>
+          <h3 class="feature-heading-headline visually-h1">Accroître votre visibilité.</h3>
+          <p class="feature-heading-copy large">Connecteur Mentor est la seule base de données nationale du Canada pour les programmes de mentorat. Il s'agit d'un outil d'engagement gratuit qui vous aide à rehausser le profil de vos programmes de mentorat pour rejoindre plus de mentors et de jeunes dans votre communauté et partout au Canada.</p>
+          <div class="feature-heading-cta">
+            <router-link :to="link('organizations/add')">
+              <button>{{ $t('list-program-button') }}</button>
+            </router-link>
+          </div>
+        </div>
+
+        <div id="fo-step-1" class="feature-item feature-item-grid feature-item-grid-copy-left">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-1-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-1-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Étape 1</h2>
+            <h3 class="feature-copy-headline visually-h2">Faites répertorier votre organization.</h3>
+            <p>Si vous êtes une organisation offrant un programme de mentorat, vous pouvez soumettre votre organisation et être répertorié dans Connecteur Mentor.</p>
+            <router-link :to="link('organizations/add')" class="icon-link">
+              Faites répertorier votre organisation
+              <span class="material-icons">arrow_forward</span>
+            </router-link>
+          </div>
+        </div>
+
+        <div id="fo-step-2" class="feature-item feature-item-grid feature-item-grid-copy-right">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-2-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-2-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Étape 2</h2>
+            <h3 class="feature-copy-headline visually-h2">Faites répertorier votre programme.</h3>
+            <p>Une fois que vous avez répertorié votre organisation, vous serez invité à soumettre les différents programmes de mentorat que votre organisation offre pour apparaître dans la base de données de la plateforme. Si vous offrez un programme qui n'est pas affilié à une organisation en particulier, ne vous inquiétez pas, vous aurez également la possibilité d'ajouter votre programme au Connecteur Mentor.</p>
+            <router-link :to="link('programs/add/step/1')" class="icon-link">
+              Faites répertorier votre programme
+              <span class="material-icons">arrow_forward</span>
+            </router-link>
+          </div>
+        </div>
+
+        <div id="fo-step-3" class="feature-item feature-item-grid feature-item-grid-copy-left">
+          <div class="feature-item-image-lockup">
+            <div class="feature-item-image img-1" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-3-1.jpg')"></div>
+            <div class="feature-item-image img-2" data-focus-start="b-0vh" data-focus-end="b-100vh" data-focus-vars="true" style="background-image: url('/assets/home/fo-step-3-2.jpg')"></div>
+          </div>
+          <div class="feature-copy typography">
+            <h2 class="feature-copy-eyebrow visually-h5">Étape 3</h2>
+            <h3 class="feature-copy-headline visually-h2">Connectez-vous à des mentors et des jeunes.</h3>
+            <p>Toute personne intéressée par le mentorat peut rechercher des occasions de mentorat par code postal et type de programme, et contacter les programmes qui les intéressent. Vous pourrez augmenter la visibilité et la portée de votre programme, gérer le profil de vos programmes, obtenir des mesures en temps réel sur les recherches et recevoir des notifications des mentors et des jeunes intéressés.</p>
+            <router-link :to="link('admin')" class="icon-link">
+              Connectez-vous au Connecteur Mentor
+              <span class="material-icons">arrow_forward</span>
+            </router-link>
+          </div>
+        </div>
+
+        <div class="feature-cta">
+          <div class="feature-cta-item">
+            <div class="typography">
+              <h2>Accroître la portée de votre organisation dès aujourd’hui.</h2>
+              <p class="large">Inscrivez-vous au Connecteur Mentor pour rehausser le profil de vos programmes et initiatives de mentorat.</p>
+            </div>
+            <router-link :to="link('organizations/add')">
+              <button>{{ $t('list-program-button') }}</button>
+            </router-link>
+          </div>
+          <div class="feature-cta-item">
+            <div class="typography">
+              <h3>Besoin de support technique?</h3>
+              <p>Contactez-nous ou visitez notre guide d’utilisateur du Connecteur Mentor disponible à notre Centre de support et de formation.</p>
+              <a class="icon-link" href="https://support.mentoringcanada.ca/">
+                Accéder au Centre de support et de formation
+                <span class="material-icons">arrow_forward</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      <section id="extras">
+        <div class="typography">
+          <h2>Faites passer le mot!</h2>
+
+          <div class="share-block extras-block">
+            <h4>Aidez-nous à faire passer le message en partageant cette page sur les médias sociaux.</h4>
+            <div class="block-actions">
+              <a target="_blank" :href="`https://www.facebook.com/sharer/sharer.php?u=https://connect.mentoringcanada.ca/${app.getCurrentLanguage()}`">
+                <span class="visually-hidden">Share on Facebook</span>
+                <div class="button-shape fb"></div>
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" :href="`https://twitter.com/intent/tweet?text=https://connect.mentoringcanada.ca/${app.getCurrentLanguage()}`">
+                <span class="visually-hidden">Share on Twitter</span>
+                <div class="button-shape tw"></div>
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a target="_blank" :href="`https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%connect.mentoringcanada.ca%2F${app.getCurrentLanguage()}&amp;title=Mentor%20Connector&amp;source=Mentor%20Canada`">
+                <span class="visually-hidden">Share on LinkedIn</span>
+                <div class="button-shape li"></div>
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="follow-block extras-block">
+            <h4>Restez à jour en suivant Mentor Canada.</h4>
+            <div class="block-actions">
+              <a href="https://www.facebook.com/mentoringcanada/" target="_blank">
+                <span class="visually-hidden">Suivez-nous sur Facebook</span>
+                <div class="button-shape fb"></div>
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+              </a>
+              <a href="https://twitter.com/Mentoringcanada" target="_blank">
+                <span class="visually-hidden">Suivez-nous sur Twitter</span>
+                <div class="button-shape tw"></div>
+                <i class="fab fa-twitter" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.linkedin.com/company/canadian-mentoring-partnership-partenariat-canadien-de-mentorat/?viewAsMember=true" target="_blank">
+                <span class="visually-hidden">Suivez-nous sur LinkedIn</span>
+                <div class="button-shape li"></div>
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.instagram.com/mentorcanada/" target="_blank">
+                <span class="visually-hidden">Suivez-nous sur Instagram</span>
+                <div class="button-shape ig"></div>
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+              </a>
+              <a href="https://www.youtube.com/channel/UCYExa1ehADYg-kzG7lSmPoQ/" target="_blank">
+                <span class="visually-hidden">Suivez-nous sur YouTube</span>
                 <div class="button-shape yt"></div>
                 <i class="fab fa-youtube" aria-hidden="true"></i>
               </a>
