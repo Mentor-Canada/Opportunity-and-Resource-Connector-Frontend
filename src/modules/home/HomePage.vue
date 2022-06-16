@@ -408,7 +408,7 @@
           </div>
           <div class="feature-copy typography">
             <h2 class="feature-copy-eyebrow visually-h5">Qu’est-ce que le mentorat peut faire pour vous?</h2>
-            <h3 class="feature-copy-headline visually-h2">Atteindre votre plein potentiel.</h3>
+            <h3 class="feature-copy-headline visually-h2">Trouver votre plein potentiel.</h3>
             <p>Vous aidez à fixer des objectifs académiques et vous fournir des conseils sur la façon de les atteindre.</p>
             <p>Vous supportez à faire des choix de vie sains au quotidien, en concentrant sur le bien-être et la santé mentale, les sports et les activités, les compétences sociales et émotionnelles et bien plus encore.</p>
             <p>Vous fournir des conseils sur la façon de trouver votre premier emploi ou d'approfondir vos possibilités d'études.</p>
@@ -607,7 +607,7 @@
           </div>
           <div class="feature-copy typography">
             <h2 class="feature-copy-eyebrow visually-h5">Étape 1</h2>
-            <h3 class="feature-copy-headline visually-h2">Faites répertorier votre organization.</h3>
+            <h3 class="feature-copy-headline visually-h2">Faites répertorier votre organisation.</h3>
             <p>Si vous êtes une organisation offrant un programme de mentorat, vous pouvez soumettre votre organisation et être répertorié dans Connecteur Mentor.</p>
             <router-link :to="link('organizations/add')" class="icon-link">
               Faites répertorier votre organisation
