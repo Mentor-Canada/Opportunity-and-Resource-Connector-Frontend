@@ -1,6 +1,6 @@
 <template>
   <div data-page="results" v-if="isReady" data-content-width="wide" :data-zip="this.search.attributes.zip">
-    <div class="results-pane" :class="loading ? 'loading' : ''">
+    <div class="results-pane" :class="updatingSearch ? 'updating-search' : ''">
       <list-component
         ref="list"
         :id="$route.params.id"
@@ -51,7 +51,7 @@ export default {
       headline: '',
       subheadline: '',
       response: '',
-      loading: true,
+      updatingSearch: false,
     };
   },
 
@@ -112,10 +112,6 @@ export default {
       this.request.begin();
     },
 
-    onLoadingChanged(value) {
-      this.loading = value;
-    },
-
     gotoPage(data) {
       this.request.begin(async () => {
         this.app.showLoading();
@@ -146,8 +142,7 @@ export default {
     },
 
     async updateSearch() {
-      this.loading = true;
-      this.app.showLoading();
+      this.updatingSearch = true;
       if (!FLAG_NEW_RESULTS) {
         await this.search.update();
       }
@@ -165,7 +160,7 @@ export default {
         }
         this.$refs.list.refresh(this.response);
         this.request.end();
-        this.app.hideLoading();
+        this.updatingSearch = false;
       });
     },
 

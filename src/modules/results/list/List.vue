@@ -10,75 +10,72 @@
         <button class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
       </div>
 
-      <div class="delivery-criteria-container">
-        <div class="program-delivery" v-if="!search.attributes.national">
-          <button class="compact" :class="search.attributes.delivery.indexOf('community') === -1 ? 'inactive' : ''" @click="onDeliveryClick('community')">{{ t("app-program-delivery-community-based") }}</button>
-          <button class="compact" :class="search.attributes.delivery.indexOf('siteBased') === -1 ? 'inactive' : ''" @click="onDeliveryClick('siteBased')">{{ t("app-program-delivery-site-based") }}</button>
-          <button class="compact" :class="search.attributes.delivery.indexOf('eMentoring') === -1 ? 'inactive' : ''" @click="onDeliveryClick('eMentoring')">{{ t("app-program-delivery-e-mentoring") }}</button>
+      <div class="results-list-header-search-criteria">
+
+        <div class="search-criteria-wrapper" v-if="!search.attributes.national">
+          <ProgramDeliveryDropdown @on-criteria-click="onCriteriaClick" @on-delivery-click="onDeliveryClick" :search="search" ref="program-delivery"></ProgramDeliveryDropdown>
         </div>
 
-        <div class="results-list-header-search-criteria">
-          <div class="search-criteria-wrapper">
-            <search-criteria-list v-model="search.attributes.focus"
-                                  ref="search-criteria-list-focus"
-                                  name="search-criteria-focus"
-                                  :options="searchOptionsFocusArea"
-                                  @input="$emit('update-search')"
-            />
-            <button class="search-criteria" :class="search.attributes.focus != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-focus')">
-              <span class="search-criteria-label">{{ t("app-focus-area") }}</span>
-            </button>
-          </div>
-          <div class="search-criteria-wrapper">
-            <search-criteria-list v-model="search.attributes.age"
-                                  ref="search-criteria-list-age"
-                                  name="search-criteria-age"
-                                  :options="searchOptionsAgesProgramServes"
-                                  @input="$emit('update-search')"
-            />
-            <button class="search-criteria" :class="search.attributes.age != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-age')">
-              <span class="search-criteria-label">{{ t("app-ages") }}</span>
-            </button>
-          </div>
-          <div class="search-criteria-wrapper">
-            <search-criteria-list v-model="search.attributes.youth"
-                                  ref="search-criteria-list-youth"
-                                  name="search-criteria-youth"
-                                  :options="searchOptionsYouthProgramServes"
-                                  @input="$emit('update-search')"
-            />
-            <button class="search-criteria" :class="search.attributes.youth != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-youth')">
-              <span class="search-criteria-label">{{ t("app-youth-served") }}</span>
-            </button>
-          </div>
-          <div class="search-criteria-wrapper">
-            <search-criteria-list v-model="search.attributes.typeOfMentoring"
-                                  ref="search-criteria-list-type"
-                                  name="search-criteria-type"
-                                  :options="searchOptionsTypeOfMentoring"
-                                  @input="$emit('update-search')"
-            />
-            <button class="search-criteria" :class="search.attributes.typeOfMentoring != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-type')">
-              <span class="search-criteria-label">{{ t("app-mentoring-type") }}</span>
-            </button>
-          </div>
-          <div class="search-criteria-wrapper" v-if="!search.attributes.national">
-            <search-criteria-list v-model="search.attributes.distance"
-                                  ref="search-criteria-list-distance"
-                                  name="search-criteria-distance"
-                                  :options="searchOptionsDistance"
-                                  @input="$emit('update-search')"
-            />
-            <button class="search-criteria active" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-distance')">
-              <span class="search-criteria-label">{{ t('app-distance-label', {distance: search.attributes.distance}) }}</span>
-            </button>
+        <div class="search-criteria-wrapper">
+          <search-criteria-list v-model="search.attributes.focus"
+                                ref="search-criteria-list-focus"
+                                name="search-criteria-focus"
+                                :options="searchOptionsFocusArea"
+                                @input="$emit('update-search')"
+          />
+          <button class="search-criteria" :class="search.attributes.focus != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-focus')">
+            <span class="search-criteria-label">{{ t("app-focus-area") }}</span>
+          </button>
+        </div>
+        <div class="search-criteria-wrapper">
+          <search-criteria-list v-model="search.attributes.age"
+                                ref="search-criteria-list-age"
+                                name="search-criteria-age"
+                                :options="searchOptionsAgesProgramServes"
+                                @input="$emit('update-search')"
+          />
+          <button class="search-criteria" :class="search.attributes.age != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-age')">
+            <span class="search-criteria-label">{{ t("app-ages") }}</span>
+          </button>
+        </div>
+        <div class="search-criteria-wrapper">
+          <search-criteria-list v-model="search.attributes.youth"
+                                ref="search-criteria-list-youth"
+                                name="search-criteria-youth"
+                                :options="searchOptionsYouthProgramServes"
+                                @input="$emit('update-search')"
+          />
+          <button class="search-criteria" :class="search.attributes.youth != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-youth')">
+            <span class="search-criteria-label">{{ t("app-youth-served") }}</span>
+          </button>
+        </div>
+        <div class="search-criteria-wrapper">
+          <search-criteria-list v-model="search.attributes.typeOfMentoring"
+                                ref="search-criteria-list-type"
+                                name="search-criteria-type"
+                                :options="searchOptionsTypeOfMentoring"
+                                @input="$emit('update-search')"
+          />
+          <button class="search-criteria" :class="search.attributes.typeOfMentoring != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-type')">
+            <span class="search-criteria-label">{{ t("app-mentoring-type") }}</span>
+          </button>
+        </div>
+        <div class="search-criteria-wrapper" v-if="!search.attributes.national">
+          <search-criteria-list v-model="search.attributes.distance"
+                                ref="search-criteria-list-distance"
+                                name="search-criteria-distance"
+                                :options="searchOptionsDistance"
+                                @input="$emit('update-search')"
+          />
+          <button class="search-criteria" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-distance')">
+            <span class="search-criteria-label">{{ t('app-distance-label', {distance: search.attributes.distance}) }}</span>
+          </button>
 
-          </div>
         </div>
       </div>
     </div>
 
-    <div v-if="rows.length">
+    <div class="results-list-table-and-pagination" v-if="rows.length">
       <table id="results-list-table" class="ui-table clickable-rows" v-on:click.prevent="">
         <tbody>
         <tr v-for="(program, i) in rows" v-on:click.prevent="handleClick($props.id, program.UUID)">
@@ -130,6 +127,7 @@
 
 <script lang="ts">
 import BaseMixin from 'BaseMixin';
+import ProgramDeliveryDropdown from '../ProgramDeliveryDropdown.vue';
 import SearchCriteriaList from '../../../components/SearchCriteriaList.vue';
 import searchOptionsFocusArea from '../../search/searchOptionsFocusArea';
 import searchOptionsAgesProgramServes from '../../search/searchOptionsAgesProgramServes';
@@ -152,6 +150,7 @@ export default {
     'search-criteria-list': SearchCriteriaList,
     'program-search-delivery': ProgramSearchDelivery,
     pagination: Pagination,
+    ProgramDeliveryDropdown,
   },
 
   data() {

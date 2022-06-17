@@ -18,6 +18,7 @@ $typography-color: #333;
 @import "./common/dialog";
 
 @import "modules/results/Results.sass";
+@import "modules/results/search-criteria.scss";
 @import "modules/programs/apply/ProgramApply.sass";
 @import "modules/settings/list/SettingsListPage";
 @import "modules/admin/Admin.scss";

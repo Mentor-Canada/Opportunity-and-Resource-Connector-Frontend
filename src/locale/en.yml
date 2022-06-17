@@ -41,3 +41,11 @@ search-page-search-location-tip: Enter your postal code or location to search fo
 search-sub-headline: mentor
 search: Search
 unresponsive: Unresponsive
+
+app-program-delivery-label: Program Delivery
+app-program-delivery-community-based-label-title: Community-based
+app-program-delivery-community-based-label-description: Mentors and mentees can meet at any location within the community.
+app-program-delivery-site-based-label-title: Site-based
+app-program-delivery-site-based-label-description: Site-based delivery provides access to many young people in a controlled setting and allow access to additional educational, recreational, and developmental supports that can enhance the mentoring relationship. Other meeting locations can include mentors’ workplaces, faith-based locations, or site-based locations (typically at a community agency such as a youth centre).
+app-program-delivery-e-mentoring-label-title: e-mentoring
+app-program-delivery-e-mentoring-label-description: Mentors and mentees rely on technology (e.g., phone, digital platforms, Internet-mediated communications) to meet remotely.
