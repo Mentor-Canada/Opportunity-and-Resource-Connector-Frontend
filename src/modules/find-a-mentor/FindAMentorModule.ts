@@ -7,7 +7,7 @@ import FindAMentor from './FindAMentor.vue';
 class FindAMentorModule extends BaseModule {
   getRoutes(): RouteInterface[] {
     return (new RouteBuilder())
-      .title('find-a-mentor')
+      .title('app-find-a-mentor')
       .meta('newTypography', true)
       .path('find-a-mentor')
       .component(FindAMentor)
