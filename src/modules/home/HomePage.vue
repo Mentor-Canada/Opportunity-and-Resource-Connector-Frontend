@@ -110,7 +110,7 @@
             <div class="typography">
               <h3>Not ready to connect with a mentor yet? Join us at an event instead!</h3>
               <p>If you're 18 to 30 years old, join us at an upcoming Power of Mentoring event! These fireside chat mentoring events allow you to connect with volunteers and prospective employers. You can ask anything and work on networking, goal setting, and personal branding. Learn how to write the perfect resume, land your first job, or make a career change.</p>
-              <a class="icon-link" href="https://www.mentoringcanada.ca/en/mentor-connector/powerofmentoring.ca">
+              <a class="icon-link" href="https://powerofmentoring.ca">
                 Attend a Power of Mentoring Event
                 <span class="material-icons">arrow_forward</span>
               </a>
@@ -485,7 +485,7 @@
             <div class="typography">
               <h3>Pas encore prêt à entrer en contact avec un mentor? Rejoignez-nous lors d'un événement!</h3>
               <p>Si vous êtes entre l'âge de 18 et 30 ans, rejoignez-nous à un événement sur le Pouvoir du mentorat! Ces événements de mentorat vous permettent de vous connecter avec des bénévoles et des employeurs potentiels. Vous pouvez poser toutes vos questions et apprendre davantage sur le réseautage, la définition d'objectifs et l'image de marque personnelle. Renseignez-vous sur comment rédiger un résumé parfait, obtenir votre premier emploi ou changer de carrière.</p>
-              <a class="icon-link" href="https://www.mentoringcanada.ca/en/mentor-connector/powerofmentoring.ca">
+              <a class="icon-link" href="https://pouvoirdumentorat.ca">
                 Rejoigner un événement le Pouvoir du mentorat
                 <span class="material-icons">arrow_forward</span>
               </a>
