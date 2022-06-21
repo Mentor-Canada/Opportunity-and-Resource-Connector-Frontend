@@ -9,8 +9,8 @@
 
     <div class="social-block" v-if="this.isSearchUrl">
       <div class="actions">
-        <button class="compact" @click="backToResults">{{ t("app-back-to-search-results") }}</button>
-        <button class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
+        <button v-if="$route.query.search" class="compact" @click="backToResults">{{ t("app-back-to-search-results") }}</button>
+        <button v-if="$route.query.type" class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
       </div>
     </div>
     <div class="social-block" v-else>

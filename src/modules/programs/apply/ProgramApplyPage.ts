@@ -258,9 +258,9 @@ export default {
       await this.application.save();
       const title = this.program.getTitle();
       if (!this.isSearchUrl) {
-        await this.router.push(this.link(`applications/submitted/program-inquiry?title=${title}`));
+        await this.router.push(this.link(`applications/submitted?title=${title}`));
       } else {
-        await this.router.push(this.link(`applications/submitted/${this.application.attributes.search}?title=${title}`));
+        await this.router.push(this.link(`applications/submitted?title=${title}&search=true&type=${this.$route.query.type}`));
       }
     },
 

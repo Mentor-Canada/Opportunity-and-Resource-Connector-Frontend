@@ -23,10 +23,10 @@ export default {
 
   methods: {
     searchAgain() {
-      this.router.push(this.link(''));
+      this.router.push(this.link(`${this.$route.query.type}`));
     },
     backToResults() {
-      this.router.push(this.link(`search/${this.$route.params.searchId}`));
+      this.router.go(-2);
     },
   },
 };

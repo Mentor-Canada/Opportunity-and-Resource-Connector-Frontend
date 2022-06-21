@@ -8,7 +8,7 @@ window.addEventListener('register-module', (e) => {
   let routes = [];
   routes = routes.concat(new RouteBuilder()
     .title('app-application')
-    .path('applications/submitted/:searchId')
+    .path('applications/submitted')
     .component(SubmittedPage)
     .langCodes(globals.app.langCodes)
     .build());
