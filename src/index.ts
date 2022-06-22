@@ -205,7 +205,7 @@ window.app.load()
 
     router.beforeEach((to, from, next) => {
       document.querySelector('body').classList.remove('page-search');
-      document.querySelector('body').setAttribute('data-path', PathAdapter.kebabCase(to.fullPath));
+      document.querySelector('body').setAttribute('data-path', PathAdapter.kebabCase(to.path));
       if(to.meta.newTypography) {
         document.querySelector('html').classList.add('a');
         document.querySelector('html').classList.remove('b');
