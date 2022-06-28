@@ -38,6 +38,9 @@ export default class Result {
     this.row = row;
 
     this.title = row.title;
+    if(window.app.language.langcode == "fr" && row.program_title_fr != "") {
+      this.title = row.program_title_fr;
+    }
     this.organization_title = row.organization_title;
     if (row.uri) this.logoUrl = row.url;
     if (row.organization_uri) this.organizationLogoUrl = row.organization_logo_url;
