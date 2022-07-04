@@ -154,11 +154,7 @@ export default {
       this.app.showLoading();
       this.program.document.id = this.$route.params.programId;
 
-      if (!FeatureFlags.NEW_RESULTS) {
-        if (this.$route.params.searchId) this.isSearchUrl = true;
-      } else {
-        this.isSearchUrl = true;
-      }
+      this.isSearchUrl = true;
 
       await Promise.all([this.program.load()]);
       if (this.program.attributes.standing != 'app-allowed') {
@@ -166,12 +162,6 @@ export default {
         return;
       }
       document.title = `${this.program.localizedAttributes[this.lang.langcode].field_display_title} | ${this.t('app-sitename')}`;
-
-      if (this.isSearchUrl && !FeatureFlags.NEW_RESULTS) {
-        await Promise.all([this.search.load(this.$route.params.searchId)]);
-        this.application.attributes.search = this.$route.params.searchId;
-        this.application.attributes.role = this.search.attributes.role;
-      }
 
       this.pageHeader = this.program.localizedAttributes[window.app.language.langcode].field_display_title;
 
@@ -182,22 +172,7 @@ export default {
 
       if (this.isSearchUrl) {
         let rows: any[] = [];
-        if (FeatureFlags.NEW_RESULTS) {
-          rows = Manager.getInstance().results;
-        } else {
-          const params = {
-            search: this.$route.params.searchId,
-          };
-          const encodeDataToURL = (data) => Object
-            .keys(data)
-            .map((value) => `${value}=${encodeURIComponent(data[value])}`)
-            .join('&');
-          const queryString = encodeDataToURL(params);
-
-          const builder = new ResultCollectionBuilder(this.$route.params.searchId);
-          const response = await builder.build();
-          rows = response.data.data as [];
-        }
+        rows = Manager.getInstance().results;
 
         const { id } = this.program.document;
 
@@ -302,27 +277,15 @@ export default {
       return icon;
     },
     handleClick(programId) {
-      if (FeatureFlags.NEW_RESULTS) {
-        this.router.push(`${this.link(`program/${programId}`)}`);
-      } else {
-        this.router.push(`${this.link(`search/${this.$route.params.searchId}/apply/${programId}`)}`);
-      }
+      this.router.push(`${this.link(`program/${programId}`)}`);
     },
     searchAgain() {
-      if (FeatureFlags.NEW_RESULTS) {
-        const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
-        this.router.push(this.link(path));
-      } else {
-        this.router.push(this.link(''));
-      }
+      const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
+      this.router.push(this.link(path));
     },
     backToResults() {
-      if (FeatureFlags.NEW_RESULTS) {
-        if (Manager.getInstance().searchUrl) {
-          this.router.push(Manager.getInstance().searchUrl);
-        }
-      } else {
-        this.router.push(this.link(`search/${this.$route.params.searchId}`));
+      if (Manager.getInstance().searchUrl) {
+        this.router.push(Manager.getInstance().searchUrl);
       }
     },
     setAccepting() {

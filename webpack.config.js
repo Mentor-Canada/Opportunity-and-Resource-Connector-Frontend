@@ -14,15 +14,9 @@ module.exports = (env = {}) => {
   if(env.mock) {
     entry.unshift('./src/mock/mock.ts');
   }
-  if(env.split_search) {
-    entry.push('./src/modules/home/HomeModule.ts');
-  }
-  if(env.flag_new_results) {
-    entry.push('./src/modules/become-a-mentor/BecomeAMentorModule.ts');
-  }
-  if(env.flag_new_results) {
-    entry.push('./src/modules/find-a-mentor/FindAMentorModule.ts');
-  }
+  entry.push('./src/modules/home/HomeModule.ts');
+  entry.push('./src/modules/become-a-mentor/BecomeAMentorModule.ts');
+  entry.push('./src/modules/find-a-mentor/FindAMentorModule.ts');
 
   const api_url = env.api_url ?? 'http://localhost:8081';
 
@@ -126,9 +120,7 @@ module.exports = (env = {}) => {
         version: env.version
       }),
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(api_url),
-        FLAG_SPLIT_SEARCH: JSON.stringify(env.split_search ?? false),
-        FLAG_NEW_RESULTS: JSON.stringify(env.flag_new_results ?? false)
+        API_URL: JSON.stringify(api_url)
       })
     ],
   }

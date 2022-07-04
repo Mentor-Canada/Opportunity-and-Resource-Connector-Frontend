@@ -140,7 +140,6 @@ import searchOptionsDistance from '../../search/searchOptionsDistance';
 import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
-import FeatureFlags from '../../../FeatureFlags';
 import Manager from '../../../core/Manager';
 
 export default {
@@ -191,21 +190,13 @@ export default {
 
   methods: {
     searchAgain() {
-      if (FeatureFlags.NEW_RESULTS) {
-        const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
-        this.router.push(this.link(path));
-      } else {
-        this.router.push(this.link(''));
-      }
+      const path = Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor';
+      this.router.push(this.link(path));
     },
 
     handleClick(routeParamsId, programId) {
-      if (FeatureFlags.NEW_RESULTS) {
-        const roleParam = `?type=${Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor'}`;
-        this.router.push(this.link(`program/${programId}${roleParam}`));
-      } else {
-        this.router.push(this.link(`search/${routeParamsId}/apply/${programId}`));
-      }
+      const roleParam = `?type=${Manager.getInstance().searchRole === 'mentor' ? 'become-a-mentor' : 'find-a-mentor'}`;
+      this.router.push(this.link(`program/${programId}${roleParam}`));
     },
 
     async refresh(response) {

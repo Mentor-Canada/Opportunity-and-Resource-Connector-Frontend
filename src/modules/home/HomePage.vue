@@ -770,19 +770,11 @@ export default {
 
   methods: {
     becomeAMentor() {
-      if (FeatureFlags.NEW_RESULTS) {
-        this.$router.push(this.link('become-a-mentor'));
-      } else {
-        this.$router.push(this.link('search'));
-      }
+      this.$router.push(this.link('become-a-mentor'));
     },
 
     findAMentor() {
-      if (FeatureFlags.NEW_RESULTS) {
-        this.$router.push(this.link('find-a-mentor'));
-      } else {
-        this.$router.push(this.link('search'));
-      }
+      this.$router.push(this.link('find-a-mentor'));
     }
   }
 }

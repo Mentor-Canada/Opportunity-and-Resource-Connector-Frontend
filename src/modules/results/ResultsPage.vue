@@ -31,9 +31,6 @@ import LocationResultsCollectionBuilder from "./LocationResultsCollectionBuilder
 import SearchUrlAdapter from "../search/SearchUrlAdapter";
 import SearchQueryParams from "./SearchQueryParams";
 import Manager from "../../core/Manager";
-import FeatureFlags from '../../FeatureFlags';
-
-declare const FLAG_NEW_RESULTS: boolean;
 
 export default {
 
@@ -60,40 +57,30 @@ export default {
 
     this.request = new RequestQueue();
 
-    if (!FLAG_NEW_RESULTS) {
-      this.id = this.$route.params.id;
-      await this.search.load(this.id);
-
-      this.builder = new ResultCollectionBuilder(this.id)
-        .offset(0)
-        .limit(paginationResultsPerPage[0]);
-      this.response = await this.builder.build();
-    } else {
-      const searchUrlAdapter = new SearchUrlAdapter();
-      this.search = new Search();
-      this.search.attributes.age = searchUrlAdapter.age;
-      this.search.attributes.delivery = searchUrlAdapter.delivery;
-      this.search.attributes.distance = searchUrlAdapter.distance;
-      this.search.attributes.focus = searchUrlAdapter.focus;
-      this.search.attributes.grade = searchUrlAdapter.grade;
-      this.search.attributes.partnerId = searchUrlAdapter.partnerId;
-      this.search.attributes.role = searchUrlAdapter.role;
-      this.search.attributes.typeOfMentoring = searchUrlAdapter.typeOfMentoring;
-      this.search.attributes.youth = searchUrlAdapter.youth;
-      let location = this.$route.params.location;
-      if (location === 'e-mentoring') {
-        location = 'app-national';
-        this.search.attributes.national = true;
-      }
-
-      this.builder = new LocationResultsCollectionBuilder(location)
-        .offset(0)
-        .limit(paginationResultsPerPage[0]);
-      this.onSearch();
-      this.response = await this.builder.build();
-      Manager.getInstance().results = this.response.data.data;
-      Manager.getInstance().searchRole = this.search.attributes.role;
+    const searchUrlAdapter = new SearchUrlAdapter();
+    this.search = new Search();
+    this.search.attributes.age = searchUrlAdapter.age;
+    this.search.attributes.delivery = searchUrlAdapter.delivery;
+    this.search.attributes.distance = searchUrlAdapter.distance;
+    this.search.attributes.focus = searchUrlAdapter.focus;
+    this.search.attributes.grade = searchUrlAdapter.grade;
+    this.search.attributes.partnerId = searchUrlAdapter.partnerId;
+    this.search.attributes.role = searchUrlAdapter.role;
+    this.search.attributes.typeOfMentoring = searchUrlAdapter.typeOfMentoring;
+    this.search.attributes.youth = searchUrlAdapter.youth;
+    let location = this.$route.params.location;
+    if (location === 'e-mentoring') {
+      location = 'app-national';
+      this.search.attributes.national = true;
     }
+
+    this.builder = new LocationResultsCollectionBuilder(location)
+      .offset(0)
+      .limit(paginationResultsPerPage[0]);
+    this.onSearch();
+    this.response = await this.builder.build();
+    Manager.getInstance().results = this.response.data.data;
+    Manager.getInstance().searchRole = this.search.attributes.role;
 
     this.ready();
   },
@@ -143,21 +130,14 @@ export default {
 
     async updateSearch() {
       this.updatingSearch = true;
-      if (!FLAG_NEW_RESULTS) {
-        await this.search.update();
-      }
 
       // update list
       this.request.begin(async () => {
-        if (FLAG_NEW_RESULTS) {
-          this.onSearch();
-        }
+        this.onSearch();
 
         this.response = await this.builder
           .build();
-        if (FeatureFlags.NEW_RESULTS) {
-          Manager.getInstance().results = this.response.data.data;
-        }
+        Manager.getInstance().results = this.response.data.data;
         this.$refs.list.refresh(this.response);
         this.request.end();
         this.updatingSearch = false;

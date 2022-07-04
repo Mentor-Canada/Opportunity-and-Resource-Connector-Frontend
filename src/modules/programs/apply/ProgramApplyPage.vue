@@ -35,7 +35,7 @@
         </div>
 
         <div class="search-actions" v-if="this.isSearchUrl">
-          <button class="compact" @click="backToResults" v-if="!featureFlags.NEW_RESULTS || manager.searchUrl">{{ t("app-back-to-search-results") }}</button>
+          <button class="compact" @click="backToResults" v-if="manager.searchUrl">{{ t("app-back-to-search-results") }}</button>
           <button class="compact" @click="searchAgain">{{ t("app-search-again") }}</button>
         </div>
       </div>

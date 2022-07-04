@@ -100,7 +100,6 @@ import Checkbox from './components/Checkbox.vue';
 import AxiosDecorator from './AxiosDecorator';
 import PathAdapter from "./utils/PathAdapter";
 import RouterFactory from './core/RouterFactory';
-import FeatureFlags from './FeatureFlags';
 
 Vue.config.errorHandler = (err, vm, info) => {
   if (err == 'Not Implemented') {
@@ -212,9 +211,6 @@ window.app.load()
       } else {
         document.querySelector('html').classList.add('b');
         document.querySelector('html').classList.remove('a');
-      }
-      if(FeatureFlags.SPLIT_SEARCH) {
-        document.querySelector('html').classList.add('feature-flag-split-search');
       }
       if (window.app.view) window.app.view.adminMenuOpen = false;
       const nearestWithTitle = to.matched.slice().reverse().find((r) => r.meta && r.meta.title);

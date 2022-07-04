@@ -16,6 +16,5 @@ import './programs/ProgramModule';
 import './regions/RegionsModule';
 import './reset/ResetModule';
 import './results/ResultsModule';
-import './search/SearchModule';
 import './searches/SearchesModule';
 import './sign-in/SignInModule';
