@@ -7,7 +7,7 @@
 
   <md-dialog :md-active.sync="showRemoveConfirmation">
     <md-dialog-title>{{ t("app-are-you-sure") }}</md-dialog-title>
-    <md-dialog-content>{{ t("app-are-you-sure-you-want-to-delete") }} <i>{{ organization.localizedAttributes[lang.langcode].field_display_title }}</i>. <b>{{ t("app-cannot-be-undone") }}</b></md-dialog-content>
+    <md-dialog-content>{{ t("app-are-you-sure-you-want-to-delete") }} <i>{{ organization.getTitle() }}</i>. <b>{{ t("app-cannot-be-undone") }}</b></md-dialog-content>
     <md-dialog-actions>
       <md-button class="md-primary" @click="showRemoveConfirmation = false">{{ t("app-cancel") }}</md-button>
       <md-button class="md-primary" @click="remove()">{{ t("app-delete") }}</md-button>
