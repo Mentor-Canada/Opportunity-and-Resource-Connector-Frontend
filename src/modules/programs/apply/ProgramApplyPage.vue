@@ -137,7 +137,7 @@
             <div class="description info">{{ program.localizedAttributes[currentLanguage].field_description }}</div>
           </div>
 
-          <div class="info-groups">
+          <div class="info-groups" v-if="this.application.attributes.role === 'mentor'">
             <div class="info-group-label">{{ t("app-mentor-role-description") }}</div>
             <div class="description info">{{ program.localizedAttributes[currentLanguage].field_mentor_role_description }}</div>
           </div>
