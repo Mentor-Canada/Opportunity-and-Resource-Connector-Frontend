@@ -14,6 +14,7 @@ export default class OrganizationOptions extends Options {
     .options;
 
   taxStatus = new OptionCollection()
+    .add('')
     .add('app-organization-tax-status-for-profit')
     .add('app-organization-tax-status-not-for-profit')
     .add('app-organization-tax-status-registered-charity')
@@ -22,6 +23,7 @@ export default class OrganizationOptions extends Options {
     .options;
 
   position = new OptionCollection()
+    .add('')
     .add('app-organization-position-founder')
     .add('app-organization-position-president-ceo')
     .add('app-organization-position-executive-director')
