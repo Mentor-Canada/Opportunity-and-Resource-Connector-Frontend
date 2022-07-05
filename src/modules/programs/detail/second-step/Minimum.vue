@@ -52,6 +52,7 @@ export default {
     return {
       yesOrNoOptions: YesOrNoOptions(),
       monthOptions: new OptionCollection()
+        .add('')
         .add('app-less-than-one-month')
         .add('app-1-month')
         .add('app-2-months')
@@ -69,12 +70,14 @@ export default {
         .add('app-no-minimum-match-commitment')
         .options,
       frequencyOptions: new OptionCollection()
+        .add('')
         .add('app-frequency-weekly')
         .add('app-frequency-bi-weekly')
         .add('app-frequency-monthly')
         .add('other', 'app-other')
         .options,
       durationOptions: new OptionCollection()
+        .add('')
         .add('app-less-than-1-hour')
         .add('app-1-hour')
         .add('app-1-2-hours')

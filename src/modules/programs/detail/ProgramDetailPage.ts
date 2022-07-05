@@ -128,6 +128,7 @@ export default {
     optionsFocusArea() {
       if (this.countryCode == 'ca') {
         return [
+          { value: '', name: '' },
           { value: 'app-ca-program-focus-academics-literacy', name: this.t('app-ca-program-focus-academics-literacy') },
           { value: 'app-ca-program-focus-arts', name: this.t('app-ca-program-focus-arts') },
           { value: 'app-ca-program-focus-job-skills-career-readiness', name: this.t('app-ca-program-focus-job-skills-career-readiness') },
@@ -153,6 +154,7 @@ export default {
     optionsPrimaryMeetingLocation() {
       if (this.countryCode == 'ca') {
         return [
+          { value: '', name: '' },
           { value: 'app-ca-program-meeting-program-agency-site', name: this.t('app-ca-program-meeting-program-agency-site') },
           { value: 'app-ca-program-meeting-community', name: this.t('app-ca-program-meeting-community') },
           { value: 'app-ca-program-meeting-faith-based-site', name: this.t('app-ca-program-meeting-faith-based-site') },
