@@ -57,9 +57,6 @@ export default {
 
   async mounted() {
     await this.render();
-    if (this.$route.query.type === 'find-a-mentor') {
-      this.application.attributes.role = 'mentee';
-    }
   },
 
   computed: {
@@ -149,6 +146,9 @@ export default {
     async render() {
       this.moreResults = [];
       this.application = new Application();
+      if (this.$route.query.type === 'find-a-mentor') {
+        this.application.attributes.role = 'mentee';
+      }
       this.search = new Search();
       this.program = new Program();
       this.app.showLoading();
