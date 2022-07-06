@@ -17,16 +17,9 @@
         </div>
 
         <div class="search-criteria-wrapper">
-          <search-criteria-list v-model="search.attributes.focus"
-                                ref="search-criteria-list-focus"
-                                name="search-criteria-focus"
-                                :options="searchOptionsFocusArea"
-                                @input="$emit('update-search')"
-          />
-          <button class="search-criteria" :class="search.attributes.focus != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-focus')">
-            <span class="search-criteria-label">{{ t("app-focus-area") }}</span>
-          </button>
+          <FocusAreaDropdown @on-criteria-click="onCriteriaClick" @on-focus-click="onFocusAreaClick" :search="search" :options="searchOptionsFocusArea" ref="program-focus"></FocusAreaDropdown>
         </div>
+
         <div class="search-criteria-wrapper">
           <search-criteria-list v-model="search.attributes.age"
                                 ref="search-criteria-list-age"
@@ -141,6 +134,7 @@ import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
 import Manager from '../../../core/Manager';
+import FocusAreaDropdown from "../FocusAreaDropdown.vue";
 
 export default {
   mixins: [BaseMixin],
@@ -148,6 +142,7 @@ export default {
   props: ['id', 'search', 'response'],
 
   components: {
+    FocusAreaDropdown,
     'search-criteria-list': SearchCriteriaList,
     'program-search-delivery': ProgramSearchDelivery,
     pagination: Pagination,
@@ -251,6 +246,22 @@ export default {
         }
         this.search.attributes.delivery.splice(index, 1);
       }
+      this.$emit('update-search');
+    },
+
+    onFocusAreaClick(focusToggle) {
+      if(!Array.isArray(this.search.attributes.focus)) {
+        this.search.attributes.focus = [this.search.attributes.focus];
+      }
+      const index = this.search.attributes.focus.indexOf(focusToggle);
+      if (index == -1) {
+        this.search.attributes.focus.push(focusToggle);
+      } else {
+        if (this.search.attributes.focus.length == 1) {
+          return;
+        }
+        this.search.attributes.focus.splice(index, 1);
+      };
       this.$emit('update-search');
     },
 

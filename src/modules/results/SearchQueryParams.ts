@@ -14,7 +14,7 @@ export default class SearchQueryParams {
 
   grade: string = 'all';
 
-  focus: string = 'all';
+  focus: any[] = [];
 
   youth: string = 'all';
 

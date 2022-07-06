@@ -1,4 +1,5 @@
 import UserParams from '../UserParams';
+import searchOptionsFocusArea from "../modules/search/searchOptionsFocusArea";
 
 export default class SearchAttributes {
   static readonly COMMUNITY_BASED_DELIVERY = 'community';
@@ -21,7 +22,7 @@ export default class SearchAttributes {
 
   public youth: string = 'all';
 
-  public focus: string = 'all';
+  public focus: any[] = [];
 
   public howDidYouHearAboutUs: string;
 
@@ -127,11 +128,15 @@ export default class SearchAttributes {
         params.eMentoring = 1;
       }
     }
-    if (this.focus !== 'all') {
-      params.focus = this.focus.replace('app-ca-program-focus-', '');
+    const focusOptions = searchOptionsFocusArea('ca');
+    if (Array.isArray(this.focus) && this.focus.length !== focusOptions.length - 1) {
+      params.focus = [];
+      this.focus.forEach((focusArea) => {
+        params.focus.push(focusArea.replace('app-ca-program-focus-', ''));
+      });
     }
     if (this.age !== 'all') {
-      params.age = this.focus.replace('app-ca-', '');
+      params.age = this.age.replace('app-ca-', '');
     }
     if (this.youth !== 'all') {
       params.youth = this.youth.replace('app-ca', '');

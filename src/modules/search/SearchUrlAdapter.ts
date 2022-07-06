@@ -11,7 +11,7 @@ export default class SearchUrlAdapter {
 
   distance: string = '30';
 
-  focus: string = 'all';
+  focus: any[] = [];
 
   grade: string = 'all';
 
@@ -60,13 +60,26 @@ export default class SearchUrlAdapter {
     return this.delivery;
   }
 
-  getFocus(): string {
+  getFocus(): any[] {
     const options = searchOptionsFocusArea('ca');
     const values = options.map((row) => row.value);
-    const param = this.url.searchParams.get('focus');
-    const value = `app-ca-program-focus-${param}`;
-    if (values.indexOf(value) !== -1) {
-      return value;
+    const allOptionIndex = values.findIndex((value) => value === 'all');
+    if (allOptionIndex !== -1) {
+      values.splice(allOptionIndex, 1);
+    }
+    this.focus = values;
+
+    const focus = [];
+    const urlFocusParams = this.url.searchParams.get('focus');
+    if (!urlFocusParams) return this.focus;
+    const splitParams = urlFocusParams.split(',');
+    splitParams.forEach((param) => {
+      if (values.indexOf(`app-ca-program-focus-${param}`) !== -1) {
+        focus.push(`app-ca-program-focus-${param}`);
+      }
+    });
+    if (focus.length) {
+      return focus;
     }
     return this.focus;
   }
