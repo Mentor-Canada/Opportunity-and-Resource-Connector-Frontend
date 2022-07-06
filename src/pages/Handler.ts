@@ -33,7 +33,7 @@ const Handler: PageInterface = {
     if (adapter.type) search.attributes.typeOfMentoring = adapter.type;
     if (adapter.youth) search.attributes.youth = adapter.youth;
     await search.save();
-    await this.router.replace(this.link(`search/${search.id}`));
+    await this.router.replace(this.link(`become-a-mentor/programs/${adapter.zipCode}`));
   },
 };
 
