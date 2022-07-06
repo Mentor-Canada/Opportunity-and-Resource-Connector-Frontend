@@ -11,7 +11,6 @@
 <script lang="ts">
 import Accounts from 'Models/UserAccounts';
 import UserAccount from 'Models/UserAccount';
-import Vue from '../../node_modules/vue/dist/vue';
 import BaseMixin from '../mixins/BaseMixin';
 
 export default {
@@ -49,7 +48,7 @@ export default {
     },
 
     async selectUser(mail) {
-      Vue.nextTick(() => {
+      this.nextTick(() => {
         this.userSearchValue = '';
       });
       const selectedAccount = new UserAccount();

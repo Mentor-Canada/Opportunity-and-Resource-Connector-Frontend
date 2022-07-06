@@ -53,7 +53,6 @@
 <script lang="ts">
 import UserAccounts from 'Models/UserAccounts';
 import BaseMixin from '../mixins/BaseMixin';
-import Vue from '../../node_modules/vue/dist/vue';
 
 export default {
   mixins: [BaseMixin],
@@ -115,7 +114,7 @@ export default {
 
     async show(newValue, oldValue) {
       if (newValue) {
-        await Vue.nextTick();
+        await this.nextTick();
         const el = document.body.querySelector(`#view-uid-${this.id}`);
         this.input = el.querySelector('input');
       } else {

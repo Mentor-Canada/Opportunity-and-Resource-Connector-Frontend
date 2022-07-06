@@ -4,7 +4,7 @@ import Organization from 'Models/Organization';
 import BaseMixin from '../../../mixins/BaseMixin';
 import PageMixin from '../../../mixins/PageMixin';
 import template from './ProgramDetail.html';
-import Vue from '../../../../node_modules/vue/dist/vue';
+import Vue from 'vue';
 import globals from '../../../globals';
 import GroupMixinForm from '../../../mixins/GroupMixinForm';
 import GradesProgramServes from './first-step/GradesProgramServes.vue';

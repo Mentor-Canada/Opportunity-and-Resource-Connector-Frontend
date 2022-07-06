@@ -5,7 +5,7 @@ import * as Sentry from '@sentry/vue';
 import WindowInterface from 'Interfaces/WindowInterface';
 import axios from 'axios';
 import Vuetable from 'vuetable-2/src/components/Vuetable.vue';
-import Vue from '../node_modules/vue/dist/vue';
+import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 import messagesEn from './locale/en.yml';
 import messagesFr from './locale/fr.yml';
