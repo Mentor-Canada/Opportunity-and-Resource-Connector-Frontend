@@ -54,15 +54,16 @@
           />
         </div>
         <div class="search-criteria-wrapper">
-          <search-criteria-list v-model="search.attributes.typeOfMentoring"
-                                ref="search-criteria-list-type"
-                                name="search-criteria-type"
-                                :options="searchOptionsTypeOfMentoring"
-                                @input="$emit('update-search')"
+          <SearchOptionsDropDown @on-criteria-click="onCriteriaClick"
+                                 @on-search-options-click="onSearchOptionsClick"
+                                 :search="search"
+                                 :options="searchOptionsTypeOfMentoring"
+                                 ref="program-mentoring-type"
+                                 :label="'app-mentoring-type'"
+                                 :type="'program-mentoring-type'"
+                                 :attribute-name="'typeOfMentoring'"
+
           />
-          <button class="search-criteria" :class="search.attributes.typeOfMentoring != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-type')">
-            <span class="search-criteria-label">{{ t("app-mentoring-type") }}</span>
-          </button>
         </div>
         <div class="search-criteria-wrapper" v-if="!search.attributes.national">
           <search-criteria-list v-model="search.attributes.distance"

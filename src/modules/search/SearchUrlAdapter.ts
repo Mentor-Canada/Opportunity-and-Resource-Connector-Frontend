@@ -19,7 +19,7 @@ export default class SearchUrlAdapter {
 
   role: string = 'mentor';
 
-  typeOfMentoring: string = 'all';
+  typeOfMentoring: any[] = [];
 
   youth: any[] = [];
 
@@ -132,13 +132,26 @@ export default class SearchUrlAdapter {
     return this.youth;
   }
 
-  getTypeOfMentoring(): string {
+  getTypeOfMentoring(): any[] {
     const options = searchOptionsTypeOfMentoring();
     const values = options.map((row) => row.value);
-    const typeOfMentoring = this.url.searchParams.get('type');
-    const value = `app-type-of-mentoring-${typeOfMentoring}`;
-    if (values.indexOf(value) !== -1) {
-      return value;
+    const allOptionIndex = values.findIndex((value) => value === 'all');
+    if (allOptionIndex !== -1) {
+      values.splice(allOptionIndex, 1);
+    }
+    this.typeOfMentoring = values;
+
+    const mentoringTypes = [];
+    const urlMentoringTypeParams = this.url.searchParams.get('typeOfMentoring');
+    if (!urlMentoringTypeParams) return this.typeOfMentoring;
+    const splitParams = urlMentoringTypeParams.split(',');
+    splitParams.forEach((param) => {
+      if (values.indexOf(`app-type-of-mentoring-${param}`) !== -1) {
+        mentoringTypes.push(`app-type-of-mentoring-${param}`);
+      }
+    });
+    if (mentoringTypes.length) {
+      return mentoringTypes;
     }
     return this.typeOfMentoring;
   }

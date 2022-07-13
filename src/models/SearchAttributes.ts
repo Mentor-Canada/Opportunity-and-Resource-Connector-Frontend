@@ -2,6 +2,7 @@ import UserParams from '../UserParams';
 import searchOptionsFocusArea from '../modules/search/searchOptionsFocusArea';
 import searchOptionsAgesProgramServes from '../modules/search/searchOptionsAgesProgramServes';
 import searchOptionsYouthProgramServes from '../modules/search/searchOptionsYouthProgramServes';
+import searchOptionsTypeOfMentoring from '../modules/search/searchOptionsTypeOfMentoring';
 
 export default class SearchAttributes {
   static readonly COMMUNITY_BASED_DELIVERY = 'community';
@@ -16,7 +17,7 @@ export default class SearchAttributes {
 
   public distance: string = '30';
 
-  public typeOfMentoring: string = 'all';
+  public typeOfMentoring: any[] = [];
 
   public age: any[] = [];
 
@@ -151,8 +152,12 @@ export default class SearchAttributes {
         params.youth.push(youthServed.replace('app-ca-', ''));
       });
     }
-    if (this.typeOfMentoring !== 'all') {
-      params.typeOfMentoring = this.typeOfMentoring.replace('app-type-of-mentoring-', '');
+    const mentoringTypeOptions = searchOptionsTypeOfMentoring();
+    if (Array.isArray(this.typeOfMentoring) && this.typeOfMentoring.length !== mentoringTypeOptions.length - 1) {
+      params.typeOfMentoring = [];
+      this.typeOfMentoring.forEach((mentoringType) => {
+        params.typeOfMentoring.push(mentoringType.replace('app-type-of-mentoring-', ''));
+      });
     }
     return new URLSearchParams(params).toString();
   }
