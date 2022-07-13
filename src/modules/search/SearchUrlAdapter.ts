@@ -21,7 +21,7 @@ export default class SearchUrlAdapter {
 
   typeOfMentoring: string = 'all';
 
-  youth: string = 'all';
+  youth: any[] = [];
 
   private url: URL;
 
@@ -108,13 +108,26 @@ export default class SearchUrlAdapter {
     return this.age;
   }
 
-  getYouth(): string {
+  getYouth(): any[] {
     const options = searchOptionsYouthProgramServes('ca');
     const values = options.map((row) => row.value);
-    const param = this.url.searchParams.get('youth');
-    const value = `app-ca-${param}`;
-    if (values.indexOf(value) !== -1) {
-      return value;
+    const allOptionIndex = values.findIndex((value) => value === 'all');
+    if (allOptionIndex !== -1) {
+      values.splice(allOptionIndex, 1);
+    }
+    this.youth = values;
+
+    const youthTypes = [];
+    const urlYouthServedParams = this.url.searchParams.get('youth');
+    if (!urlYouthServedParams) return this.youth;
+    const splitParams = urlYouthServedParams.split(',');
+    splitParams.forEach((param) => {
+      if (values.indexOf(`app-ca-${param}`) !== -1) {
+        youthTypes.push(`app-ca-${param}`);
+      }
+    });
+    if (youthTypes.length) {
+      return youthTypes;
     }
     return this.youth;
   }

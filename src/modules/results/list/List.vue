@@ -42,15 +42,16 @@
           />
         </div>
         <div class="search-criteria-wrapper">
-          <search-criteria-list v-model="search.attributes.youth"
-                                ref="search-criteria-list-youth"
-                                name="search-criteria-youth"
-                                :options="searchOptionsYouthProgramServes"
-                                @input="$emit('update-search')"
+          <SearchOptionsDropDown @on-criteria-click="onCriteriaClick"
+                                 @on-search-options-click="onSearchOptionsClick"
+                                 :search="search"
+                                 :options="searchOptionsYouthProgramServes"
+                                 ref="program-youth"
+                                 :label="'app-program-youth-program-serves'"
+                                 :type="'program-youth'"
+                                 :attribute-name="'youth'"
+
           />
-          <button class="search-criteria" :class="search.attributes.youth != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-youth')">
-            <span class="search-criteria-label">{{ t("app-youth-served") }}</span>
-          </button>
         </div>
         <div class="search-criteria-wrapper">
           <search-criteria-list v-model="search.attributes.typeOfMentoring"
