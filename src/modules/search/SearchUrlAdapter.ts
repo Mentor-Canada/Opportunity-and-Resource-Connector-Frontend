@@ -5,7 +5,7 @@ import searchOptionsAgesProgramServes from "./searchOptionsAgesProgramServes";
 import searchOptionsFocusArea from "./searchOptionsFocusArea";
 
 export default class SearchUrlAdapter {
-  age: string = 'all';
+  age: any[] = [];
 
   delivery: any[] = ['community', 'siteBased', 'eMentoring'];
 
@@ -84,13 +84,26 @@ export default class SearchUrlAdapter {
     return this.focus;
   }
 
-  getAge(): string {
+  getAge(): any[] {
     const options = searchOptionsAgesProgramServes('ca');
     const values = options.map((row) => row.value);
-    const param = this.url.searchParams.get('age');
-    const value = `app-ca-${param}`;
-    if (values.indexOf(value) !== -1) {
-      return value;
+    const allOptionIndex = values.findIndex((value) => value === 'all');
+    if (allOptionIndex !== -1) {
+      values.splice(allOptionIndex, 1);
+    }
+    this.age = values;
+
+    const age = [];
+    const urlAgeParams = this.url.searchParams.get('age');
+    if (!urlAgeParams) return this.age;
+    const splitParams = urlAgeParams.split(',');
+    splitParams.forEach((param) => {
+      if (values.indexOf(`app-ca-${param}`) !== -1) {
+        age.push(`app-ca-${param}`);
+      }
+    });
+    if (age.length) {
+      return age;
     }
     return this.age;
   }

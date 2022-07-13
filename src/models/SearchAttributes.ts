@@ -1,5 +1,6 @@
 import UserParams from '../UserParams';
 import searchOptionsFocusArea from "../modules/search/searchOptionsFocusArea";
+import searchOptionsAgesProgramServes from '../modules/search/searchOptionsAgesProgramServes';
 
 export default class SearchAttributes {
   static readonly COMMUNITY_BASED_DELIVERY = 'community';
@@ -16,7 +17,7 @@ export default class SearchAttributes {
 
   public typeOfMentoring: string = 'all';
 
-  public age: string = 'all';
+  public age: any[] = [];
 
   public grade: string = 'all';
 
@@ -135,8 +136,12 @@ export default class SearchAttributes {
         params.focus.push(focusArea.replace('app-ca-program-focus-', ''));
       });
     }
-    if (this.age !== 'all') {
-      params.age = this.age.replace('app-ca-', '');
+    const ageOptions = searchOptionsAgesProgramServes('ca');
+    if (Array.isArray(this.age) && this.age.length !== ageOptions.length - 1) {
+      params.age = [];
+      this.age.forEach((ageServed) => {
+        params.age.push(ageServed.replace('app-ca-', ''));
+      });
     }
     if (this.youth !== 'all') {
       params.youth = this.youth.replace('app-ca', '');

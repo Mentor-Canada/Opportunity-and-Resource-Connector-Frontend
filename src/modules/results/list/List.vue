@@ -30,15 +30,16 @@
         </div>
 
         <div class="search-criteria-wrapper">
-          <search-criteria-list v-model="search.attributes.age"
-                                ref="search-criteria-list-age"
-                                name="search-criteria-age"
-                                :options="searchOptionsAgesProgramServes"
-                                @input="$emit('update-search')"
+          <SearchOptionsDropDown @on-criteria-click="onCriteriaClick"
+                                 @on-search-options-click="onSearchOptionsClick"
+                                 :search="search"
+                                 :options="searchOptionsAgesProgramServes"
+                                 ref="program-ages"
+                                 :label="'app-ages'"
+                                 :type="'program-ages'"
+                                 :attribute-name="'age'"
+
           />
-          <button class="search-criteria" :class="search.attributes.age != 'all' ? 'active' : ''" type="button" v-on:click.prevent.stop="onCriteriaClick('search-criteria-list-age')">
-            <span class="search-criteria-label">{{ t("app-ages") }}</span>
-          </button>
         </div>
         <div class="search-criteria-wrapper">
           <search-criteria-list v-model="search.attributes.youth"
