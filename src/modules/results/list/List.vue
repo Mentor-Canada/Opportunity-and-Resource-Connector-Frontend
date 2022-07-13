@@ -17,7 +17,16 @@
         </div>
 
         <div class="search-criteria-wrapper">
-          <FocusAreaDropdown @on-criteria-click="onCriteriaClick" @on-focus-click="onFocusAreaClick" :search="search" :options="searchOptionsFocusArea" ref="program-focus"></FocusAreaDropdown>
+          <SearchOptionsDropDown @on-criteria-click="onCriteriaClick"
+                                 @on-search-options-click="onSearchOptionsClick"
+                                 :search="search"
+                                 :options="searchOptionsFocusArea"
+                                 ref="program-focus"
+                                 :label="'app-focus-area'"
+                                 :type="'program-focus'"
+                                 :attribute-name="'focus'"
+
+          />
         </div>
 
         <div class="search-criteria-wrapper">
@@ -134,7 +143,7 @@ import Pagination from './Pagination.vue';
 import Result from '../Result';
 import ProgramSearchDelivery from '../../search/ProgramSearchDelivery.vue';
 import Manager from '../../../core/Manager';
-import FocusAreaDropdown from "../FocusAreaDropdown.vue";
+import SearchOptionsDropDown from "../SearchOptionsDropdown.vue";
 
 export default {
   mixins: [BaseMixin],
@@ -142,7 +151,7 @@ export default {
   props: ['id', 'search', 'response'],
 
   components: {
-    FocusAreaDropdown,
+    SearchOptionsDropDown,
     'search-criteria-list': SearchCriteriaList,
     'program-search-delivery': ProgramSearchDelivery,
     pagination: Pagination,
@@ -249,18 +258,18 @@ export default {
       this.$emit('update-search');
     },
 
-    onFocusAreaClick(focusToggle) {
-      if(!Array.isArray(this.search.attributes.focus)) {
-        this.search.attributes.focus = [this.search.attributes.focus];
+    onSearchOptionsClick(optionToggle, attributeName) {
+      if(!Array.isArray(this.search.attributes[attributeName])) {
+        this.search.attributes[attributeName] = [this.search.attributes[attributeName]];
       }
-      const index = this.search.attributes.focus.indexOf(focusToggle);
+      const index = this.search.attributes[attributeName].indexOf(optionToggle);
       if (index == -1) {
-        this.search.attributes.focus.push(focusToggle);
+        this.search.attributes[attributeName].push(optionToggle);
       } else {
-        if (this.search.attributes.focus.length == 1) {
+        if (this.search.attributes[attributeName].length == 1) {
           return;
         }
-        this.search.attributes.focus.splice(index, 1);
+        this.search.attributes[attributeName].splice(index, 1);
       };
       this.$emit('update-search');
     },
