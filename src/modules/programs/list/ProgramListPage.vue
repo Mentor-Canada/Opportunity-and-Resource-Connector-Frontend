@@ -25,6 +25,7 @@
       @ready="tableReady"
       export="true"
       @show-filter="$refs['filter-dialog'].show = true"
+      filter-needs-to-load="true"
     >
       <div class="ui-form-row">
         <app-input name="program-search-bar"
@@ -42,6 +43,7 @@
       @save="saveFilter"
       @delete="deleteFilter($event)"
       @input="refresh"
+      @ready="filterReady"
     />
   </div>
 </template>

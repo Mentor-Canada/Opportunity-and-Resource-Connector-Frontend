@@ -21,6 +21,9 @@
   <form v-if="isReady" v-on:submit.prevent="save()" class="standard-form-style">
 
     <div class="ui-form-row edit-organization-buttons" v-if="$route?.params.id">
+      <button class="compact" type="button" v-if="$route?.params.id" @click="router.push(link(`admin/programs?organization=${organization.attributes.entityId}`))">
+        {{ t("app-programs") }}
+      </button>
       <button class="compact" type="button" v-if="app.ui.mentorcity() && $route?.params.id && app.user.admin" @click="router.push(link(`admin/organizations/integrations/${$route?.params.id}`))">
         {{ t("app-integrations") }}
       </button>

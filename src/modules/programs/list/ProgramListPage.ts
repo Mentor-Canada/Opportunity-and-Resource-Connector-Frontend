@@ -22,6 +22,12 @@ export default {
 
   data() {
     const delegate = new ProgramListDelegate();
+    if (this.$route.query.organization) {
+      delegate.additionalFilters.push({
+        field: 'field_organization_entity',
+        value: this.$route.query.organization,
+      });
+    }
     return {
       delegate,
       filterProperties: new FilterProperties('program', delegate),
@@ -36,6 +42,7 @@ export default {
         { value: 'app-type-of-mentoring-school', name: globals.app.t('app-type-of-mentoring-school') },
         { value: 'other', name: globals.app.t('app-other') },
       ],
+      filterIsReady: false,
       tableIsReady: false,
     };
   },
@@ -51,7 +58,7 @@ export default {
 
   async mounted() {
     this.app.showLoading();
-    if (this.tableIsReady) {
+    if (this.tableIsReady && this.filterIsReady) {
       this.ready();
     }
     document.addEventListener('keydown', this.focusProgramSearchBar);
@@ -69,6 +76,17 @@ export default {
 
     tableReady() {
       this.tableIsReady = true;
+      if (!this.filterIsReady) {
+        return;
+      }
+      this.ready();
+    },
+
+    filterReady() {
+      this.filterIsReady = true;
+      if (!this.tableIsReady) {
+        return;
+      }
       this.ready();
     },
 

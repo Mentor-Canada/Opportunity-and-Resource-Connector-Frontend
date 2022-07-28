@@ -57,6 +57,8 @@ class Attributes {
 
   public bbbsc_enabled: boolean = false;
 
+  public entityId: string = '';
+
   serialize() {
     return {
       field_ready: this.ready,
@@ -171,6 +173,7 @@ export default class Organization extends MultiLingualEntity implements EntityIn
     this.attributes.mentor_city_enabled = data.attributes.mentor_city_enabled == '1';
     this.attributes.bbbsc_enabled = data.attributes.bbbsc_enabled == '1';
     this.attributes.location = new GooglePlace(data.attributes.location);
+    this.attributes.entityId = data.attributes.entity_id;
   }
 
   setLocalizedAttributes(langcode: string, attributes: any) {

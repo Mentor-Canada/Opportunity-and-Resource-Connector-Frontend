@@ -24,6 +24,7 @@ export default {
     'detailRowComponent',
     'loadSuccess',
     'rowClass',
+    'filterNeedsToLoad',
   ],
 
   data() {
@@ -117,6 +118,9 @@ export default {
       if (!this.request.loading) {
         this.isReady = true;
         this.$emit('ready');
+        if (this.$props.filterNeedsToLoad) {
+          return;
+        }
         this.app.hideLoading();
         BaseMixin.methods.ready.call(this);
       }

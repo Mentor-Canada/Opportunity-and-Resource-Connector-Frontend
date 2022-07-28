@@ -13,6 +13,8 @@ export default class ProgramListDelegate extends ListDelegateBase implements Lis
 
   canAdd: boolean = false;
 
+  additionalFilters: any[] = [];
+
   constructor() {
     super();
     this.sort = [{
@@ -57,6 +59,12 @@ export default class ProgramListDelegate extends ListDelegateBase implements Lis
 
   urlBuilder(): ProgramListUrlBuilder {
     const builder = new ProgramListUrlBuilder();
+    if (this.additionalFilters.length) {
+      this.additionalFilters.forEach((additionalFilter) => {
+        builder.addFilter(additionalFilter.field, additionalFilter.value);
+      });
+      this.additionalFilters = [];
+    }
     for (const field in this.filter) {
       if (['startDate', 'endDate', 'dateMode'].includes(field)) {
         continue;

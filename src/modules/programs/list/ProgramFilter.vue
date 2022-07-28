@@ -29,6 +29,7 @@
                   v-model="properties.delegate.filter[Fields.organizationEntity]"
                   @input="refresh"
                   multi="true"
+                  ref="filter_organization_dropdown"
       />
       <app-select :label='t("app-organization-filter")'
                   :options="organizationFilterOptions"
@@ -381,6 +382,19 @@ export default {
     for (const source of sources.data) {
       this.sourceOptions.push({ value: source, name: source });
     }
+    this.$emit('ready');
+    this.updateInputForUrlOrganizationFilter();
+  },
+
+  methods: {
+    updateInputForUrlOrganizationFilter() {
+      const organizationId = this.$route.query.organization;
+      if (organizationId) {
+        this.properties.delegate.filter[this.Fields.organizationEntity] = organizationId;
+        const filterFieldsetDropdown = this.$refs.filter_organization_dropdown.$parent;
+        filterFieldsetDropdown.$emit('input', true);
+      }
+    },
   },
 };
 </script>
