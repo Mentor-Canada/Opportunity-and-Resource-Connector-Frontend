@@ -8,3 +8,4 @@ programs.json
 /cypress/videos
 /cypress/screenshots
 .env
+/local
