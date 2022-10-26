@@ -120,7 +120,8 @@ module.exports = (env = {}) => {
         version: env.version
       }),
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(api_url)
+        API_URL: JSON.stringify(api_url),
+        SUPPORT_FORM_URL: JSON.stringify(env.support_form_url),
       })
     ],
   }

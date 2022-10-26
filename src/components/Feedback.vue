@@ -20,13 +20,7 @@
         <div class="modal-header-heading">{{ t('app-give-feedback-heading') }}</div>
         <div class="modal-header-message">{{ t('app-give-feedback-message') }}</div>
       </div>
-      <div class="modal-email">
-        <input type="email" placeholder="Email" required v-model="email" />
-      </div>
-      <div class="modal-textarea">
-        <textarea placeholder="Message" required v-model="message"></textarea>
-      </div>
-      <button class="compact">{{ t('app-submit') }}</button>
+      <iframe :src="supportFormUrl" scrolling="no" />
     </form>
   </div>
 </template>
@@ -44,6 +38,7 @@ export default {
       feedbackVisible: false,
       message: '',
       submitModalVisible: false,
+      supportFormUrl: SUPPORT_FORM_URL,
     };
   },
 
@@ -98,7 +93,7 @@ export default {
     bottom: 60px;
     width: 320px;
     max-width: 90vw;
-    height: 400px;
+    height: 738px;
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -109,6 +104,7 @@ export default {
     transform: scale(0.6);
     pointer-events: none;
     transition: opacity 300ms, transform 100ms 200ms cubic-bezier(0,1.5,.25,1);
+    display: flex;
 
     .modal-header {
       display: flex;
@@ -133,54 +129,8 @@ export default {
         margin-top: 0.5em;
       }
     }
-    .modal-email {
-      background-color: #ff0000 !important;
-      input {
-        width: 100%;
-        height: 100%;
-        padding: 12px 24px;
-        color: $ui-input-color;
-        border: none;
-        border-radius: 0;
-        vertical-align: baseline;
-        font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
-        font-weight: 400;
-        @include font-tracking(13);
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        outline: none;
-      }
-    }
-    .modal-textarea {
-      flex: 1 0 auto;
-      textarea {
-        margin: 0;
-        vertical-align: baseline;
-        font-family: "Gotham SSm A", "Gotham SSm B", "Helvetica Neue", "Helvetica", sans-serif;
-        font-weight: 400;
-        @include font-tracking(13);
-        line-height: 1.35;
-        text-decoration: inherit;
-        text-transform: inherit;
-        display: flex;;
-        align-self: flex-end;
-        width: 100%;
-        height: 100%;
-        padding: 12px 24px;
-        color: $ui-input-color;
-        border: none;
-        border-radius: 0;
-        background: #fff;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        outline: none;
-      }
-    }
-    button {
-      border-radius: 0;
-      padding: 15px 20px;
+    iframe {
+      flex-grow: 1;
     }
   }
   &.active {
