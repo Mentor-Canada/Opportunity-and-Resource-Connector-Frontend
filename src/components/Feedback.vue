@@ -15,12 +15,14 @@
         </span>
       </button>
     </div>
-    <div id="feedback-modal" :style="`height: ${height}px`">
+    <div id="feedback-modal" :style="`height: ${height + modalHeaderHeight}px`">
       <div class="modal-header">
         <div class="modal-header-heading">{{ t('app-give-feedback-heading') }}</div>
         <div class="modal-header-message">{{ t('app-give-feedback-message') }}</div>
       </div>
-      <iframe :src="`${supportFormUrl}/${lang.langcode}/support`" scrolling="no" />
+      <div class="iframe-scroll-wrapper">
+        <iframe :style="`height: ${height}px`" :src="`${supportFormUrl}/${lang.langcode}/support`" scrolling="no" />
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +41,8 @@ export default {
       message: '',
       submitModalVisible: false,
       supportFormUrl: SUPPORT_FORM_URL,
-      height: 738
+      height: 0,
+      modalHeaderHeight: 100
     };
   },
 
@@ -52,7 +55,7 @@ export default {
       if(e.data.id != 'mentor-forms') {
         return
       }
-      this.height = e.data.height + 100;
+      this.height = e.data.height;
     });
     document.querySelector('body').addEventListener('click', this.onBodyClick);
   },
@@ -86,7 +89,7 @@ export default {
     bottom: 60px;
     width: 320px;
     max-width: 90vw;
-    height: 738px;
+    max-height: calc(100vh - 60px);
     display: flex;
     flex-direction: column;
     background: #fff;
@@ -97,7 +100,6 @@ export default {
     transform: scale(0.6);
     pointer-events: none;
     transition: opacity 300ms, transform 100ms 200ms cubic-bezier(0,1.5,.25,1);
-    display: flex;
 
     .modal-header {
       display: flex;
@@ -122,8 +124,15 @@ export default {
         margin-top: 0.5em;
       }
     }
-    iframe {
-      flex-grow: 1;
+    .iframe-scroll-wrapper {
+      overflow-y: auto;
+      margin-bottom: -3px;
+      iframe {
+        border: none;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+      }
     }
   }
   &.active {
