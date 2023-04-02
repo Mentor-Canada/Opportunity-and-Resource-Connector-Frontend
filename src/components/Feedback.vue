@@ -15,13 +15,13 @@
         </span>
       </button>
     </div>
-    <form id="feedback-modal" @submit.prevent="submitFeedback">
+    <div id="feedback-modal" :style="`height: ${height}px`">
       <div class="modal-header">
         <div class="modal-header-heading">{{ t('app-give-feedback-heading') }}</div>
         <div class="modal-header-message">{{ t('app-give-feedback-message') }}</div>
       </div>
-      <iframe :src="supportFormUrl" scrolling="no" />
-    </form>
+      <iframe :src="`${supportFormUrl}/${lang.langcode}/support`" scrolling="no" />
+    </div>
   </div>
 </template>
 
@@ -39,6 +39,7 @@ export default {
       message: '',
       submitModalVisible: false,
       supportFormUrl: SUPPORT_FORM_URL,
+      height: 738
     };
   },
 
@@ -47,6 +48,12 @@ export default {
       if (e.target.closest('#feedback')) return;
       this.feedbackVisible = false;
     };
+    window.addEventListener('message', (e) => {
+      if(e.data.id != 'mentor-forms') {
+        return
+      }
+      this.height = e.data.height + 100;
+    });
     document.querySelector('body').addEventListener('click', this.onBodyClick);
   },
 
@@ -55,20 +62,6 @@ export default {
   },
 
   methods: {
-    async submitFeedback() {
-      const data = {
-        location: window.location.pathname,
-        email: this.email,
-        message: this.message,
-        uilang: globals.app.language.langcode,
-      };
-      this.feedbackVisible = false;
-      this.app.showLoading();
-      await globals.api.post('/a/app/feedback', data);
-      this.email = '';
-      this.message = '';
-      this.app.hideLoading();
-    },
     openFeedback() {
       this.feedbackVisible = true;
     },
