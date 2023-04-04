@@ -12,10 +12,6 @@ export default class AdminMenu {
       this.list.push({ name: 'app-searches', url: 'admin/searches' });
     }
 
-    if (app.ui.feedback()) {
-      this.list.push({ name: 'app-feedback', url: 'admin/feedback' });
-    }
-
     this.list.push({ name: 'app-inquiries', url: 'admin/applications' });
     this.list.push({ name: 'app-programs', url: 'admin/programs' });
     if (app.bootstrap.userHasOrganizations) {

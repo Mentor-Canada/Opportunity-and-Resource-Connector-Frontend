@@ -3,7 +3,6 @@ import './account/AccountModule';
 import './admin/AdminModule';
 import './application/ApplicationModule';
 import './complete-registration/CompleteRegistrationModule';
-import './feedback/FeedbackModule';
 import './filter/FilterModule';
 import './forgot/ForgotModule';
 import './mentorcity/MentorCityModule';
