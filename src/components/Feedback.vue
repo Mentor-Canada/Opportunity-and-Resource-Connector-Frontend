@@ -126,6 +126,7 @@ export default {
     }
     .iframe-scroll-wrapper {
       overflow-y: auto;
+      scrollbar-gutter: stable;
       margin-bottom: -3px;
       iframe {
         border: none;
