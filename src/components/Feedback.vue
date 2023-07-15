@@ -40,7 +40,7 @@ export default {
     return {
       giveFeedbackText: lang == 'fr' ? "Bienvenue, comment pouvons-nous vous aider aujourd'hui?" : "Welcome, how can we help you today?",
       giveFeedbackHeadingText: lang == 'fr' ? "Bienvenue," : "Welcome,",
-      giveFeedbackMessageText: lang == 'fr' ? "comment pouvons-nous vous aider aujourd'hui?" : "how can we help you today?",
+      giveFeedbackMessageText: lang == 'fr' ? "comment pouvons-nous vous aider aujourd'hui?" : "How can we help you today?",
       email: '',
       feedbackVisible: false,
       message: '',
