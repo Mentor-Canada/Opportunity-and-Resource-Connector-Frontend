@@ -1,5 +1,7 @@
 import globals from '../globals';
 
+declare const API_URL;
+
 export default class CollectionRequestUrlBuilder {
   private _path: string;
 

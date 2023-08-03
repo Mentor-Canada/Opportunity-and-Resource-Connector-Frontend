@@ -1,6 +1,8 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 import globals from './globals';
 
+declare const API_URL;
+
 export default class AxiosDecorator {
   private readonly baseUrl: string;
 

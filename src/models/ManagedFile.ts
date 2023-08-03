@@ -1,3 +1,6 @@
+
+declare const API_URL;
+
 export default class ManagedFile {
   public url: URL;
 

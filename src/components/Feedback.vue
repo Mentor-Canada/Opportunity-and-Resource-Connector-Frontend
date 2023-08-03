@@ -32,6 +32,8 @@
 import BaseMixin from '../mixins/BaseMixin';
 import globals from '../globals';
 
+declare const SUPPORT_FORM_URL;
+
 export default {
   mixins: [BaseMixin],
 

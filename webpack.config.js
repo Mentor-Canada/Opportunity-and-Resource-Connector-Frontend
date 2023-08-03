@@ -18,8 +18,6 @@ module.exports = (env = {}) => {
   entry.push('./src/modules/become-a-mentor/BecomeAMentorModule.ts');
   entry.push('./src/modules/find-a-mentor/FindAMentorModule.ts');
 
-  const api_url = env.api_url ?? 'http://localhost:8081';
-
   return {
     entry: entry,
     mode: "development",
@@ -120,8 +118,8 @@ module.exports = (env = {}) => {
         version: env.version
       }),
       new webpack.DefinePlugin({
-        API_URL: JSON.stringify(api_url),
-        SUPPORT_FORM_URL: JSON.stringify(env.support_form_url),
+        API_URL: JSON.stringify(process.env.API_URL),
+        SUPPORT_FORM_URL: JSON.stringify(process.env.SUPPORT_FORM_URL),
       })
     ],
   }
