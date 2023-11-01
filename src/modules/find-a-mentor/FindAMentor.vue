@@ -56,9 +56,9 @@
         </div>
 
         <div id="learn-more-about-mentor-connector">
-          <router-link :to="link('')">
+          <a :href="homeLink">
             {{ $t('learn-more-about-mentor-connector') }}
-          </router-link>
+          </a>
         </div>
 
       </div>
@@ -71,13 +71,15 @@
 import BaseMixin from 'BaseMixin';
 import Search from 'Models/Search';
 import FindAMentor from "./FindAMentor";
+import globals from '../../globals';
 
 export default {
   mixins: [BaseMixin],
 
   data() {
     return {
-      location: ''
+      location: '',
+      homeLink: `/${globals.app.language.langcode}`
     }
   },
 
