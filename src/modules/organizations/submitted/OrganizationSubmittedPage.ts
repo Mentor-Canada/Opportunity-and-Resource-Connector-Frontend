@@ -9,6 +9,12 @@ export default {
 
   template,
 
+  data() {
+    return {
+      email: ""
+    }
+  },
+
   async mounted() {
     this.app.showLoading();
 
@@ -24,6 +30,8 @@ export default {
     this.paragraph = this.t('app-organization-submitted-paragraph', {
       email: submittedOrganization.contactEmail,
     });
+
+    this.email = submittedOrganization.contactEmail
 
     this.ready();
   },

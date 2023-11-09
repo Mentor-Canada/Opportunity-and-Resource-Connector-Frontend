@@ -1,10 +1,19 @@
 <div data-page="organization-submitted" data-content-width="standard" data-page-align="center" v-if="isReady">
 
   <div class="typography">
+
     <h1>{{ title }}</h1>
     <div class="visually-h3">{{ subtitle }}</div>
-    <p>{{ paragraph }}</p>
+
+    <template v-if="lang.langcode == 'en'">
+      <p>We will follow up with you within 7 business days by email at <a :href="`mailto:${email}`">{{email}}</a>. Thank you for supporting mentoring in your community.</p>
+    </template>
+    <template v-else>
+      <p>{{ paragraph }}</p>
+    </template>
+
     <br><br>
+
   </div>
 
   <div class="standard-form-style">
@@ -18,11 +27,23 @@
         <button class="compact">{{ t("app-submit-a-program") }}</button>
       </router-link>
 
-      <a :href="t('app-siteurl')">
+      <a :href="t('app-siteurl')" v-if="lang.langcode != 'en'">
         <button class="compact">{{ t("app-return-to") }} {{ t("app-sitename") }}</button>
       </a>
 
     </div>
   </div>
+
+  <template v-if="lang.langcode == 'en'">
+    <div class="typography">
+      <br><br>
+      <p>Interested in discovering other ways you can get involved in the mentoring movement?</p>
+      <br><br>
+      <a :href="t('app-siteurl')">
+        <button class="compact">Click here</button>
+      </a>
+    </div>
+  </div>
+  </template>
 
 </div>
