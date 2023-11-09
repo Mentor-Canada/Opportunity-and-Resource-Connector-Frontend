@@ -19,17 +19,29 @@
   <div class="standard-form-style">
     <div class="actions actions-align-left">
 
-      <router-link :to="link('organizations/add')">
-        <button class="compact">{{ t("app-submit-another-organization") }}</button>
-      </router-link>
+      <template>
+        <router-link :to="link('organizations/add')">
+          <button class="compact">Submit another organization</button>
+        </router-link>
 
-      <router-link :to="link('programs/add/step/1')">
-        <button class="compact">{{ t("app-submit-a-program") }}</button>
-      </router-link>
+        <router-link :to="link('programs/add/step/1')">
+          <button class="compact">Submit a program</button>
+        </router-link>
+      </template>
 
-      <a :href="t('app-siteurl')" v-if="lang.langcode != 'en'">
-        <button class="compact">{{ t("app-return-to") }} {{ t("app-sitename") }}</button>
-      </a>
+      <template v-else>
+        <router-link :to="link('organizations/add')">
+          <button class="compact">{{ t("app-submit-another-organization") }}</button>
+        </router-link>
+
+        <router-link :to="link('programs/add/step/1')">
+          <button class="compact">{{ t("app-submit-a-program") }}</button>
+        </router-link>
+
+        <a :href="t('app-siteurl')">
+          <button class="compact">{{ t("app-return-to") }} {{ t("app-sitename") }}</button>
+        </a>
+      </template>
 
     </div>
   </div>
