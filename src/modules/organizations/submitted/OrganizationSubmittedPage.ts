@@ -11,7 +11,9 @@ export default {
 
   data() {
     return {
-      email: ""
+      email: "",
+      organizationName: "",
+      siteUrl: ""
     }
   },
 
@@ -32,6 +34,9 @@ export default {
     });
 
     this.email = submittedOrganization.contactEmail
+    this.organizationName = submittedOrganization.title
+    this.siteUrl = globals.app.t('app-siteurl');
+    this.addProgramLink = this.link('programs/add/step/1') + `?organization=${this.$route.params.id}`;
 
     this.ready();
   },

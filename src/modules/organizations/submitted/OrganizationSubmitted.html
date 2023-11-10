@@ -2,14 +2,15 @@
 
   <div class="typography">
 
-    <h1>{{ title }}</h1>
-    <div class="visually-h3">{{ subtitle }}</div>
-
     <template v-if="lang.langcode == 'en'">
+      <h1>{{ title }}</h1>
+      <div class="visually-h3">{{ subtitle }}</div>
       <p>We will follow up with you within 7 business days by email at <a :href="`mailto:${email}`">{{email}}</a>. Thank you for supporting mentoring in your community.</p>
     </template>
     <template v-else>
-      <p>{{ paragraph }}</p>
+      <h1>Félicitations !</h1>
+      <div class="visually-h3">L'organisation < {{ organizationName }} > a été soumise pour examen.</div>
+      <p>Nous vous contacterons dans les 7 jours ouvrables par courriel à <a :href="`mailto:${email}`">{{ email }}</a>. Merci de soutenir le mentorat dans votre communauté.</p>
     </template>
 
     <br><br>
@@ -19,28 +20,24 @@
   <div class="standard-form-style">
     <div class="actions actions-align-left">
 
-      <template>
+      <template v-if="lang.langcode == 'en'">
         <router-link :to="link('organizations/add')">
           <button class="compact">Submit another organization</button>
         </router-link>
 
-        <router-link :to="link('programs/add/step/1')">
+        <router-link :to="addProgramLink">
           <button class="compact">Submit a program</button>
         </router-link>
       </template>
 
       <template v-else>
         <router-link :to="link('organizations/add')">
-          <button class="compact">{{ t("app-submit-another-organization") }}</button>
+          <button class="compact">Soumettez une autre organisation</button>
         </router-link>
 
-        <router-link :to="link('programs/add/step/1')">
-          <button class="compact">{{ t("app-submit-a-program") }}</button>
+        <router-link :to="addProgramLink">
+          <button class="compact">Soumettez un programme</button>
         </router-link>
-
-        <a :href="t('app-siteurl')">
-          <button class="compact">{{ t("app-return-to") }} {{ t("app-sitename") }}</button>
-        </a>
       </template>
 
     </div>
@@ -55,7 +52,16 @@
         <button class="compact">Click here</button>
       </a>
     </div>
-  </div>
+  </template>
+  <template v-else>
+    <div class="typography">
+      <br><br>
+      <p>Intéressé(e) à découvrir d'autres façons de vous impliquer dans le mouvement du mentorat ?</p>
+      <br><br>
+      <a href="https://mentoringcanada.ca/fr">
+        <button class="compact">Cliquez ici</button>
+      </a>
+    </div>
   </template>
 
 </div>
